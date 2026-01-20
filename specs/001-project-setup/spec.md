@@ -50,7 +50,7 @@ As a developer, I want the project foundation fully set up with the required tec
 - **FR-005**: System MUST include Better Auth installed (provider configuration deferred).
 - **FR-006**: System MUST include Zod and React Hook Form for form handling.
 - **FR-007**: System MUST use React Server Components by default.
-- **FR-008**: System MUST include a `Dockerfile` for the Next.js application and be orchestrated via the `docker-compose.yml` (Full app dockerization).
+- **FR-008**: System MUST include a `Dockerfile` for the Next.js application and be orchestrated via `docker-compose.yml`, supporting **development mode with hot-reloading** (volume mounts) as the primary dev workflow.
 
 ### Key Entities *(include if feature involves data)*
 
