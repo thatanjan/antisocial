@@ -33,10 +33,10 @@ description: "Task list for Project Setup (Docker, Next.js, Prisma, Auth)"
 
 **Purpose**: Enforce the Constitution's file structure and install core libraries.
 
-- [ ] T007 [P] Create directory structure: `src/features`, `src/lib`, `src/components`, `src/hooks`, `src/utils`, `src/types`
-- [ ] T008 [P] Install and init Tailwind CSS (Globals in `src/app/globals.css`)
-- [ ] T009 [P] Install and init Shadcn UI (Config in `components.json`, assets in `src/components/ui`)
-- [ ] T010 [P] Install Zod and React Hook Form libraries
+- [x] T007 [P] Create directory structure: `src/features`, `src/lib`, `src/components`, `src/hooks`, `src/utils`, `src/types`
+- [x] T008 [P] Install and init Tailwind CSS (Globals in `src/app/globals.css`)
+- [x] T009 [P] Install and init Shadcn UI (Config in `components.json`, assets in `src/components/ui`)
+- [x] T010 [P] Install Zod and React Hook Form libraries
 - [ ] T011 Install Prisma and init schema in `prisma/schema.prisma`
 - [ ] T012 Install pinned Node.js version in `package.json` (engines: v20)
 
