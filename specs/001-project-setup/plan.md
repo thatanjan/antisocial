@@ -19,7 +19,7 @@ Initialize the project with a Dockerized Next.js (App Router) stack. Setup inclu
 
 **Language/Version**: TypeScript (strict mode)  
 **Framework**: Next.js (App Router, latest stable)  
-**Primary Dependencies**: Shadcn UI, React Hook Form, Zod, Better Auth  
+**Primary Dependencies**: Shadcn UI, React Hook Form, Zod, Better Auth, Biome (Linting/Formatting)  
 **ORM**: Prisma  
 **Storage**: PostgreSQL  
 **Infrastructure**: Docker (Alpine base, Standalone output), Docker Compose (Ports 3000/5432)
