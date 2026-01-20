@@ -20,10 +20,14 @@ description: "Task list template for feature implementation"
 
 ## Path Conventions
 
-- **Single project**: `src/`, `tests/` at repository root
-- **Web app**: `backend/src/`, `frontend/src/`
-- **Mobile**: `api/src/`, `ios/src/` or `android/src/`
-- Paths shown below assume single project - adjust based on plan.md structure
+- **Next.js App Router**: `src/app/` for pages and layouts
+- **Global components**: `src/components/` (Shadcn + approved custom)
+- **Global hooks**: `src/hooks/`
+- **Global utilities**: `src/utils/`
+- **Global types**: `src/types/`
+- **Feature code**: `src/features/[feature-name]/` with subdirectories for components, hooks, utils, types, actions
+- **Library integrations**: `src/lib/` (prisma, auth, etc.)
+- **Constitution Note**: Testing code NOT required unless explicitly requested
 
 <!-- 
   ============================================================================

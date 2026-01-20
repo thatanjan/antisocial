@@ -12,26 +12,32 @@
 ## Technical Context
 
 <!--
-  ACTION REQUIRED: Replace the content in this section with the technical details
-  for the project. The structure here is presented in advisory capacity to guide
-  the iteration process.
+  Technical context for this Next.js project as defined in the constitution.
 -->
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Language/Version**: TypeScript (strict mode)  
+**Framework**: Next.js (App Router, latest stable)  
+**Primary Dependencies**: Shadcn UI, React Hook Form, Zod, Better Auth  
+**ORM**: Prisma  
+**Storage**: PostgreSQL  
+**Testing**: Not required unless explicitly requested  
+**Target Platform**: Web (modern browsers)
+**Project Type**: Next.js web application  
+**Performance Goals**: [Domain-specific or NEEDS CLARIFICATION]  
+**Constraints**: [Domain-specific or NEEDS CLARIFICATION]  
+**Scale/Scope**: [Domain-specific or NEEDS CLARIFICATION]
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] Shadcn components used (custom components require approval)
+- [ ] Server Components by default (Client components require approval)
+- [ ] Server Actions for mutations (no route handlers unless approved)
+- [ ] TSDoc comments on all exports
+- [ ] Colors defined as CSS variables
+- [ ] KISS & DRY principles followed
+- [ ] Feature-based file structure enforced
 
 ## Project Structure
 
@@ -49,46 +55,28 @@ specs/[###-feature]/
 
 ### Source Code (repository root)
 <!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
+  MANDATORY: This project follows a feature-based file structure as defined in the constitution.
+  All new code MUST follow this layout.
 -->
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
 src/
-├── models/
-├── services/
-├── cli/
-└── lib/
-
-tests/
-├── contract/
-├── integration/
-└── unit/
-
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
-
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+├── app/                 # Next.js App Router pages
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── [routes]/
+├── components/          # Global reusable components (Shadcn + custom approved)
+├── hooks/               # Global reusable hooks
+├── utils/               # Global reusable utilities
+├── types/               # Global reusable types
+├── lib/                 # Third-party integrations (prisma, auth, etc.)
+└── features/
+    └── [feature-name]/
+        ├── components/  # Feature-specific components
+        ├── hooks/       # Feature-specific hooks
+        ├── utils/       # Feature-specific utilities
+        ├── types/       # Feature-specific types
+        └── actions/     # Feature-specific server actions
 ```
 
 **Structure Decision**: [Document the selected structure and reference the real
