@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Antisocial
+A modern social media application foundation.
 
-## Getting Started
+## 🚀 Quickstart (Docker)
 
-First, run the development server:
+The easiest way to run the application and all dependencies (Postgres, etc.) is via Docker Compose.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Prerequisites
+- Docker & Docker Compose
+- Node.js (for local tooling/commands)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Running the App
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Setup Environment**:
+   ```bash
+   cp .env.example .env
+   # Update .env with your secrets if needed (defaults work for dev)
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Start Services**:
+   ```bash
+   docker-compose up --build
+   ```
+   This will start:
+   - **App**: http://localhost:3000
+   - **Database**: localhost:5432 (Postgres)
 
-## Learn More
+3. **Database Setup**:
+   Open a new terminal and run:
+   ```bash
+   npx prisma db push
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+### Development Mode
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+For faster development with hot-reloading:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Start only the database**:
+   ```bash
+   docker-compose up -d db
+   ```
 
-## Deploy on Vercel
+2. **Run the app locally**:
+   ```bash
+   npm run dev
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Access**: http://localhost:3000
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠 Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **UI Components**: Shadcn UI
+- **Database**: PostgreSQL (via Prisma ORM)
+- **Auth**: Better Auth
+- **Logger**: Pino
+
+## 🩺 Health Check
+
+Check if the API is running:
+- `GET /api/health` -> `{ status: "ok", timestamp: "..." }`

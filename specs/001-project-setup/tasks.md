@@ -48,9 +48,9 @@ description: "Task list for Project Setup (Docker, Next.js, Prisma, Auth)"
 - [x] T013 [P] [US1] Install Better Auth package in `package.json`
 - [x] T014 [US1] Create basic Better Auth client instance in `src/lib/auth-client.ts`
 - [x] T015 [US1] Install Pino/Winston and create logger utility in `src/lib/logger.ts`
-- [ ] T016 [US1] Create health check endpoint in `src/app/api/health/route.ts`
-- [ ] T017 [US1] Verify Shadcn theme (Slate) is applied in `src/app/layout.tsx`
-- [ ] T018 [US1] Update `README.md` with Docker quickstart instructions
+- [x] T016 [US1] Create health check endpoint in `src/app/api/health/route.ts`
+- [x] T017 [US1] Verify Shadcn theme (Slate) is applied in `src/app/layout.tsx`
+- [x] T018 [US1] Update `README.md` with Docker quickstart instructions
 
 **Checkpoint**: Full dev environment is ready. `npm run dev` and `docker-compose up` both work.
 
