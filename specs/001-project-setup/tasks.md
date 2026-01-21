@@ -38,7 +38,6 @@ description: "Task list for Project Setup (Docker, Next.js, Prisma, Auth)"
 - [x] T009 [P] Install and init Shadcn UI (Config in `components.json`, assets in `src/components/ui`)
 - [x] T010 [P] Install Zod and React Hook Form libraries
 - [x] T011 Install Prisma and init schema in `prisma/schema.prisma`
-- [ ] T012 Install pinned Node.js version in `package.json` (engines: v20)
 
 ---
 
@@ -66,12 +65,12 @@ description: "Task list for Project Setup (Docker, Next.js, Prisma, Auth)"
 
 ### Parallel Opportunities
 - Docker config (T002-T005) can be done while waiting for Next.js install (T001).
-- Library installs (T008-T012) can run in parallel.
+- Library installs (T008-T011) can run in parallel.
 - US1 tasks (T013-T018) are mostly independent of each other.
 
 ## Implementation Strategy
 
 1. **Bootstrapping**: Run T001-T006 to get "Green Build" in Docker.
-2. **Structuring**: Run T007-T012 to comply with Constitution.
+2. **Structuring**: Run T007-T011 to comply with Constitution.
 3. **Refining**: Run T013-T018 to add specific feature requirements (Auth, Logger).
 4. **Final Check**: Verify `docker-compose up` behaves exactly as described in `quickstart.md`.
