@@ -15,8 +15,13 @@ export default function Home() {
         <div className="p-6 rounded-xl border border-border bg-card shadow-sm hover:shadow-md transition-shadow">
           <h2 className="text-lg font-semibold mb-2">Tailwind v4 Test</h2>
           <p className="text-sm text-muted-foreground">
-            This card uses <code className="bg-muted px-1 rounded text-primary">bg-card</code> and
-            <code className="bg-muted px-1 rounded text-primary">border-border</code> from the new v4 theme variables.
+            This card uses{" "}
+            <code className="bg-muted px-1 rounded text-primary">bg-card</code>{" "}
+            and
+            <code className="bg-muted px-1 rounded text-primary">
+              border-border
+            </code>{" "}
+            from the new v4 theme variables.
           </p>
         </div>
 

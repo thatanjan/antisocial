@@ -7,17 +7,29 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!node_modules", "!.next", "!dist", "!build"]
+    "includes": [
+      "**",
+      "!node_modules",
+      "!.next",
+      "!dist",
+      "!build"
+    ]
   },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
     "indentWidth": 2
   },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "suspicious": {}
     },
     "domains": {
       "next": "recommended",
