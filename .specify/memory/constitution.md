@@ -2,22 +2,16 @@
   ============================================================================
   SYNC IMPACT REPORT
   ============================================================================
-  Version change: 1.0.0 → 1.1.0
+  Version change: 1.1.0 → 1.2.0
   
-  Modified Principles:
-  - V. Feature-Based File Structure: Added src/lib/ for third-party integrations
+  Added Principles:
+  - VI. Containerization Standards
   
-  Previous version (1.0.0) established:
-  - I. Code Quality & Self-Documentation
-  - II. KISS & DRY
-  - III. Component & Styling Standards
-  - IV. Server-First Architecture
+  Previous:
   - V. Feature-Based File Structure
   
   Templates requiring updates:
-  - ✅ plan-template.md: Already includes lib/ directory
-  - ✅ spec-template.md: No blocking conflicts
-  - ✅ tasks-template.md: Already includes lib/ in path conventions
+  - ✅ spec-template.md: No blocking conflicts (Infrastructure tasks may be added)
   
   Follow-up TODOs: None
   ============================================================================
@@ -96,6 +90,16 @@ src/
 - No cross-feature imports without promoting to global
 - Each feature MUST be self-contained
 
+### VI. Containerization Standards
+
+The entire application stack MUST be containerized using Docker. All development SHALL be possible via `docker-compose up` without requiring local installation of dependencies (other than Docker itself).
+
+**Non-Negotiables:**
+- A `Dockerfile` MUST exist for the Next.js application
+- A `docker-compose.yml` MUST orchestrate the App, Database, and any other services
+- `npm run dev` SHOULD work, but `docker-compose up` is the standard for full stack execution
+- No implicit host dependencies (e.g., local Node version, local Postgres) should be assumed for production parity
+
 ## Technology Stack
 
 The following technologies are mandated for this project:
@@ -111,6 +115,7 @@ The following technologies are mandated for this project:
 | Authentication | Better Auth | Authentication library |
 | Validation | Zod | Schema validation |
 | Forms | React Hook Form | Form state management |
+| Infrastructure | Docker | Dockerfile & Docker Compose |
 
 **Documentation:**
 - Use latest official documentation
@@ -144,6 +149,7 @@ The following technologies are mandated for this project:
 - [ ] Colors defined as CSS variables
 - [ ] Correct feature directory structure
 - [ ] No testing code (unless explicitly requested)
+- [ ] Docker configuration updated (if new services added)
 
 ## Governance
 
@@ -165,4 +171,4 @@ This constitution supersedes all other development practices for this project. A
 - Violations require documented justification
 - Repeated violations trigger constitution review
 
-**Version**: 1.1.0 | **Ratified**: 2026-01-20 | **Last Amended**: 2026-01-20
+**Version**: 1.2.0 | **Ratified**: 2026-01-20 | **Last Amended**: 2026-01-20
