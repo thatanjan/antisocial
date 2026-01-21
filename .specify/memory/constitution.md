@@ -114,7 +114,6 @@ The following technologies are mandated for this project:
 | ORM | Prisma | Type-safe database access |
 | Authentication | Better Auth | Authentication library |
 | Validation | Zod | Schema validation |
-| Validation | Zod | Schema validation |
 | Forms | React Hook Form | Form state management |
 | Infrastructure | Docker | Dockerfile & Docker Compose |
 
@@ -148,7 +147,6 @@ The following technologies are mandated for this project:
 - [ ] Server Components used (or Client approved)
 - [ ] Server Actions for mutations (or route handlers approved)
 - [ ] Colors defined as CSS variables
-- [ ] Correct feature directory structure
 - [ ] Correct feature directory structure
 - [ ] No testing code (unless explicitly requested)
 - [ ] Docker configuration updated (if new services added)

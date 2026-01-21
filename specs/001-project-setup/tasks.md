@@ -18,7 +18,7 @@ description: "Task list for Project Setup (Docker, Next.js, Prisma, Auth)"
 
 **Purpose**: Get the containerized application running with minimal Next.js boilerplate.
 
-- [ ] T001 [P] Initialize Next.js app with TypeScript in `src/` (Clean install with `--biome`)
+- [x] T001 [P] Initialize Next.js app with TypeScript in `src/` (Clean install with `--biome`)
 - [x] T002 [P] Create `Dockerfile` in root (Base: alpine, Output: standalone)
 - [x] T003 [P] Create `.dockerignore` in root (Exclude node_modules, .env)
 - [x] T004 Create `docker-compose.yml` in root (App: 3000, DB: 5432, Volume: pgdata)
