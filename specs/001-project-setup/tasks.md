@@ -45,7 +45,7 @@ description: "Task list for Project Setup (Docker, Next.js, Prisma, Auth)"
 
 **Goal**: Complete the specialized setup for Auth, Logging, and Observability.
 
-- [ ] T013 [P] [US1] Install Better Auth package in `package.json`
+- [x] T013 [P] [US1] Install Better Auth package in `package.json`
 - [ ] T014 [US1] Create basic Better Auth client instance in `src/lib/auth-client.ts`
 - [ ] T015 [US1] Install Pino/Winston and create logger utility in `src/lib/logger.ts`
 - [ ] T016 [US1] Create health check endpoint in `src/app/api/health/route.ts`
