@@ -14,9 +14,9 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 [P] Install `next-themes` and `lucide-react` dependencies
-- [ ] T002 Create feature directory structure in `src/features/auth/`
-- [ ] T003 [P] Add Google OAuth environment variables to `.env` per `quickstart.md`
+- [x] T001 [P] Install `next-themes` and `lucide-react` dependencies
+- [x] T002 Create feature directory structure in `src/features/auth/`
+- [x] T003 [P] Add Google OAuth environment variables to `.env` per `quickstart.md`
 
 ---
 
@@ -24,14 +24,14 @@
 
 **Purpose**: Core infrastructure that MUST be complete before ANY user story can be implemented
 
-- [ ] T004 Setup Better Auth server instance in `src/lib/auth.ts`
-- [ ] T005 [P] Setup Better Auth API route in `src/app/api/auth/[...better-auth]/route.ts`
-- [ ] T006 [P] Ensure Better Auth client is initialized in `src/lib/auth-client.ts`
-- [ ] T007 Add Better Auth models to `prisma/schema.prisma` using `npx @better-auth/cli generate`
-- [ ] T008 Run database migrations and generate Prisma client: `npx prisma generate && npx prisma db push`
-- [ ] T009 [P] Create `src/components/theme-provider.tsx` using `next-themes`
-- [ ] T010 Wrap application in `ThemeProvider` in `src/app/layout.tsx` (set dark as default)
-- [ ] T011 [P] Configure global CSS variables for colors in `src/app/globals.css` per Constitution and Notebook theme
+- [x] T004 Setup Better Auth server instance in `src/lib/auth.ts`
+- [x] T005 [P] Setup Better Auth API route in `src/app/api/auth/[...better-auth]/route.ts`
+- [x] T006 [P] Ensure Better Auth client is initialized in `src/lib/auth-client.ts`
+- [x] T007 Add Better Auth models to `prisma/schema.prisma` using `npx @better-auth/cli generate`
+- [x] T008 Run database migrations and generate Prisma client: `npx prisma generate && npx prisma db push`
+- [x] T009 [P] Create `src/components/theme-provider.tsx` using `next-themes`
+- [x] T010 Wrap application in `ThemeProvider` in `src/app/layout.tsx` (set dark as default)
+- [x] T011 [P] Configure global CSS variables for colors in `src/app/globals.css` per Constitution and Notebook theme
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
