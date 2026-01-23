@@ -48,8 +48,8 @@
 - [x] T012 [US1] Create `signInWithGoogle` and `signOutAction` in `src/features/auth/actions/authActions.ts`
 - [x] T013 [P] [US1] Create the "antisocial" logo component in `src/features/auth/components/AuthLogo.tsx` using "Architects Daughter" font
 - [x] T014 [P] [US1] Create the Google Login button component in `src/features/auth/components/GoogleButton.tsx` calling the server action
-- [ ] T015 [US1] Build the main login page in `src/app/(auth)/login/page.tsx` as a Server Component
-- [ ] T016 [US1] Implement server-side session check on the login page to redirect already authenticated users
+- [x] T015 [US1] Build the main login page in `src/app/(auth)/login/page.tsx` as a Server Component
+- [x] T016 [US1] Implement server-side session check on the login page to redirect already authenticated users
 
 **Checkpoint**: User Story 1 is functional - Login flow is testable.
 
@@ -63,8 +63,8 @@
 
 ### Implementation for User Story 2
 
-- [ ] T017 [US2] Create theme toggle component in `src/components/theme-toggle.tsx`
-- [ ] T018 [US2] Add the theme toggle to the auth page (top right as per design)
+- [x] T017 [US2] Create theme toggle component in `src/components/ThemeToggle.tsx`
+- [x] T018 [US2] Add the theme toggle to the auth page (top right as per design)
 
 ---
 
@@ -76,17 +76,17 @@
 
 ### Implementation for User Story 3
 
-- [ ] T019 [US3] Apply responsive styling to the central card in `src/app/(auth)/login/page.tsx`
-- [ ] T020 [US3] Implement the catchy footer text: "Escape the noise. Join the quiet." below the login card
-- [ ] T021 [US3] Add a "TERMS OF SERVICE" link in the footer of `src/app/(auth)/login/page.tsx`
+- [x] T019 [US3] Apply responsive styling to the central card in `src/app/(auth)/login/page.tsx`
+- [x] T020 [US3] Implement the catchy footer text: "Escape the noise. Join the quiet." below the login card
+- [x] T021 [US3] Add a "TERMS OF SERVICE" link in the footer of `src/app/(auth)/login/page.tsx`
 
 ---
 
 ## Phase 6: Polish & Cross-Cutting Concerns
 
-- [ ] T022 Handle OAuth failure by checking `error` query param and showing a Shadcn toast
-- [ ] T023 Final accessibility audit for color contrast in both themes
-- [ ] T024 Code cleanup and TSDoc documentation for all new exports
+- [x] T022 Handle OAuth failure by checking `error` query param and showing a Shadcn toast
+- [x] T023 Final accessibility audit for color contrast in both themes
+- [x] T024 Code cleanup and TSDoc documentation for all new exports
 
 ---
 

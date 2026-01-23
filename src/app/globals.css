@@ -98,6 +98,8 @@ a {
   --shadow-opacity: var(--shadow-opacity);
   --color-shadow-color: var(--shadow-color);
   --color-destructive-foreground: var(--destructive-foreground);
+  --font-notebook: var(--font-architects-daughter), Architects Daughter, sans-serif;
+  --tracking-super-wide: 0.2em;
 }
 
 :root {

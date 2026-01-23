@@ -10,11 +10,11 @@ interface AuthLogoProps {
  */
 export function AuthLogo({ className }: AuthLogoProps) {
     return (
-        <div className={cn("flex flex-col items-center space-y-2 text-center", className)}>
-            <h1 className="text-5xl font-bold tracking-tighter sm:text-6xl text-foreground">
+        <div className={cn("flex flex-col items-center space-y-4 text-center", className)}>
+            <h1 className="text-6xl font-bold tracking-tight text-foreground font-notebook">
                 antisocial
             </h1>
-            <p className="text-sm tracking-widest text-muted-foreground uppercase opacity-80">
+            <p className="text-sm tracking-super-wide text-muted-foreground uppercase opacity-70 font-medium">
                 JOIN THE QUIET.
             </p>
         </div>
