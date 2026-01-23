@@ -46,8 +46,8 @@
 ### Implementation for User Story 1
 
 - [x] T012 [US1] Create `signInWithGoogle` and `signOutAction` in `src/features/auth/actions/auth-actions.ts`
-- [ ] T013 [P] [US1] Create the "antisocial" logo component in `src/features/auth/components/auth-logo.tsx` using "Architects Daughter" font
-- [ ] T014 [P] [US1] Create the Google Login button component in `src/features/auth/components/google-button.tsx` calling the server action
+- [x] T013 [P] [US1] Create the "antisocial" logo component in `src/features/auth/components/auth-logo.tsx` using "Architects Daughter" font
+- [x] T014 [P] [US1] Create the Google Login button component in `src/features/auth/components/google-button.tsx` calling the server action
 - [ ] T015 [US1] Build the main login page in `src/app/(auth)/login/page.tsx` as a Server Component
 - [ ] T016 [US1] Implement server-side session check on the login page to redirect already authenticated users
 
