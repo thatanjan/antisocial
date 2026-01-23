@@ -3,7 +3,7 @@
 import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { signInWithGoogle } from "../actions/auth-actions";
+import { signInWithGoogle } from "../actions/authActions";
 
 /**
  * Google Login Button component.

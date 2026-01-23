@@ -26,10 +26,10 @@
 
 - [x] T004 Setup Better Auth server instance in `src/lib/auth.ts`
 - [x] T005 [P] Setup Better Auth API route in `src/app/api/auth/[...better-auth]/route.ts`
-- [x] T006 [P] Ensure Better Auth client is initialized in `src/lib/auth-client.ts`
+- [x] T006 [P] Ensure Better Auth client is initialized in `src/lib/authClient.ts`
 - [x] T007 Add Better Auth models to `prisma/schema.prisma` using `npx @better-auth/cli generate`
 - [x] T008 Run database migrations and generate Prisma client: `npx prisma generate && npx prisma db push`
-- [x] T009 [P] Create `src/components/theme-provider.tsx` using `next-themes`
+- [x] T009 [P] Create `src/components/ThemeProvider.tsx` using `next-themes`
 - [x] T010 Wrap application in `ThemeProvider` in `src/app/layout.tsx` (set dark as default)
 - [x] T011 [P] Configure global CSS variables for colors in `src/app/globals.css` per Constitution and Notebook theme
 
@@ -45,9 +45,9 @@
 
 ### Implementation for User Story 1
 
-- [x] T012 [US1] Create `signInWithGoogle` and `signOutAction` in `src/features/auth/actions/auth-actions.ts`
-- [x] T013 [P] [US1] Create the "antisocial" logo component in `src/features/auth/components/auth-logo.tsx` using "Architects Daughter" font
-- [x] T014 [P] [US1] Create the Google Login button component in `src/features/auth/components/google-button.tsx` calling the server action
+- [x] T012 [US1] Create `signInWithGoogle` and `signOutAction` in `src/features/auth/actions/authActions.ts`
+- [x] T013 [P] [US1] Create the "antisocial" logo component in `src/features/auth/components/AuthLogo.tsx` using "Architects Daughter" font
+- [x] T014 [P] [US1] Create the Google Login button component in `src/features/auth/components/GoogleButton.tsx` calling the server action
 - [ ] T015 [US1] Build the main login page in `src/app/(auth)/login/page.tsx` as a Server Component
 - [ ] T016 [US1] Implement server-side session check on the login page to redirect already authenticated users
 

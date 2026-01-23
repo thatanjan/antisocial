@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   description: "A modern social media foundation.",
 };
 
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 export default function RootLayout({
   children,
