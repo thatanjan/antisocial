@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Architects_Daughter } from "next/font/google";
+import { Architects_Daughter, Geist, Geist_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 
@@ -44,8 +44,8 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
-          enableSystem={false}
           disableTransitionOnChange
+          enableSystem={false}
         >
           {children}
         </ThemeProvider>
