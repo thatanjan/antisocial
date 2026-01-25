@@ -1,14 +1,14 @@
 import { cn } from "@/lib/utils";
 
-interface AuthLogoProps {
+type AuthLogoProps = {
   className?: string;
-}
+};
 
 /**
  * Logo component for the authentication page.
  * Displays "antisocial" and the subtitle "JOIN THE QUIET."
  */
-export function AuthLogo({ className }: AuthLogoProps) {
+export const AuthLogo = ({ className }: AuthLogoProps) => {
   return (
     <div
       className={cn(
@@ -24,4 +24,4 @@ export function AuthLogo({ className }: AuthLogoProps) {
       </p>
     </div>
   );
-}
+};
