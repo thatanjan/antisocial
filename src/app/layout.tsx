@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Architects_Daughter, Geist, Geist_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 
@@ -13,10 +13,18 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const architectsDaughter = Architects_Daughter({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-architects-daughter",
+});
+
 export const metadata: Metadata = {
   title: "Antisocial",
   description: "A modern social media foundation.",
 };
+
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 export default function RootLayout({
   children,
@@ -24,15 +32,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
           geistSans.variable,
           geistMono.variable,
+          architectsDaughter.variable,
         )}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          disableTransitionOnChange
+          enableSystem={false}
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

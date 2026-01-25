@@ -2,16 +2,16 @@
   ============================================================================
   SYNC IMPACT REPORT
   ============================================================================
-  Version change: 1.1.0 → 1.2.0
+  Version change: 1.2.0 → 1.3.0
   
-  Added Principles:
-  - VI. Containerization Standards
+  Updated Principles:
+  - III. Component & Styling Standards (Strict color variable rules)
   
   Previous:
-  - V. Feature-Based File Structure
+  - VI. Containerization Standards
   
   Templates requiring updates:
-  - ✅ spec-template.md: No blocking conflicts (Infrastructure tasks may be added)
+  - ✅ spec-template.md: No blocking conflicts
   
   Follow-up TODOs: None
   ============================================================================
@@ -30,6 +30,8 @@ All code MUST be self-explanatory through clear naming, logical structure, and T
 - Descriptive naming conventions (avoid abbreviations unless universally understood)
 - No magic numbers or strings—use named constants
 - Code MUST be readable without external documentation
+- Always use arrow functions (`const myFn = () => { ... }`)
+- Always use `const` for variables; use `let` ONLY if re-assignment is strictly necessary
 
 ### II. KISS & DRY
 
@@ -49,9 +51,10 @@ All UI components MUST use Shadcn UI components. Install Shadcn components as ne
 - Shadcn UI components are the default choice—no exceptions without approval
 - Custom components MUST be requested and approved by user before creation
 - Tailwind CSS is the only styling solution (no inline styles, no CSS modules)
-- Colors MUST be defined as CSS variables first, then referenced via Tailwind
+- Only use color variables defined in `src/app/globals.css`.
+- If you need to add more colors, add variables first in `src/app/globals.css`.
+- Variables MUST be mapped to Tailwind colors (e.g., `--product-card-shadow-color: var(--color-zinc-500);`).
 - Custom colors MUST be requested and approved by user before creation
-- Use Tailwind's color palette whenever possible
 
 ### IV. Server-First Architecture
 
@@ -171,4 +174,4 @@ This constitution supersedes all other development practices for this project. A
 - Violations require documented justification
 - Repeated violations trigger constitution review
 
-**Version**: 1.2.0 | **Ratified**: 2026-01-20 | **Last Amended**: 2026-01-20
+**Version**: 1.4.0 | **Ratified**: 2026-01-20 | **Last Amended**: 2026-01-25

@@ -10,31 +10,31 @@
   --button-secondary-border: #ebebeb;
 
   display: flex;
-  min-height: 100vh;
   align-items: center;
   justify-content: center;
+  min-height: 100vh;
   font-family: var(--font-geist-sans);
   background-color: var(--background);
 }
 
 .main {
   display: flex;
-  min-height: 100vh;
-  width: 100%;
-  max-width: 800px;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  background-color: var(--foreground);
+  width: 100%;
+  max-width: 800px;
+  min-height: 100vh;
   padding: 120px 60px;
+  background-color: var(--foreground);
 }
 
 .intro {
   display: flex;
   flex-direction: column;
+  gap: 24px;
   align-items: flex-start;
   text-align: left;
-  gap: 24px;
 }
 
 .intro h1 {
@@ -42,17 +42,17 @@
   font-size: 40px;
   font-weight: 600;
   line-height: 48px;
+  color: var(--text-primary);
   letter-spacing: -2.4px;
   text-wrap: balance;
-  color: var(--text-primary);
 }
 
 .intro p {
   max-width: 440px;
   font-size: 18px;
   line-height: 32px;
-  text-wrap: balance;
   color: var(--text-secondary);
+  text-wrap: balance;
 }
 
 .intro a {
@@ -63,30 +63,30 @@
 .ctas {
   display: flex;
   flex-direction: row;
+  gap: 16px;
   width: 100%;
   max-width: 440px;
-  gap: 16px;
   font-size: 14px;
 }
 
 .ctas a {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  width: fit-content;
   height: 40px;
   padding: 0 16px;
-  border-radius: 128px;
-  border: 1px solid transparent;
-  transition: 0.2s;
-  cursor: pointer;
-  width: fit-content;
   font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 128px;
+  transition: 0.2s;
 }
 
 a.primary {
-  background: var(--text-primary);
-  color: var(--background);
   gap: 8px;
+  color: var(--background);
+  background: var(--text-primary);
 }
 
 a.secondary {
