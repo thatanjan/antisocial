@@ -35,3 +35,15 @@ export async function signOutAction() {
 
   redirect("/login");
 }
+
+
+
+/**
+ * Server Action to get the current user session.
+ * Returns the session and user data if authenticated.
+ */
+export async function getSession() {
+  return await auth.api.getSession({
+    headers: await headers(),
+  });
+}
