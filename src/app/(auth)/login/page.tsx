@@ -10,9 +10,9 @@ import { auth } from "@/lib/auth";
  * Login Page (Server Component).
  * Provides the main entry point for user authentication.
  */
-export default async function LoginPage(props: {
+const LoginPage = async (props: {
   searchParams: Promise<{ error?: string }>;
-}) {
+}) => {
   const searchParams = await props.searchParams;
   const error = searchParams.error;
 
@@ -63,4 +63,6 @@ export default async function LoginPage(props: {
       </Link>
     </main>
   );
-}
+};
+
+export default LoginPage;

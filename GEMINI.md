@@ -23,6 +23,8 @@ npm test && npm run lint
 ## Code Style
 
 TypeScript (strict mode): Follow standard conventions
+- Always use arrow functions (`const myFn = () => { ... }`)
+- Always use `const` for variables; use `let` ONLY if re-assignment is strictly necessary
 
 ## Recent Changes
 - 002-google-auth-page: Added TypeScript (strict mode) + Shadcn UI, React Hook Form, Zod, Better Auth, next-themes

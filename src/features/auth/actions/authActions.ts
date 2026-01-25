@@ -8,7 +8,7 @@ import { auth } from "@/lib/auth";
  * Server Action to initiate Google OAuth login.
  * Uses Better Auth's server-side API to get the redirect URL.
  */
-export async function signInWithGoogle() {
+export const signInWithGoogle = async () => {
   const result = await auth.api.signInSocial({
     body: {
       provider: "google",
@@ -28,7 +28,7 @@ export async function signInWithGoogle() {
  * Server Action to sign out the current user.
  * Invalidates the session and clears cookies.
  */
-export async function signOutAction() {
+export const signOutAction = async () => {
   await auth.api.signOut({
     headers: await headers(),
   });
@@ -42,7 +42,7 @@ export async function signOutAction() {
  * Server Action to get the current user session.
  * Returns the session and user data if authenticated.
  */
-export async function getSession() {
+export const getSession = async () => {
   return await auth.api.getSession({
     headers: await headers(),
   });

@@ -1,4 +1,4 @@
-export default function Home() {
+const Home = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-8 bg-background p-8 text-foreground">
       <header className="space-y-4 text-center">
@@ -50,4 +50,6 @@ export default function Home() {
       </footer>
     </div>
   );
-}
+};
+
+export default Home;

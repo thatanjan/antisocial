@@ -30,6 +30,8 @@ All code MUST be self-explanatory through clear naming, logical structure, and T
 - Descriptive naming conventions (avoid abbreviations unless universally understood)
 - No magic numbers or strings—use named constants
 - Code MUST be readable without external documentation
+- Always use arrow functions (`const myFn = () => { ... }`)
+- Always use `const` for variables; use `let` ONLY if re-assignment is strictly necessary
 
 ### II. KISS & DRY
 
@@ -172,4 +174,4 @@ This constitution supersedes all other development practices for this project. A
 - Violations require documented justification
 - Repeated violations trigger constitution review
 
-**Version**: 1.3.0 | **Ratified**: 2026-01-20 | **Last Amended**: 2026-01-23
+**Version**: 1.4.0 | **Ratified**: 2026-01-20 | **Last Amended**: 2026-01-25

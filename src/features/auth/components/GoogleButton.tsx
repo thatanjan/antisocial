@@ -9,15 +9,15 @@ import { signInWithGoogle } from "../actions/authActions";
  * Google Login Button component.
  * Wraps a form that calls the signInWithGoogle Server Action.
  */
-export function GoogleButton() {
+export const GoogleButton = () => {
   return (
     <form action={signInWithGoogle} className="w-full">
       <LoginSubmitButton />
     </form>
   );
-}
+};
 
-function LoginSubmitButton() {
+const LoginSubmitButton = () => {
   const { pending } = useFormStatus();
 
   return (
@@ -58,4 +58,4 @@ function LoginSubmitButton() {
       )}
     </Button>
   );
-}
+};
