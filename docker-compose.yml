@@ -12,7 +12,7 @@ services:
       - .:/app
       - /app/node_modules
       - /app/.next
-    command: npm run dev
+    command: sh -c "npx prisma generate && npm run dev"
     env_file: .env
     depends_on:
       - db
