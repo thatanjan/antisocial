@@ -35,10 +35,10 @@ This document outlines the granular tasks required to implement the responsive s
 
 ## Phase 3: Sidebar Containers
 
-- [ ] **Task 3.1: Left Sidebar Container**
+- [x] **Task 3.1: Left Sidebar Container**
   - Create `src/features/navigation/components/LeftSidebar.tsx`.
   - Implementation: Compose `ProfileSummary` and a list of `NavLinkItem`s inside a `ScrollArea`.
-- [ ] **Task 3.2: Right Sidebar Container**
+- [x] **Task 3.2: Right Sidebar Container**
   - Create `src/features/navigation/components/RightSidebar.tsx`.
   - Implementation: Compose `SearchBar`, "Requests" section (list of `SocialRequestItem`), and "Suggestions" section.
 
