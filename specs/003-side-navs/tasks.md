@@ -17,19 +17,19 @@ This document outlines the granular tasks required to implement the responsive s
 
 ## Phase 2: Atomic Components
 
-- [ ] **Task 2.1: Navigation Link Component**
+- [x] **Task 2.1: Navigation Link Component**
   - Create `src/features/navigation/components/NavLinkItem.tsx`.
   - Implementation: Simple link with icon, label, and optional badge count.
-- [ ] **Task 2.2: Profile Summary Component**
+- [x] **Task 2.2: Profile Summary Component**
   - Create `src/features/navigation/components/ProfileSummary.tsx`.
   - Implementation: Displays avatar, name, location, and horizontal stats (Posts/Followers/Following).
-- [ ] **Task 2.3: Social Request Item**
+- [x] **Task 2.3: Social Request Item**
   - Create `src/features/navigation/components/SocialRequestItem.tsx`.
   - Implementation: User avatar, name, "Accept", and "Decline" buttons (mock functionality).
-- [ ] **Task 2.4: User Suggestion Item**
+- [x] **Task 2.4: User Suggestion Item**
   - Create `src/features/navigation/components/UserSuggestionItem.tsx`.
   - Implementation: User avatar, name, and "Follow" button.
-- [ ] **Task 2.5: Search Bar Component**
+- [x] **Task 2.5: Search Bar Component**
   - Create `src/features/navigation/components/SearchBar.tsx`.
   - Implementation: Controlled Input with search icon.
 
