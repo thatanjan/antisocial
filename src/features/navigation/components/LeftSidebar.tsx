@@ -1,15 +1,29 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { cn } from "@/lib/utils";
 import { currentUser, navItems } from "../utils/mock-data";
 import { NavLinkItem } from "./NavLinkItem";
 import { ProfileSummary } from "./ProfileSummary";
 
 /**
+ * Props for the LeftSidebar component.
+ */
+interface LeftSidebarProps {
+  /** Optional class name for the outer container */
+  className?: string;
+}
+
+/**
  * The Left Sidebar component which contains the user profile summary
  * and the main navigation links.
  */
-export const LeftSidebar = () => {
+export const LeftSidebar = ({ className }: LeftSidebarProps) => {
   return (
-    <aside className="sticky top-0 hidden h-screen w-sidebar-left flex-col overflow-hidden border-border border-r bg-card/30 backdrop-blur-md lg:flex">
+    <div
+      className={cn(
+        "flex h-full flex-col overflow-hidden bg-card/30 backdrop-blur-md",
+        className,
+      )}
+    >
       <ScrollArea className="h-full">
         <div className="flex flex-col gap-6 p-6">
           {/* Brand/Logo Area placeholder if needed */}
@@ -33,6 +47,6 @@ export const LeftSidebar = () => {
           </nav>
         </div>
       </ScrollArea>
-    </aside>
+    </div>
   );
 };
