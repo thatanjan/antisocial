@@ -44,14 +44,14 @@ This document outlines the granular tasks required to implement the responsive s
 
 ## Phase 4: Layout & Responsiveness
 
-- [ ] **Task 4.1: Mobile Navigation (Sheet)**
+- [x] **Task 4.1: Mobile Navigation (Sheet)**
   - Create `src/features/navigation/components/MobileNav.tsx`.
   - Implementation: Use Shadcn `Sheet` to host the `LeftSidebar` and `RightSidebar` content behind a Hamburger menu trigger.
-- [ ] **Task 4.2: Authenticated Layout Group**
+- [x] **Task 4.2: Authenticated Layout Group**
   - Create `src/app/(authenticated)/layout.tsx`.
   - Implementation: 
     - Desktop: A three-column grid (LeftSidebar | Main Content | RightSidebar).
     - Mobile: A Top Header with Hamburger menu + Center Main Content.
-- [ ] **Task 4.3: Mock Dashboard Page**
+- [x] **Task 4.3: Mock Dashboard Page**
   - Create `src/app/(authenticated)/feed/page.tsx`.
   - Implementation: A simple dummy feed page to verify the layout works in a real route.
