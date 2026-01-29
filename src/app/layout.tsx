@@ -25,6 +25,7 @@ export const metadata: Metadata = {
 };
 
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function RootLayout({
   children,
@@ -48,6 +49,9 @@ export default function RootLayout({
           enableSystem={false}
         >
           {children}
+          <div className="fixed top-4 right-4 z-50">
+            <ThemeToggle />
+          </div>
         </ThemeProvider>
       </body>
     </html>
