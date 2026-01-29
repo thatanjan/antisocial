@@ -19,7 +19,7 @@ export default function AuthenticatedLayout({
       <MobileNav />
 
       {/* Main Grid Layout */}
-      <div className="mx-auto flex w-full max-w-[1600px] justify-center lg:gap-6">
+      <div className="mx-auto flex w-full max-w-layout justify-center lg:gap-6">
         {/* Left Sidebar - Hidden on mobile, handled by LeftSidebar css classes */}
         <LeftSidebar />
 
