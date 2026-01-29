@@ -16,7 +16,6 @@ body {
 }
 
 a {
-  color: inherit;
   text-decoration: none;
 }
 
@@ -95,6 +94,20 @@ a {
   --font-notebook:
     var(--font-architects-daughter), Architects Daughter, sans-serif;
   --tracking-super-wide: 0.2em;
+
+  /* Typography Scale */
+  --font-size-2xs: 0.625rem;
+
+  /* Layout Spacing */
+  --spacing-sidebar-left: var(--spacing-72); /* 288px approx */
+  --spacing-sidebar-right: var(--spacing-80); /* 320px */
+  --spacing-social-name: var(--spacing-32); /* 128px */
+  --max-width-layout: 100rem; /* 1600px */
+
+  /* Column Widths */
+  --width-col-side: 30%;
+  --width-col-main: 40%;
+  --min-width-col: 280px;
 }
 
 :root {

@@ -2,13 +2,13 @@
   ============================================================================
   SYNC IMPACT REPORT
   ============================================================================
-  Version change: 1.2.0 → 1.3.0
+  Version change: 1.3.0 → 1.5.0
   
   Updated Principles:
-  - III. Component & Styling Standards (Strict color variable rules)
+  - III. Component & Styling Standards (Strict color variable rules & NO arbitrary values)
   
   Previous:
-  - VI. Containerization Standards
+  - III. Component & Styling Standards (Strict color variable rules)
   
   Templates requiring updates:
   - ✅ spec-template.md: No blocking conflicts
@@ -16,7 +16,6 @@
   Follow-up TODOs: None
   ============================================================================
 -->
-
 # Antisocial Constitution
 
 ## Core Principles
@@ -51,6 +50,7 @@ All UI components MUST use Shadcn UI components. Install Shadcn components as ne
 - Shadcn UI components are the default choice—no exceptions without approval
 - Custom components MUST be requested and approved by user before creation
 - Tailwind CSS is the only styling solution (no inline styles, no CSS modules)
+- **NO arbitrary Tailwind values** (e.g., `text-[10px]`, `max-w-[150px]`). Use standard Tailwind scales or define CSS variables in `globals.css` if custom tokens are required.
 - Only use color variables defined in `src/app/globals.css`.
 - If you need to add more colors, add variables first in `src/app/globals.css`.
 - Variables MUST be mapped to Tailwind colors (e.g., `--product-card-shadow-color: var(--color-zinc-500);`).
@@ -174,4 +174,4 @@ This constitution supersedes all other development practices for this project. A
 - Violations require documented justification
 - Repeated violations trigger constitution review
 
-**Version**: 1.4.0 | **Ratified**: 2026-01-20 | **Last Amended**: 2026-01-25
+**Version**: 1.5.0 | **Ratified**: 2026-01-20 | **Last Amended**: 2026-01-27

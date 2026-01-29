@@ -1,7 +1,6 @@
 import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { AuthLogo } from "@/features/auth/components/AuthLogo";
 import { GoogleButton } from "@/features/auth/components/GoogleButton";
 import { auth } from "@/lib/auth";
@@ -26,11 +25,6 @@ const LoginPage = async (props: {
   return (
     <main className="relative flex min-h-screen flex-col items-center overflow-hidden bg-background p-12">
       {/* Theme Toggle Position */}
-      <div className="mb-12 flex w-full justify-end">
-        <ThemeToggle />
-      </div>
-
-      {/* Main Content Area */}
       <div className="flex w-full max-w-md flex-1 flex-col items-center justify-center">
         {/* Error Alert */}
         {error && (
