@@ -24,7 +24,7 @@ export default function AuthenticatedLayout({
         <LeftSidebar />
 
         {/* Main Content Area */}
-        <main className="flex h-full w-full min-w-0 flex-1 flex-col px-4 py-6 sm:px-6 lg:max-w-3xl lg:px-8 lg:py-8">
+        <main className="flex h-full w-full min-w-col max-w-4xl flex-col px-4 py-6 sm:px-6 lg:w-col-main lg:px-8 lg:py-8">
           {children}
         </main>
 

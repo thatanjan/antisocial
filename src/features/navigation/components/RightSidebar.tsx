@@ -10,7 +10,7 @@ import { UserSuggestionItem } from "./UserSuggestionItem";
  */
 export const RightSidebar = () => {
   return (
-    <aside className="sticky top-0 hidden h-screen w-sidebar-right flex-col overflow-hidden border-border border-l bg-card/30 backdrop-blur-md xl:flex">
+    <aside className="sticky top-0 hidden h-screen w-col-side min-w-col flex-col overflow-hidden border-border border-l bg-card/30 backdrop-blur-md xl:flex">
       <ScrollArea className="h-full">
         <div className="flex flex-col gap-8 p-6">
           {/* Search Section */}

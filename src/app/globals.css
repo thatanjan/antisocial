@@ -103,6 +103,11 @@ a {
   --spacing-sidebar-right: var(--spacing-80); /* 320px */
   --spacing-social-name: var(--spacing-32); /* 128px */
   --max-width-layout: 100rem; /* 1600px */
+
+  /* Column Widths */
+  --width-col-side: 30%;
+  --width-col-main: 40%;
+  --min-width-col: 280px;
 }
 
 :root {
