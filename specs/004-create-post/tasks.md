@@ -15,10 +15,10 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Install core dependencies: `imagekit-javascript`, `@imagekit/next`, `imagekit`, `browser-image-compression`
-- [ ] T002 Add Shadcn UI components: `dialog`, `carousel`, `card`, `scroll-area`, `avatar`, `input`, `button`, `textarea`, `label`
-- [ ] T003 [P] Configure ImageKit environment variables in `.env`
-- [ ] T004 Build feature directory structure in `src/features/create-post/` (components, actions, hooks, utils, types)
+- [x] T001 Install core dependencies: `imagekit-javascript`, `@imagekit/next`, `imagekit`, `browser-image-compression`
+- [x] T002 Add Shadcn UI components: `dialog`, `carousel`, `card`, `scroll-area`, `avatar`, `input`, `button`, `textarea`, `label`
+- [x] T003 [P] Configure ImageKit environment variables in `.env`
+- [x] T004 Build feature directory structure in `src/features/create-post/` (components, actions, hooks, utils, types)
 
 ---
 
