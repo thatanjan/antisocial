@@ -23,6 +23,7 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  posts         Post[]
 
   @@unique([email])
   @@map("user")
@@ -74,4 +75,30 @@ model Verification {
 
   @@map("verification")
   @@index([identifier])
+}
+
+model Post {
+  id          String      @id @default(cuid())
+  authorId    String
+  author      User        @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  content     String?     @db.Text
+  aspectRatio String?
+  images      PostImage[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("post")
+  @@index([authorId])
+}
+
+model PostImage {
+  id         String @id @default(cuid())
+  postId     String
+  post       Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  url        String
+  fileId     String
+  orderIndex Int
+
+  @@map("post_image")
+  @@index([postId])
 }

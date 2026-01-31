@@ -26,11 +26,11 @@
 
 **Purpose**: Core infrastructure and database setup
 
-- [ ] T005 [P] Define `Post` and `PostImage` models in `prisma/schema.prisma`
-- [ ] T006 Generate Prisma client: `npx prisma generate`
-- [ ] T007 [P] Create ImageKit authorization route in `src/app/api/upload-auth/route.ts`
-- [ ] T008 [P] Define TypeScript types/schemas in `src/features/create-post/types/index.ts`
-- [ ] T009 [P] Create Zod validation schema for post creation in `src/features/create-post/schemas.ts`
+- [x] T005 [P] Define `Post` and `PostImage` models in `prisma/schema.prisma`
+- [x] T006 Generate Prisma client: `npx prisma generate`
+- [x] T007 [P] Create ImageKit authorization route in `src/app/api/upload-auth/route.ts`
+- [x] T008 [P] Define TypeScript types/schemas in `src/features/create-post/types/index.ts`
+- [x] T009 [P] Create Zod validation schema for post creation in `src/features/create-post/schemas.ts`
 
 **Checkpoint**: Foundation ready - UI and logic implementation can begin
 
