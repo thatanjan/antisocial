@@ -215,7 +215,7 @@ export function ImageUploader({
             </div>
             {selectedFiles.length < maxImages && (
               <Button
-                className="h-8 flex-shrink-0 gap-2 border-dashed"
+                className="h-8 shrink-0 gap-2 border-dashed"
                 onClick={() => fileInputRef.current?.click()}
                 size="sm"
                 type="button"

@@ -15,6 +15,7 @@ export const postImageSchema = z.object({
  */
 export const createPostSchema = z
   .object({
+    id: z.string().optional(),
     content: z.string().max(1000, "Description cannot exceed 1000 characters").optional(),
     aspectRatio: z.enum(["16:9", "1:1", "4:5"], {
       message: "Please select a valid aspect ratio",

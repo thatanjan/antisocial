@@ -63,6 +63,7 @@ export function PostCreationModal() {
 
   const uploadImagesToImageKit = async (
     files: File[],
+    postId: string,
   ): Promise<ImageKitUploadResponse[]> => {
     if (!PUBLIC_KEY) throw new Error("ImageKit public key is not configured.");
 
@@ -86,7 +87,7 @@ export function PostCreationModal() {
       formData.append("expire", authData.expire.toString());
       formData.append("token", authData.token);
       formData.append("useUniqueFileName", "true");
-      formData.append("folder", "/posts");
+      formData.append("folder", `/posts/${postId}`);
 
       const uploadRes = await fetch(
         `https://upload.imagekit.io/api/v1/files/upload`,
@@ -111,11 +112,19 @@ export function PostCreationModal() {
     startTransition(async () => {
       try {
         let finalImages = data.images;
+        // Pre-generate the post ID to use for folder structure
+        const generatedPostId = crypto
+          .randomUUID()
+          .replace(/-/g, "")
+          .substring(0, 24);
 
         // Perform uploads if there are local files selected
         if (selectedFiles.length > 0) {
           toast.loading("Uploading images...", { id: "posting-status" });
-          const uploadedResults = await uploadImagesToImageKit(selectedFiles);
+          const uploadedResults = await uploadImagesToImageKit(
+            selectedFiles,
+            generatedPostId,
+          );
           finalImages = uploadedResults.map((img, index) => ({
             url: img.url,
             fileId: img.fileId,
@@ -126,6 +135,7 @@ export function PostCreationModal() {
 
         const result = await createPostAction({
           ...data,
+          id: generatedPostId,
           images: finalImages,
         });
 

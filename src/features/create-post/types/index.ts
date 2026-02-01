@@ -33,6 +33,7 @@ export interface CreatePostImageInput {
  * Input for the create post server action.
  */
 export interface CreatePostInput {
+  id?: string;
   content?: string;
   aspectRatio: AspectRatio;
   images: CreatePostImageInput[];

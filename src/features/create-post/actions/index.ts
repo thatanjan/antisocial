@@ -34,15 +34,16 @@ export const createPostAction = async (
     if (!validatedData.success) {
       return {
         success: false,
-        error: validatedData.error.errors.map((e) => e.message).join(", "),
+        error: validatedData.error.issues.map((e) => e.message).join(", "),
       };
     }
 
-    const { content, aspectRatio, images } = validatedData.data;
+    const { id, content, aspectRatio, images } = validatedData.data;
 
     // 3. Persist to database
     const post = await prisma.post.create({
       data: {
+        id: id || undefined,
         authorId: session.user.id,
         content: content ?? null,
         aspectRatio: aspectRatio ?? null,
