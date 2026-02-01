@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 import { createPostAction } from "../actions";
 import { type CreatePostSchema, createPostSchema } from "../schemas";
 import type { AspectRatio, ImageKitUploadResponse } from "../types";
@@ -95,7 +96,12 @@ export function PostCreationModal() {
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[525px]">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className="relative" onSubmit={handleSubmit(onSubmit)}>
+          {isPending && (
+            <div className="absolute inset-0 z-50 flex items-center justify-center bg-background/50 backdrop-blur-[1px]">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+          )}
           <DialogHeader>
             <DialogTitle>Create New Post</DialogTitle>
             <DialogDescription>
@@ -108,6 +114,7 @@ export function PostCreationModal() {
               <Label htmlFor="content">Description</Label>
               <Textarea
                 className="min-h-[120px] resize-none"
+                disabled={isPending}
                 id="content"
                 placeholder="What's on your mind?"
                 {...register("content")}
@@ -126,11 +133,13 @@ export function PostCreationModal() {
               </div>
             </div>
 
-            <ImageUploader
-              aspectRatio={aspectRatio}
-              onAspectRatioChange={handleAspectRatioChange}
-              onImagesChange={handleImagesChange}
-            />
+            <div className={cn(isPending && "pointer-events-none opacity-50")}>
+              <ImageUploader
+                aspectRatio={aspectRatio}
+                onAspectRatioChange={handleAspectRatioChange}
+                onImagesChange={handleImagesChange}
+              />
+            </div>
           </div>
 
           <DialogFooter>

@@ -91,10 +91,10 @@
 
 **Purpose**: Loading states, error handling, and final refinements.
 
-- [ ] T030 Add loading overlay to `PostCreationModal.tsx` during submission
-- [ ] T031 Implement error snackbar notification on failed submission in `PostCreationModal.tsx`
-- [ ] T032 [P] Add TSDoc comments to all new functions and components
-- [ ] T033 [P] Final CSS cleanup for mobile responsiveness in all new components
+- [x] T030 Add loading overlay to `PostCreationModal.tsx` during submission
+- [x] T031 Implement error snackbar notification on failed submission in `PostCreationModal.tsx`
+- [x] T032 [P] Add TSDoc comments to all new functions and components
+- [x] T033 [P] Final CSS cleanup for mobile responsiveness in all new components
 
 ---
 
