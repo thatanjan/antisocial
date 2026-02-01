@@ -21,6 +21,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { createPostAction } from "../actions";
 import { type CreatePostSchema, createPostSchema } from "../schemas";
+import type { AspectRatio, ImageKitUploadResponse } from "../types";
+import { ImageUploader } from "./ImageUploader";
 
 /**
  * Modal component for creating a new post.
@@ -45,10 +47,12 @@ export function PostCreationModal() {
     handleSubmit,
     watch,
     reset,
+    setValue,
     formState: { errors },
   } = form;
 
   const contentValue = watch("content") || "";
+  const aspectRatio = watch("aspectRatio") as AspectRatio;
   const charCount = contentValue.length;
 
   const onSubmit = (data: CreatePostSchema) => {
@@ -66,6 +70,22 @@ export function PostCreationModal() {
     });
   };
 
+  const handleImagesChange = (images: ImageKitUploadResponse[]) => {
+    setValue(
+      "images",
+      images.map((img, index) => ({
+        url: img.url,
+        fileId: img.fileId,
+        orderIndex: index,
+      })),
+      { shouldValidate: true },
+    );
+  };
+
+  const handleAspectRatioChange = (ratio: AspectRatio) => {
+    setValue("aspectRatio", ratio);
+  };
+
   return (
     <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
@@ -79,7 +99,7 @@ export function PostCreationModal() {
           <DialogHeader>
             <DialogTitle>Create New Post</DialogTitle>
             <DialogDescription>
-              Share your thoughts with the community. Max 1000 characters.
+              Share your thoughts and photos with the community.
             </DialogDescription>
           </DialogHeader>
 
@@ -87,7 +107,7 @@ export function PostCreationModal() {
             <div className="flex flex-col gap-2">
               <Label htmlFor="content">Description</Label>
               <Textarea
-                className="min-h-[150px] resize-none"
+                className="min-h-[120px] resize-none"
                 id="content"
                 placeholder="What's on your mind?"
                 {...register("content")}
@@ -106,7 +126,11 @@ export function PostCreationModal() {
               </div>
             </div>
 
-            {/* TODO: ImageUploader (US2) will be integrated here */}
+            <ImageUploader
+              aspectRatio={aspectRatio}
+              onAspectRatioChange={handleAspectRatioChange}
+              onImagesChange={handleImagesChange}
+            />
           </div>
 
           <DialogFooter>

@@ -60,14 +60,14 @@
 
 **Independent Test**: Select 10+ images (fail), select 1 image, choose 1:1 ratio, verify ImageKit upload success and browser-side file size reduction.
 
-- [ ] T017 [P] [US2] Implement image compression utility in `src/features/create-post/utils/image-compression.ts` using `browser-image-compression`
-- [ ] T018 [US2] Build `ImageUploader` component in `src/features/create-post/components/ImageUploader.tsx`
-- [ ] T019 [US2] Implement multi-image selection logic (limit 10) in `ImageUploader.tsx`
-- [ ] T020 [US2] Create aspect ratio selector (16:9, 1:1, 4:5) in `ImageUploader.tsx`
-- [ ] T021 [US2] Implement direct upload to ImageKit via `@imagekit/next` in `ImageUploader.tsx`
-- [ ] T022 [US2] Add upload progress indicator for each image in `ImageUploader.tsx`
-- [ ] T023 [US2] Integrate `ImageUploader` into `PostCreationModal.tsx`
-- [ ] T024 [US2] Update `createPostAction` in `src/features/create-post/actions/index.ts` to handle `PostImage` relations
+- [x] T017 [P] [US2] Implement image compression utility in `src/features/create-post/utils/image-compression.ts` using `browser-image-compression`
+- [x] T018 [US2] Build `ImageUploader` component in `src/features/create-post/components/ImageUploader.tsx`
+- [x] T019 [US2] Implement multi-image selection logic (limit 10) in `ImageUploader.tsx`
+- [x] T020 [US2] Create aspect ratio selector (16:9, 1:1, 4:5) in `ImageUploader.tsx`
+- [x] T021 [US2] Implement direct upload to ImageKit via `@imagekit/next` in `ImageUploader.tsx`
+- [x] T022 [US2] Add upload progress indicator for each image in `ImageUploader.tsx`
+- [x] T023 [US2] Integrate `ImageUploader` into `PostCreationModal.tsx`
+- [x] T024 [US2] Update `createPostAction` in `src/features/create-post/actions/index.ts` to handle `PostImage` relations
 
 **Checkpoint**: Multi-image posting with optimization is functional.
 
