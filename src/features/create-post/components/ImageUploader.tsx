@@ -1,9 +1,18 @@
 "use client";
 
-import { ImageIcon, Upload, X } from "lucide-react";
+import { Plus, Upload, X } from "lucide-react";
 import NextImage from "next/image";
+import type * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  type CarouselApi,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import type { AspectRatio } from "../types";
@@ -11,6 +20,7 @@ import type { AspectRatio } from "../types";
 interface SelectedFile {
   file: File;
   preview: string;
+  id: string; // ID for stable keys and tracking
 }
 
 interface ImageUploaderProps {
@@ -21,8 +31,8 @@ interface ImageUploaderProps {
 }
 
 /**
- * Component for selecting images and showing local previews.
- * Does NOT upload to ImageKit. Deferring upload to parent on form submission.
+ * Component for selecting images and previewing them in a carousel.
+ * Supports multiple file selection in one go.
  */
 export function ImageUploader({
   onFilesChange,
@@ -31,65 +41,107 @@ export function ImageUploader({
   maxImages = 10,
 }: ImageUploaderProps) {
   const [selectedFiles, setSelectedFiles] = useState<SelectedFile[]>([]);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Clean up selection preview URLs to avoid memory leaks
+  // Sync current slide with state
+  useEffect(() => {
+    if (!api) return;
+    setCurrent(api.selectedScrollSnap());
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
+  // Clean up selection preview URLs only when they are actually removed
+  const prevFilesRef = useRef<SelectedFile[]>([]);
+  useEffect(() => {
+    const removedFiles = prevFilesRef.current.filter(
+      (prev) => !selectedFiles.find((curr) => curr.id === prev.id),
+    );
+
+    for (const f of removedFiles) {
+      URL.revokeObjectURL(f.preview);
+    }
+
+    prevFilesRef.current = selectedFiles;
+  }, [selectedFiles]);
+
+  // Final cleanup on unmount
   useEffect(() => {
     return () => {
-      for (const f of selectedFiles) {
+      for (const f of prevFilesRef.current) {
         URL.revokeObjectURL(f.preview);
       }
     };
-  }, [selectedFiles]);
+  }, []);
 
   const removeImage = (index: number) => {
-    const fileToRemove = selectedFiles[index];
-    URL.revokeObjectURL(fileToRemove.preview);
     const newFiles = selectedFiles.filter((_, i) => i !== index);
     setSelectedFiles(newFiles);
     onFilesChange(newFiles.map((f) => f.file));
+
+    // If we removed the last item and were on it, move back
+    if (current >= newFiles.length && newFiles.length > 0) {
+      api?.scrollTo(newFiles.length - 1);
+    }
   };
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
-    const newSelections: SelectedFile[] = [];
-
-    // Convert FileList to array and limit by maxImages
     const filesArray = Array.from(files);
     const availableSlots = maxImages - selectedFiles.length;
-    const filesToProcess = filesArray.slice(0, availableSlots);
 
-    if (filesArray.length > availableSlots) {
+    if (availableSlots <= 0) {
       alert(`You can only upload up to ${maxImages} images.`);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      return;
     }
 
-    for (const file of filesToProcess) {
-      newSelections.push({
-        file,
-        preview: URL.createObjectURL(file),
-      });
+    const filesToProcess = filesArray.slice(0, availableSlots);
+    if (filesArray.length > availableSlots) {
+      alert(
+        `You can only select up to ${maxImages} images. Some files were skipped.`,
+      );
     }
+
+    const newSelections: SelectedFile[] = filesToProcess.map((file) => ({
+      file,
+      preview: URL.createObjectURL(file),
+      id: `${file.name}-${file.size}-${Math.random().toString(36).substring(7)}`,
+    }));
 
     const updatedFiles = [...selectedFiles, ...newSelections];
     setSelectedFiles(updatedFiles);
     onFilesChange(updatedFiles.map((f) => f.file));
 
-    // Clear input so same file can be selected again if removed
     if (fileInputRef.current) fileInputRef.current.value = "";
+
+    // Scroll to the start of the new batch
+    setTimeout(() => {
+      api?.scrollTo(selectedFiles.length);
+    }, 50);
   };
+
+  const aspectRatioClass = {
+    "1:1": "aspect-square",
+    "16:9": "aspect-video",
+    "4:5": "aspect-4/5",
+  }[aspectRatio];
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <Label>
+        <Label className="font-medium text-sm">
           Images ({selectedFiles.length}/{maxImages})
         </Label>
         <div className="flex gap-2">
           {(["1:1", "16:9", "4:5"] as AspectRatio[]).map((ratio) => (
             <Button
-              className="h-8 text-xs"
+              className="h-8 font-medium text-xs"
               key={ratio}
               onClick={() => onAspectRatioChange(ratio)}
               size="sm"
@@ -102,67 +154,113 @@ export function ImageUploader({
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5">
-        {selectedFiles.map((f, index) => (
-          <div
-            className={cn(
-              "group relative overflow-hidden rounded-md border border-border bg-muted",
-              aspectRatio === "1:1" && "aspect-square",
-              aspectRatio === "16:9" && "aspect-video",
-              aspectRatio === "4:5" && "aspect-4/5",
+      {selectedFiles.length > 0 ? (
+        <div className="group relative">
+          <Carousel className="w-full" setApi={setApi}>
+            <CarouselContent>
+              {selectedFiles.map((f, index) => (
+                <CarouselItem key={f.id}>
+                  <div
+                    className={cn(
+                      "relative w-full overflow-hidden rounded-lg border bg-muted shadow-inner",
+                      aspectRatioClass,
+                    )}
+                  >
+                    <NextImage
+                      alt={`Preview ${index + 1}`}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      fill
+                      src={f.preview}
+                      unoptimized
+                    />
+                    <div className="absolute top-2 right-2 flex gap-2 overflow-hidden px-1 py-1 transition-opacity group-hover:opacity-100 sm:opacity-0">
+                      <Button
+                        className="h-8 w-8 rounded-full shadow-lg backdrop-blur-md"
+                        onClick={() => removeImage(index)}
+                        size="icon"
+                        type="button"
+                        variant="destructive"
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            {selectedFiles.length > 1 && (
+              <>
+                <CarouselPrevious className="left-2 h-8 w-8 border-none bg-background/50 backdrop-blur-md hover:bg-background/80" />
+                <CarouselNext className="right-2 h-8 w-8 border-none bg-background/50 backdrop-blur-md hover:bg-background/80" />
+              </>
             )}
-            key={f.preview}
-          >
-            <NextImage
-              alt={`Selection ${index + 1}`}
-              className="h-full w-full object-cover"
-              height={100}
-              src={f.preview}
-              unoptimized
-              width={100}
-            />
-            <button
-              className="absolute top-1 right-1 rounded-full bg-black/50 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100"
-              onClick={() => removeImage(index)}
-              type="button"
-            >
-              <X className="h-3 w-3" />
-            </button>
+          </Carousel>
+
+          {/* Pagination/Scroll Strip */}
+          <div className="mt-4 flex items-center justify-between gap-4">
+            <div className="scrollbar-hide flex flex-1 gap-1.5 overflow-x-auto pb-1">
+              {selectedFiles.map((f, i) => (
+                <button
+                  className={cn(
+                    "h-1.5 rounded-full shadow-sm transition-all duration-300",
+                    current === i
+                      ? "w-6 bg-primary"
+                      : "w-1.5 bg-border hover:bg-muted-foreground",
+                  )}
+                  key={`dot-${f.id}`}
+                  onClick={() => api?.scrollTo(i)}
+                  type="button"
+                />
+              ))}
+            </div>
+            {selectedFiles.length < maxImages && (
+              <Button
+                className="h-8 flex-shrink-0 gap-2 border-dashed"
+                onClick={() => fileInputRef.current?.click()}
+                size="sm"
+                type="button"
+                variant="outline"
+              >
+                <Plus className="h-4 w-4" />
+                Add More
+              </Button>
+            )}
           </div>
-        ))}
-
-        {selectedFiles.length < maxImages && (
-          <Button
-            className={cn(
-              "relative flex h-auto cursor-pointer flex-col items-center justify-center rounded-md border-2 border-border border-dashed p-0 transition-colors hover:bg-accent/50",
-              aspectRatio === "1:1" && "aspect-square",
-              aspectRatio === "16:9" && "aspect-video",
-              aspectRatio === "4:5" && "aspect-4/5",
-            )}
-            onClick={() => fileInputRef.current?.click()}
-            type="button"
-            variant="ghost"
-          >
-            <Upload className="mb-2 h-6 w-6 text-muted-foreground" />
-            <span className="text-[10px] text-muted-foreground">Add Photo</span>
-            <input
-              accept="image/*"
-              className="hidden"
-              multiple
-              onChange={onFileChange}
-              ref={fileInputRef}
-              type="file"
-            />
-          </Button>
-        )}
-      </div>
-
-      {!selectedFiles.length && (
-        <div className="flex items-center gap-2 rounded-md bg-accent/20 p-4 text-muted-foreground text-sm">
-          <ImageIcon className="h-4 w-4" />
-          <span>Select images to make your post more engaging.</span>
         </div>
+      ) : (
+        <Button
+          className={cn(
+            "relative flex h-auto min-h-[240px] w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-border border-dashed transition-all hover:border-primary/50 hover:bg-accent/50",
+            aspectRatioClass,
+          )}
+          onClick={() => fileInputRef.current?.click()}
+          type="button"
+          variant="ghost"
+        >
+          <div className="flex flex-col items-center gap-3">
+            <div className="rounded-full bg-primary/10 p-4">
+              <Upload className="h-8 w-8 text-primary opacity-80" />
+            </div>
+            <div className="text-center">
+              <span className="block font-semibold text-foreground">
+                Click to upload images
+              </span>
+              <span className="mt-1 text-muted-foreground/60 text-xs italic">
+                Support for multiple files up to {maxImages} photos
+              </span>
+            </div>
+          </div>
+        </Button>
       )}
+
+      <input
+        accept="image/*"
+        className="hidden"
+        multiple
+        onChange={onFileChange}
+        ref={fileInputRef}
+        type="file"
+      />
     </div>
   );
 }

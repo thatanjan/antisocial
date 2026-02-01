@@ -66,9 +66,7 @@ export function PostCreationModal() {
   ): Promise<ImageKitUploadResponse[]> => {
     if (!PUBLIC_KEY) throw new Error("ImageKit public key is not configured.");
 
-    const results: ImageKitUploadResponse[] = [];
-
-    for (const file of files) {
+    const uploadPromises = files.map(async (file) => {
       // 1. Compress Image
       const compressedFile = await compressImage(file);
 
@@ -79,7 +77,10 @@ export function PostCreationModal() {
       // 3. Upload to ImageKit
       const formData = new FormData();
       formData.append("file", compressedFile);
-      formData.append("fileName", `post_${Date.now()}.jpg`);
+      formData.append(
+        "fileName",
+        `post_${Date.now()}_${Math.random().toString(36).substring(7)}.jpg`,
+      );
       formData.append("publicKey", PUBLIC_KEY);
       formData.append("signature", authData.signature);
       formData.append("expire", authData.expire.toString());
@@ -95,14 +96,15 @@ export function PostCreationModal() {
         },
       );
 
-      if (!uploadRes.ok)
-        throw new Error("Upload failed for one or more images.");
+      if (!uploadRes.ok) {
+        const errorText = await uploadRes.text();
+        throw new Error(`Upload failed: ${errorText}`);
+      }
 
-      const result = (await uploadRes.json()) as ImageKitUploadResponse;
-      results.push(result);
-    }
+      return (await uploadRes.json()) as ImageKitUploadResponse;
+    });
 
-    return results;
+    return Promise.all(uploadPromises);
   };
 
   const onSubmit = (data: CreatePostSchema) => {
@@ -178,7 +180,7 @@ export function PostCreationModal() {
           Create Post
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[525px]">
+      <DialogContent className="sm:max-w-[600px]">
         <form className="relative" onSubmit={handleSubmit(onSubmit)}>
           {isPending && (
             <div className="absolute inset-0 z-50 flex items-center justify-center bg-background/50 backdrop-blur-[1px]">
