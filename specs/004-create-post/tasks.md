@@ -42,13 +42,13 @@
 
 **Independent Test**: Open modal, enter text < 1000 chars, click "Create", verify server record, and verify redirect to `/post/[id]`.
 
-- [ ] T010 [US1] Create the base `PostCreationModal` component in `src/features/create-post/components/PostCreationModal.tsx`
-- [ ] T011 [US1] Implement "Create Post" trigger button in `src/app/(dashboard)/feed/page.tsx`
-- [ ] T012 [US1] Add text description input with character counter (max 1000) to `PostCreationModal.tsx`
-- [ ] T013 [US1] Implement `createPostAction` in `src/features/create-post/actions/index.ts` (handling text only initially)
-- [ ] T014 [US1] Integrate `createPostAction` with the form in `PostCreationModal.tsx` using `useTransition`
-- [ ] T015 [US1] Implement redirection to `/post/[id]` on success in `PostCreationModal.tsx`
-- [ ] T016 [US1] Create the post detail page in `src/app/post/[id]/page.tsx` (basic layout)
+- [x] T010 [US1] Create the base `PostCreationModal` component in `src/features/create-post/components/PostCreationModal.tsx`
+- [x] T011 [US1] Implement "Create Post" trigger button in `src/app/(authenticated)/feed/page.tsx`
+- [x] T012 [US1] Add text description input with character counter (max 1000) to `PostCreationModal.tsx`
+- [x] T013 [US1] Implement `createPostAction` in `src/features/create-post/actions/index.ts` (handling text only initially)
+- [x] T014 [US1] Integrate `createPostAction` with the form in `PostCreationModal.tsx` using `useTransition`
+- [x] T015 [US1] Implement redirection to `/post/[id]` on success in `PostCreationModal.tsx`
+- [x] T016 [US1] Create the post detail page in `src/app/(authenticated)/post/[id]/page.tsx` (basic layout)
 
 **Checkpoint**: Text-only posting is functional.
 

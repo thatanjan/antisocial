@@ -24,6 +24,7 @@ export const metadata: Metadata = {
   description: "A modern social media foundation.",
 };
 
+import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
@@ -49,6 +50,7 @@ export default function RootLayout({
           enableSystem={false}
         >
           {children}
+          <Toaster position="bottom-right" richColors />
           <div className="fixed top-4 right-4 z-50">
             <ThemeToggle />
           </div>

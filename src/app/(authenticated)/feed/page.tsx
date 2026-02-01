@@ -8,12 +8,14 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 
+import { PostCreationModal } from "@/features/create-post/components/PostCreationModal";
+
 export default function FeedPage() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <h2 className="font-bold text-xl tracking-tight">Your Feed</h2>
-        <Button size="sm">Create Post</Button>
+        <PostCreationModal />
       </div>
 
       <div className="space-y-6">
