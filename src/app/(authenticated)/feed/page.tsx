@@ -1,5 +1,4 @@
 import { PostCard } from "@/features/create-post/components/PostCard";
-import { PostCreationModal } from "@/features/create-post/components/PostCreationModal";
 import prisma from "@/lib/prisma";
 
 /**
@@ -24,7 +23,6 @@ export default async function FeedPage() {
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <h2 className="font-bold text-xl tracking-tight">Your Feed</h2>
-        <PostCreationModal />
       </div>
 
       <div className="space-y-6">

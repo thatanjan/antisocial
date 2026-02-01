@@ -11,6 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { PostCreationModal } from "@/features/create-post/components/PostCreationModal";
 import {
   currentUser,
   navItems,
@@ -63,6 +64,10 @@ export const MobileNav = () => {
                     <NavLinkItem item={item} key={item.href} />
                   ))}
                 </nav>
+
+                <div className="px-4">
+                  <PostCreationModal className="w-full justify-start rounded-xl py-6" />
+                </div>
 
                 <div className="border-border/50 border-t pt-6">
                   <p className="mb-4 px-4 font-semibold text-2xs text-muted-foreground uppercase tracking-widest">

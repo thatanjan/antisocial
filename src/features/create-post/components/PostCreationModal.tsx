@@ -33,7 +33,7 @@ const AUTH_ENDPOINT = "/api/upload-auth";
  * Modal component for creating a new post.
  * Handles deferred image uploads to ImageKit upon post submission.
  */
-export function PostCreationModal() {
+export function PostCreationModal({ className }: { className?: string }) {
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -170,7 +170,7 @@ export function PostCreationModal() {
     setValue(
       "images",
       files.map((_, i) => ({
-        url: "pending",
+        url: "https://placeholder.com",
         fileId: "pending",
         orderIndex: i,
       })),
@@ -185,13 +185,19 @@ export function PostCreationModal() {
   return (
     <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
-        <Button size="sm">
+        <Button className={cn(className)} size="sm">
           <Plus className="mr-2 h-4 w-4" />
           Create Post
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
-        <form className="relative" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="relative"
+          onSubmit={handleSubmit(onSubmit, (errors) => {
+            console.error("Form validation errors:", errors);
+            toast.error("Please check the form for errors.");
+          })}
+        >
           {isPending && (
             <div className="absolute inset-0 z-50 flex items-center justify-center bg-background/50 backdrop-blur-[1px]">
               <div className="flex flex-col items-center gap-2">

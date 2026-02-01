@@ -1,4 +1,5 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { PostCreationModal } from "@/features/create-post/components/PostCreationModal";
 import { currentUser, navItems } from "../utils/mock-data";
 import { NavLinkItem } from "./NavLinkItem";
 import { ProfileSummary } from "./ProfileSummary";
@@ -31,6 +32,11 @@ export const LeftSidebar = () => {
               <NavLinkItem item={item} key={item.href} />
             ))}
           </nav>
+
+          {/* Create Post Button Section */}
+          <div className="mt-4 px-2">
+            <PostCreationModal className="w-full justify-start rounded-xl py-6 shadow-md" />
+          </div>
         </div>
       </ScrollArea>
     </aside>
