@@ -79,11 +79,11 @@
 
 **Independent Test**: View a post with 3 images; swipe through carousel. View a long description; click "See more" to expand.
 
-- [ ] T025 [P] [US3] Build `CarouselDisplay` component using Shadcn Carousel in `src/features/create-post/components/CarouselDisplay.tsx`
-- [ ] T026 [P] [US3] Build `CollapsibleDescription` component with 2-line limit in `src/features/create-post/components/CollapsibleDescription.tsx`
-- [ ] T027 [US3] Create `PostCard` component in `src/features/create-post/components/PostCard.tsx` combining display items
-- [ ] T028 [US3] Update feed page `src/app/(dashboard)/feed/page.tsx` to fetch and display posts using `PostCard`
-- [ ] T029 [US3] Implement the same `PostCard` usage in `src/app/post/[id]/page.tsx`
+- [x] T025 [P] [US3] Build `CarouselDisplay` component using Shadcn Carousel in `src/features/create-post/components/CarouselDisplay.tsx`
+- [x] T026 [P] [US3] Build `CollapsibleDescription` component with 2-line limit in `src/features/create-post/components/CollapsibleDescription.tsx`
+- [x] T027 [US3] Create `PostCard` component in `src/features/create-post/components/PostCard.tsx` combining display items
+- [x] T028 [US3] Update feed page `src/app/(authenticated)/feed/page.tsx` to fetch and display posts using `PostCard`
+- [x] T029 [US3] Implement the same `PostCard` usage in `src/app/(authenticated)/post/[id]/page.tsx`
 
 ---
 
