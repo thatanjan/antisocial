@@ -19,14 +19,17 @@ export const proxy = async (request: NextRequest) => {
 
   const authRoutes = ["/login", "/register", "/forgot-password", "/reset-password", "/verify-email", "/resend-verification-email", "/login/magic"]
   // 1. Homepage is always public
-  if (publicRoutes.includes(pathname)) {
+  if (pathname === "/") {
     return NextResponse.next();
   }
 
   // 2. Login page check
-  if (authRoutes.includes(pathname) && sessionCookie) {
+  if (authRoutes.includes('/login')) {
     // If user is already logged in, redirect them to the feed
-    return NextResponse.redirect(new URL("/feed", request.url));
+    if (sessionCookie) {
+      return NextResponse.redirect(new URL("/feed", request.url));
+    }
+    return NextResponse.next();
   }
 
   // 3. All other pages require authentication
