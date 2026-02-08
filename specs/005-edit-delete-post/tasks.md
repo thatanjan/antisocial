@@ -44,10 +44,10 @@
 
 ### Implementation for User Story 1
 
-- [ ] T004 [P] [US1] Create `EditPostDialog` component with small image preview and textarea in `src/features/create-post/components/EditPostDialog.tsx`
-- [ ] T005 [P] [US1] Implement `updatePostAction` in `src/features/create-post/actions/index.ts` with owner verification
-- [ ] T006 [P] [US1] Create `PostActions` dropdown component in `src/features/create-post/components/PostActions.tsx` (initially with Edit option)
-- [ ] T007 [US1] Integrate `PostActions` into `PostCard.tsx` and ensure it only renders for the post owner in `src/features/create-post/components/PostCard.tsx`
+- [x] T004 [P] [US1] Create `EditPostDialog` component with small image preview and textarea in `src/features/create-post/components/EditPostDialog.tsx`
+- [x] T005 [P] [US1] Implement `updatePostAction` in `src/features/create-post/actions/index.ts` with owner verification
+- [x] T006 [P] [US1] Create `PostActions` dropdown component in `src/features/create-post/components/PostActions.tsx` (initially with Edit option)
+- [x] T007 [US1] Integrate `PostActions` into `PostCard.tsx` and ensure it only renders for the post owner in `src/features/create-post/components/PostCard.tsx`
 
 **Checkpoint**: User Story 1 (Edit) should be fully functional and testable independently.
 

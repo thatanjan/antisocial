@@ -1,4 +1,6 @@
+import { headers } from "next/headers";
 import { PostCard } from "@/features/create-post/components/PostCard";
+import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
 /**
@@ -6,6 +8,10 @@ import prisma from "@/lib/prisma";
  * Fetches the latest 20 posts from the database.
  */
 export default async function FeedPage() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   const posts = await prisma.post.findMany({
     include: {
       author: true,
@@ -27,7 +33,13 @@ export default async function FeedPage() {
 
       <div className="space-y-6">
         {posts.length > 0 ? (
-          posts.map((post) => <PostCard key={post.id} post={post} />)
+          posts.map((post) => (
+            <PostCard
+              currentUserId={session?.user?.id || ""}
+              key={post.id}
+              post={post}
+            />
+          ))
         ) : (
           <div className="flex flex-col items-center justify-center rounded-lg border-2 border-border border-dashed py-12 text-center">
             <h3 className="font-semibold text-lg">No posts yet</h3>
