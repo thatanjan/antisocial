@@ -77,7 +77,7 @@
 
 ### Implementation for User Story 3
 
-- [ ] T011 [US3] Refine owner-check logic in `PostCard.tsx` and `updatePostAction`/`deletePostAction` for robust security in `src/features/create-post/actions/index.ts`
+- [x] T011 [US3] Refine owner-check logic in `PostCard.tsx` and `updatePostAction`/`deletePostAction` for robust security in `src/features/create-post/actions/index.ts`
 
 ---
 
@@ -85,9 +85,9 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T012 [P] Add success/error toast notifications for edit and delete actions in `src/features/create-post/components/PostActions.tsx`
-- [ ] T013 [P] Ensure responsive design for dialogs and thumbnails on mobile in `src/features/create-post/components/EditPostDialog.tsx`
-- [ ] T014 Run `quickstart.md` validation and perform final cleanup
+- [x] T012 [P] Add success/error toast notifications for edit and delete actions in `src/features/create-post/components/PostActions.tsx` (Handled in Dialogs)
+- [x] T013 [P] Ensure responsive design for dialogs and thumbnails on mobile in `src/features/create-post/components/EditPostDialog.tsx`
+- [x] T014 Run `quickstart.md` validation and perform final cleanup
 
 ---
 

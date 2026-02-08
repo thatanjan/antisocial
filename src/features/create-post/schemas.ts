@@ -52,4 +52,3 @@ export const updatePostSchema = z.object({
 });
 
 export type UpdatePostSchema = z.infer<typeof updatePostSchema>;
-

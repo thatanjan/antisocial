@@ -149,7 +149,6 @@ export const updatePostAction = async (
 export const deletePostAction = async (
   postId: string,
 ): Promise<DeletePostResult> => {
-  console.log(postId)
   try {
     const session = await auth.api.getSession({
       headers: await headers(),
@@ -180,7 +179,7 @@ export const deletePostAction = async (
     const fileIds = existingPost.images.map((img) => img.fileId);
     if (fileIds.length > 0) {
       try {
-        // Using Promise.allSettled to ensure we try to delete all images 
+        // Using Promise.allSettled to ensure we try to delete all images
         // even if some fail (e.g. already deleted or invalid fileId)
         await Promise.allSettled(fileIds.map((id) => imagekit.deleteFile(id)));
       } catch (error) {
@@ -201,6 +200,7 @@ export const deletePostAction = async (
 
     revalidatePath("/feed");
     revalidatePath(`/profile/${session.user.id}`);
+    revalidatePath(`/post/${postId}`);
 
     return { success: true };
   } catch (error) {
