@@ -45,3 +45,25 @@ export interface CreatePostInput {
 export type CreatePostResult =
   | { success: true; postId: string }
   | { success: false; error: string };
+
+/**
+ * Input for the update post server action.
+ */
+export interface UpdatePostInput {
+  postId: string;
+  content?: string;
+}
+
+/**
+ * Result of the update post server action.
+ */
+export type UpdatePostResult =
+  | { success: true }
+  | { success: false; error: string };
+
+/**
+ * Result of the delete post server action.
+ */
+export type DeletePostResult =
+  | { success: true }
+  | { success: false; error: string };

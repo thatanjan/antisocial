@@ -38,3 +38,18 @@ export const createPostSchema = z
   );
 
 export type CreatePostSchema = z.infer<typeof createPostSchema>;
+
+/**
+ * Zod schema for update post input.
+ * Only allows updating the text content.
+ */
+export const updatePostSchema = z.object({
+  postId: z.string().min(1, "Post ID is required"),
+  content: z
+    .string()
+    .max(1000, "Description cannot exceed 1000 characters")
+    .optional(),
+});
+
+export type UpdatePostSchema = z.infer<typeof updatePostSchema>;
+

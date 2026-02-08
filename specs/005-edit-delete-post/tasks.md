@@ -29,8 +29,8 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T002 Update `updatePostSchema` in `src/features/create-post/schemas/index.ts` to validate post updates
-- [ ] T003 Create optimistic update or result types in `src/features/create-post/types/index.ts` if needed for server actions
+- [x] T002 Update `updatePostSchema` in `src/features/create-post/schemas.ts` to validate post updates
+- [x] T003 Create optimistic update or result types in `src/features/create-post/types/index.ts` if needed for server actions
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
