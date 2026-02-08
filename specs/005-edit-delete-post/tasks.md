@@ -19,7 +19,7 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Add required Shadcn components (DropdownMenu, AlertDialog, Dialog) using `npx shadcn@latest add dropdown-menu alert-dialog dialog`
+- [x] T001 Add required Shadcn components (DropdownMenu, AlertDialog, Dialog) using `npx shadcn@latest add dropdown-menu alert-dialog dialog`
 
 ---
 
