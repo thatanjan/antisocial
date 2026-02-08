@@ -12,14 +12,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { PostCreationModal } from "@/features/create-post/components/PostCreationModal";
-import {
-  currentUser,
-  navItems,
-  socialRequests,
-  userSuggestions,
-} from "../utils/mock-data";
+import { navItems, socialRequests, userSuggestions } from "../utils/mock-data";
 import { NavLinkItem } from "./NavLinkItem";
-import { ProfileSummary } from "./ProfileSummary";
 import { SearchBar } from "./SearchBar";
 import { SocialRequestItem } from "./SocialRequestItem";
 import { UserSuggestionItem } from "./UserSuggestionItem";
@@ -28,7 +22,11 @@ import { UserSuggestionItem } from "./UserSuggestionItem";
  * Mobile Navigation component using a Sheet (Drawer) to display
  * sidebars on smaller screens.
  */
-export const MobileNav = () => {
+export const MobileNav = ({
+  profileSummary,
+}: {
+  profileSummary: React.ReactNode;
+}) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -54,7 +52,7 @@ export const MobileNav = () => {
                   </h2>
                 </div>
 
-                <ProfileSummary user={currentUser} />
+                {profileSummary}
 
                 <nav className="flex flex-col gap-1">
                   <p className="mb-2 px-4 font-semibold text-2xs text-muted-foreground uppercase tracking-widest">

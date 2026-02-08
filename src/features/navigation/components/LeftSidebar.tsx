@@ -1,6 +1,6 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { PostCreationModal } from "@/features/create-post/components/PostCreationModal";
-import { currentUser, navItems } from "../utils/mock-data";
+import { navItems } from "../utils/mock-data";
 import { NavLinkItem } from "./NavLinkItem";
 import { ProfileSummary } from "./ProfileSummary";
 
@@ -21,7 +21,7 @@ export const LeftSidebar = () => {
           </div>
 
           {/* Profile Section */}
-          <ProfileSummary user={currentUser} />
+          <ProfileSummary />
 
           {/* Navigation Section */}
           <nav className="mt-4 flex flex-col gap-2">
