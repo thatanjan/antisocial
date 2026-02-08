@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { DeletePostDialog } from "./DeletePostDialog";
 import { EditPostDialog } from "./EditPostDialog";
 
 interface PostImage {
@@ -33,6 +34,7 @@ interface PostActionsProps {
  */
 export function PostActions({ post }: PostActionsProps) {
   const [showEditDialog, setShowEditDialog] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   return (
     <>
@@ -50,12 +52,7 @@ export function PostActions({ post }: PostActionsProps) {
           </DropdownMenuItem>
           <DropdownMenuItem
             className="text-destructive focus:text-destructive"
-            onClick={() => {
-              // Placeholder for US2
-              // Assuming 'toast' is imported elsewhere or will be added.
-              // For now, this makes setShowDeleteDialog unused.
-              // toast.info("Delete functionality coming soon!");
-            }}
+            onClick={() => setShowDeleteDialog(true)}
           >
             <Trash2 className="mr-2 h-4 w-4" />
             <span>Delete Post</span>
@@ -67,6 +64,12 @@ export function PostActions({ post }: PostActionsProps) {
         onOpenChange={setShowEditDialog}
         open={showEditDialog}
         post={post}
+      />
+
+      <DeletePostDialog
+        onOpenChange={setShowDeleteDialog}
+        open={showDeleteDialog}
+        postId={post.id}
       />
     </>
   );

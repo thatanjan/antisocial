@@ -61,9 +61,9 @@
 
 ### Implementation for User Story 2
 
-- [ ] T008 [P] [US2] Create `DeletePostDialog` component with confirmation modal in `src/features/create-post/components/DeletePostDialog.tsx`
-- [ ] T009 [P] [US2] Implement `deletePostAction` in `src/features/create-post/actions/index.ts` (must handle Postgres and ImageKit deletion)
-- [ ] T010 [US2] Add Delete option to `PostActions.tsx` and integrate `DeletePostDialog` in `src/features/create-post/components/PostActions.tsx`
+- [x] T008 [P] [US2] Create `DeletePostDialog` component with confirmation modal in `src/features/create-post/components/DeletePostDialog.tsx`
+- [x] T009 [P] [US2] Implement `deletePostAction` in `src/features/create-post/actions/index.ts` (must handle Postgres and ImageKit deletion)
+- [x] T010 [US2] Add Delete option to `PostActions.tsx` and integrate `DeletePostDialog` in `src/features/create-post/components/PostActions.tsx`
 
 **Checkpoint**: User Story 2 (Delete) should be functional and testable independently.
 
