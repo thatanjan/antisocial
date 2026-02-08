@@ -5,7 +5,7 @@
 /**
  * Supported aspect ratios for post images.
  */
-export type AspectRatio = '16:9' | '1:1' | '4:5';
+export type AspectRatio = "16:9" | "1:1" | "4:5";
 
 /**
  * Image data structure as received from ImageKit after upload.

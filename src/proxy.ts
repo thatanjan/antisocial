@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 /**
  * Optimistic auth proxy/middleware logic.
- * 
+ *
  * Rules:
  * 1. Homepage ("/") is public.
  * 2. Login page ("/login") is accessible if NOT logged in. Redirects to "/feed" if logged in.
@@ -14,17 +14,25 @@ export const proxy = async (request: NextRequest) => {
   const sessionCookie = getSessionCookie(request);
   const { pathname } = request.nextUrl;
 
-  const publicRoutes = ["/"]
+  const publicRoutes = ["/"];
 
+  const authRoutes = [
+    "/login",
+    "/register",
+    "/forgot-password",
+    "/reset-password",
+    "/verify-email",
+    "/resend-verification-email",
+    "/login/magic",
+  ];
 
-  const authRoutes = ["/login", "/register", "/forgot-password", "/reset-password", "/verify-email", "/resend-verification-email", "/login/magic"]
   // 1. Homepage is always public
-  if (pathname === "/") {
+  if (publicRoutes.includes(pathname)) {
     return NextResponse.next();
   }
 
   // 2. Login page check
-  if (authRoutes.includes('/login')) {
+  if (authRoutes.includes(pathname)) {
     // If user is already logged in, redirect them to the feed
     if (sessionCookie) {
       return NextResponse.redirect(new URL("/feed", request.url));

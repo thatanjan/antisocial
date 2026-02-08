@@ -50,5 +50,5 @@ export interface SocialItem {
   /** URL to the user's avatar image */
   avatar: string;
   /** Optional status of the social connection */
-  status?: 'active' | 'pending' | 'suggested';
+  status?: "active" | "pending" | "suggested";
 }

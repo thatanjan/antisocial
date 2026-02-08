@@ -11,14 +11,14 @@ const defaultOptions = {
 
 /**
  * Compresses an image file before uploading.
- * 
+ *
  * @param file - The original file object from the input.
  * @param options - Optional override for compression settings.
  * @returns A promise that resolves with the compressed File object.
  */
 export const compressImage = async (
   file: File,
-  options: typeof defaultOptions = defaultOptions
+  options: typeof defaultOptions = defaultOptions,
 ): Promise<File> => {
   try {
     return await imageCompression(file, options);
