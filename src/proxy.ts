@@ -2,24 +2,46 @@ import { getSessionCookie } from "better-auth/cookies";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-// This function can be marked `async` if using `await` inside
+/**
+ * Optimistic auth proxy/middleware logic.
+ * 
+ * Rules:
+ * 1. Homepage ("/") is public.
+ * 2. Login page ("/login") is accessible if NOT logged in. Redirects to "/feed" if logged in.
+ * 3. All other routes require a valid session cookie.
+ */
 export const proxy = async (request: NextRequest) => {
   const sessionCookie = getSessionCookie(request);
+  const { pathname } = request.nextUrl;
 
-  // NOTE:
-  // THIS IS NOT SECURE!
-  // This is the recommended approach to optimistically redirect users
-  // We recommend handling auth checks in each page/route
+  const publicRoutes = ["/"]
+
+
+  const authRoutes = ["/login", "/register", "/forgot-password", "/reset-password", "/verify-email", "/resend-verification-email", "/login/magic"]
+  // 1. Homepage is always public
+  if (publicRoutes.includes(pathname)) {
+    return NextResponse.next();
+  }
+
+  // 2. Login page check
+  if (authRoutes.includes(pathname) && sessionCookie) {
+    // If user is already logged in, redirect them to the feed
+    return NextResponse.redirect(new URL("/feed", request.url));
+  }
+
+  // 3. All other pages require authentication
   if (!sessionCookie) {
-    return NextResponse.redirect(new URL("/", request.url));
+    // Redirect to login if unauthenticated
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   return NextResponse.next();
 };
 
-// Alternatively, you can use a default export:
-// export default function proxy(request: NextRequest) { ... }
-
+/**
+ * Next.js Middleware matcher configuration.
+ * Excludes internal paths and API routes from auth checks.
+ */
 export const config = {
-  matcher: "/about/:path*",
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
