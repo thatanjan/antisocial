@@ -1,19 +1,37 @@
 import { MapPin } from "lucide-react";
+import { headers } from "next/headers";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { auth } from "@/lib/auth";
 import type { MockUser } from "../types";
+import { currentUser as dummyUser } from "../utils/mock-data";
 
 /**
- * Props for the ProfileSummary component.
+ * Displays a summary of the user's profile.
+ * Server component that fetches the session directly.
  */
-interface ProfileSummaryProps {
-  /** The user data to display */
-  user: MockUser;
-}
+export const ProfileSummary = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
-/**
- * Displays a summary of the user's profile including avatar, name, and social metrics.
- */
-export const ProfileSummary = ({ user }: ProfileSummaryProps) => {
+  // Map session user to MockUser interface, falling back to dummy data
+  const user: MockUser = session?.user
+    ? {
+        id: session.user.id,
+        name: session.user.name,
+        handle: `@${session.user.name.toLowerCase().replace(/\s/g, "")}`,
+        avatar:
+          session.user.image ||
+          `https://api.dicebear.com/7.x/avataaars/svg?seed=${session.user.id}`,
+        location: "Global Wanderer", // Dummy as it's not in DB yet
+        stats: {
+          posts: 0, // Dummy for now
+          followers: 0,
+          following: 0,
+        },
+      }
+    : dummyUser;
+
   return (
     <div className="flex flex-col items-center rounded-2xl border border-border bg-card p-6 shadow-sm">
       <Avatar className="h-20 w-20 border-4 border-background shadow-xl">

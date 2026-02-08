@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { LeftSidebar } from "@/features/navigation/components/LeftSidebar";
 import { MobileNav } from "@/features/navigation/components/MobileNav";
+import { ProfileSummary } from "@/features/navigation/components/ProfileSummary";
 import { RightSidebar } from "@/features/navigation/components/RightSidebar";
 
 export const metadata: Metadata = {
@@ -16,7 +17,7 @@ export default function AuthenticatedLayout({
   return (
     <div className="min-h-screen bg-background font-sans">
       {/* Mobile Navigation Header */}
-      <MobileNav />
+      <MobileNav profileSummary={<ProfileSummary />} />
 
       {/* Main Grid Layout */}
       <div className="mx-auto flex w-full max-w-layout justify-center lg:gap-6">

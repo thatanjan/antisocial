@@ -32,6 +32,7 @@ const LoginSubmitButton = () => {
       ) : (
         <>
           <svg
+            aria-hidden="true"
             className="h-5 w-5 transition-transform group-hover:scale-110"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"

@@ -22,7 +22,7 @@ export const signInWithGoogle = async () => {
 
   // If no URL returned, redirect back to login with error
   redirect("/login?error=OAuthInitFailed");
-}
+};
 
 /**
  * Server Action to sign out the current user.
@@ -34,9 +34,7 @@ export const signOutAction = async () => {
   });
 
   redirect("/login");
-}
-
-
+};
 
 /**
  * Server Action to get the current user session.
@@ -46,4 +44,4 @@ export const getSession = async () => {
   return await auth.api.getSession({
     headers: await headers(),
   });
-}
+};

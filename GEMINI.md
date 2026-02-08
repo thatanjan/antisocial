@@ -29,10 +29,10 @@ TypeScript (strict mode): Follow standard conventions
 - Always use `const` for variables; use `let` ONLY if re-assignment is strictly necessary
 
 ## Recent Changes
+- 004-create-post: Added TypeScript (strict mode) + Shadcn UI, React Hook Form, Zod, Better Auth
 - 003-side-navs: Added TypeScript (strict mode) + Shadcn UI (Sheet, ScrollArea, Avatar, Input, Button), Lucide React
 - 002-google-auth-page: Added TypeScript (strict mode) + Shadcn UI, React Hook Form, Zod, Better Auth, next-themes
 
-- 001-project-setup: Added TypeScript (strict mode) + Shadcn UI, React Hook Form, Zod, Better Auth
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->

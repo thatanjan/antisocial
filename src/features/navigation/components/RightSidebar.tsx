@@ -41,7 +41,7 @@ export const RightSidebar = () => {
             </div>
 
             <Button
-              className="w-full text-muted-foreground text-xs transition-colors hover:text-primary"
+              className="w-full text-muted-foreground text-xs transition-colors"
               size="sm"
               variant="ghost"
             >
@@ -67,7 +67,7 @@ export const RightSidebar = () => {
             </div>
 
             <Button
-              className="w-full text-muted-foreground text-xs transition-colors hover:text-primary"
+              className="w-full text-muted-foreground text-xs transition-colors"
               size="sm"
               variant="ghost"
             >
