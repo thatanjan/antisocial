@@ -1,5 +1,5 @@
 import { formatDistanceToNow } from "date-fns";
-import { Heart, MessageCircle, MoreHorizontal, Share2 } from "lucide-react";
+import { Heart, MessageCircle, Share2 } from "lucide-react";
 import Link from "next/link";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -13,6 +13,7 @@ import {
 import type { AspectRatio } from "../types";
 import { CarouselDisplay } from "./CarouselDisplay";
 import { CollapsibleDescription } from "./CollapsibleDescription";
+import { PostActions } from "./PostActions";
 
 interface Author {
   id: string;
@@ -36,13 +37,15 @@ interface Post {
 
 interface PostCardProps {
   post: Post;
+  currentUserId: string;
 }
 
 /**
  * Main component to display a post in the feed or detail page.
  * Combines author info, images (in a carousel), and collapsible description.
  */
-export function PostCard({ post }: PostCardProps) {
+export function PostCard({ post, currentUserId }: PostCardProps) {
+  const isOwner = currentUserId === post.author.id;
   const timeAgo = formatDistanceToNow(new Date(post.createdAt), {
     addSuffix: true,
   });
@@ -64,9 +67,7 @@ export function PostCard({ post }: PostCardProps) {
           </Link>
           <span className="text-muted-foreground text-xs">{timeAgo}</span>
         </div>
-        <Button className="ml-auto" size="icon" variant="ghost">
-          <MoreHorizontal className="h-4 w-4" />
-        </Button>
+        {isOwner && <PostActions post={post} />}
       </CardHeader>
 
       <CardContent className="space-y-4 p-4 pt-0">
