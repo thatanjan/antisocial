@@ -2,10 +2,10 @@
 
 ## Decisions & Rationale
 
-### 1. Data Model: `Like` Table
-- **Decision**: Create a dedicated `Like` model instead of a generic `Reaction`.
+### 1. Data Model: `PostLikes` Table
+- **Decision**: Create a dedicated `PostLikes` model.
 - **Rationale**: 
-    - Since "Dislike" is explicitly omitted and defined as "removing a like", a dedicated `Like` model is the most semantic and performant approach.
+    - Since "Dislike" is explicitly omitted and defined as "removing a like", a dedicated `PostLikes` model is the most semantic and performant approach.
     - Unique index on `(userId, postId)` ensures one like per user per post.
 - **Alternatives Considered**: 
     - Boolean field on Post: Not scalable for multi-user interactions.
@@ -16,9 +16,10 @@
     - Provides a premium, app-like feel where the heart icon fills instantly.
     - Revert logic handles network errors gracefully.
 
-### 3. State Management: Passed from Server
-- **Decision**: Server Component fetches `isLiked` and `likeCount`.
-- **Rationale**: Maintains SEO and performance while keeping the Client Component focused only on the interaction.
+### 3. State Management & Performance
+- **Decision**: Store `likeCount` directly on the `Post` model (denormalization).
+- **Rationale**: User requested for performance. Fetching posts and their like counts becomes a single-table fast operation.
+- **Consistency**: Use Prisma transactions to update `likeCount` whenever a `Like` record is created or deleted.
 
 ## Best Practices & Patterns
 

@@ -54,8 +54,8 @@ As a user, I want the UI to correctly reflect the actual state when a like actio
 
 ### Key Entities
 
-- **Post**: Attributes include like count.
-- **Like**: Represents a specific user's interaction with a post. Attributes include User ID and Post ID.
+- **Post**: Attributes include a stored `likeCount` for performance.
+- **PostLikes**: Represents a specific user's interaction with a post. Attributes include User ID and Post ID.
 
 ## Assumptions & Dependencies
 

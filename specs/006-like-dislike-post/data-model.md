@@ -1,9 +1,9 @@
-# Data Model: Likes
+# Data Model: PostLikes
 
 ## Prisma Schema
 
 ```prisma
-model Like {
+model PostLikes {
   id        String       @id @default(cuid())
   userId    String
   user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -13,25 +13,26 @@ model Like {
 
   @@unique([userId, postId])
   @@index([postId])
-  @@map("like")
+  @@map("post_likes")
 }
 
 // Add to Post model
 model Post {
   // ... existing fields
-  likes Like[]
+  likeCount Int @default(0)
+  postLikes PostLikes[]
 }
 
 // Add to User model
 model User {
   // ... existing fields
-  likes Like[]
+  postLikes PostLikes[]
 }
 ```
 
 ## Entity Details
 
-### Like
+### PostLikes
 - **userId**: Foreign key to the User who liked.
 - **postId**: Foreign key to the Post.
 - **Unique Constraint**: `[userId, postId]` ensures a user can only like a post once.
@@ -40,5 +41,5 @@ model User {
 
 | Current State | Action | New State |
 |---------------|--------|-----------|
-| None          | LIKE   | Like Created |
-| LIKED         | LIKE   | Like Deleted (Toggle Off) |
+| None          | LIKE   | PostLikes Created |
+| LIKED         | LIKE   | PostLikes Deleted (Toggle Off) |

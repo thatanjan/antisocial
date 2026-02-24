@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  id            String    @id
+  id            String      @id
   name          String
   email         String
   emailVerified Boolean
@@ -24,6 +24,7 @@ model User {
   sessions      Session[]
   accounts      Account[]
   posts         Post[]
+  postLikes     PostLikes[]
 
   @@unique([email])
   @@map("user")
@@ -41,8 +42,8 @@ model Session {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([token])
-  @@map("session")
   @@index([userId])
+  @@map("session")
 }
 
 model Account {
@@ -61,8 +62,8 @@ model Account {
   createdAt             DateTime
   updatedAt             DateTime
 
-  @@map("account")
   @@index([userId])
+  @@map("account")
 }
 
 model Verification {
@@ -73,8 +74,8 @@ model Verification {
   createdAt  DateTime?
   updatedAt  DateTime?
 
-  @@map("verification")
   @@index([identifier])
+  @@map("verification")
 }
 
 model Post {
@@ -84,11 +85,27 @@ model Post {
   content     String?     @db.Text
   aspectRatio String?
   images      PostImage[]
+  likeCount   Int         @default(0)
+  postLikes   PostLikes[]
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 
-  @@map("post")
   @@index([authorId])
+  @@map("post")
+}
+
+model PostLikes {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, postId])
+  @@index([userId])
+  @@index([postId])
+  @@map("post_likes")
 }
 
 model PostImage {
@@ -99,6 +116,6 @@ model PostImage {
   fileId     String
   orderIndex Int
 
-  @@map("post_image")
   @@index([postId])
+  @@map("post_image")
 }

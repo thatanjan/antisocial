@@ -3,7 +3,7 @@
 ## Development Setup
 
 1. **Update Schema**:
-   Run Prisma migration to add the `Like` model.
+   Run Prisma migration to add the `PostLikes` model.
    ```bash
    npx prisma migrate dev --name add_likes
    ```

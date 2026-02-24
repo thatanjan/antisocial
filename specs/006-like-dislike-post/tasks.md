@@ -17,8 +17,8 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [x] T001 Create feature directory structure for `src/features/likes`
-- [x] T002 [P] Create `src/features/likes/types/index.ts` for shared reaction types
+- [ ] T001 Create feature directory structure for `src/features/likes`
+- [ ] T002 [P] Create `src/features/likes/types/index.ts` for shared reaction types
 
 ---
 
@@ -28,9 +28,9 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T003 Update `prisma/schema.prisma` with the `Like` model and relationships
+- [ ] T003 Update `prisma/schema.prisma` with the `PostLikes` model and relationships
 - [ ] T004 Run `npx prisma migrate dev --name add_likes` and `npx prisma generate`
-- [ ] T005 Implement `toggleLikeAction` in `src/features/likes/actions/toggle-like.ts`
+- [ ] T005 Implement `toggleLikeAction` in `src/features/likes/actions/toggle-like.ts` (include atomic `likeCount` update)
 
 **Checkpoint**: Foundation ready - database models and server actions are in place.
 
