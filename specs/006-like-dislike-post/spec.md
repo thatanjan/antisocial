@@ -47,10 +47,11 @@ As a user, I want the UI to correctly reflect the actual state when a like actio
 
 - **FR-001**: System MUST allow authenticated users to "Like" any post that is not their own.
 - **FR-002**: System MUST prevent users from liking their own posts.
-- **FR-003**: System MUST provide optimistic UI updates for likes.
+- **FR-003**: System MUST provide optimistic UI updates for likes using a dedicated `LikeButton` component.
 - **FR-004**: System MUST automatically revert the UI state and display an error if the background update fails.
 - **FR-005**: System MUST provide toggle behavior: clicking an active Like removes it.
 - **FR-006**: System MUST persist the "Liked" state for each user/post pair.
+- **FR-007**: System MUST use a client-side `PostList` component to manage and display the feed of posts.
 
 ### Key Entities
 
@@ -61,6 +62,7 @@ As a user, I want the UI to correctly reflect the actual state when a like actio
 
 ### Assumptions
 - **Authentication**: Users must be authenticated to like.
+- **Client-Side Rendering**: The feed will be handled by a client-side `PostList` component to allow for future real-time or interactive features.
 - **Toggle Meaning**: "Dislike" (removing a like) is functionally identical to untoggling a Like.
 
 ### Dependencies
