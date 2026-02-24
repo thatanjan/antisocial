@@ -44,7 +44,7 @@
 
 ### Implementation for User Story 1
 
-- [ ] T006 [P] [US1] Create `LikeButton.tsx` in `src/features/likes/components/LikeButton.tsx` (Client Component)
+- [x] T006 [P] [US1] Create `LikeButton.tsx` in `src/features/likes/components/LikeButton.tsx` (Client Component)
 - [ ] T007 [US1] Implement `useOptimistic` hook and Server Action call in `LikeButton.tsx`
 - [ ] T008 [P] [US1] Create `PostList.tsx` in `src/features/create-post/components/PostList.tsx` (Client Component using `useState`)
 - [ ] T009 [US1] Update `src/app/(authenticated)/feed/page.tsx` to pass server-fetched posts to the `PostList` component
