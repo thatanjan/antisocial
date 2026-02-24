@@ -17,8 +17,8 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create feature directory structure for `src/features/likes`
-- [ ] T002 [P] Create `src/features/likes/types/index.ts` for shared reaction types
+- [x] T001 Create feature directory structure for `src/features/likes`
+- [x] T002 [P] Create `src/features/likes/types/index.ts` for shared reaction types
 
 ---
 
