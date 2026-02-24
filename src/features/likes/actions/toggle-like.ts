@@ -108,7 +108,6 @@ export const toggleLikeAction = async (
       data: result,
     };
   } catch (error) {
-    
     console.error("Failed to toggle like:", error);
     return {
       success: false,
