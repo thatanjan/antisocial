@@ -46,10 +46,10 @@
 
 - [x] T006 [P] [US1] Create `LikeButton.tsx` in `src/features/likes/components/LikeButton.tsx` (Client Component)
 - [x] T007 [US1] Implement `useOptimistic` hook and Server Action call in `LikeButton.tsx`
-- [ ] T008 [P] [US1] Create `PostList.tsx` in `src/features/create-post/components/PostList.tsx` (Client Component using `useState`)
-- [ ] T009 [US1] Update `src/app/(authenticated)/feed/page.tsx` to pass server-fetched posts to the `PostList` component
-- [ ] T010 [US1] Update `src/features/create-post/components/PostCard.tsx` to integrate the `LikeButton` component
-- [ ] T011 [US1] Ensure post fetching logic includes initial `isLiked` status for the current user and accurately reflects the stored `likeCount`
+- [x] T008 [P] [US1] Create `PostList.tsx` in `src/features/create-post/components/PostList.tsx` (Client Component using `useState`)
+- [x] T009 [US1] Update `src/app/(authenticated)/feed/page.tsx` to pass server-fetched posts to the `PostList` component
+- [x] T010 [US1] Update `src/features/create-post/components/PostCard.tsx` to integrate the `LikeButton` component
+- [x] T011 [US1] Ensure post fetching logic includes initial `isLiked` status for the current user and accurately reflects the stored `likeCount`
 
 **Checkpoint**: At this point, User Story 1 is fully functional and testable independently.
 
@@ -63,8 +63,8 @@
 
 ### Implementation for User Story 2
 
-- [ ] T012 [US2] Update `LikeButton.tsx` to handle Promise rejection from `toggleLikeAction`
-- [ ] T013 [US2] Add toast notification on failure in `LikeButton.tsx` using `useToast` from Shadcn UI
+- [x] T012 [US2] Update `LikeButton.tsx` to handle Promise rejection from `toggleLikeAction`
+- [x] T013 [US2] Add toast notification on failure in `LikeButton.tsx` using `useToast` from Shadcn UI
 
 **Checkpoint**: User Story 2 ensures UX reliability.
 
@@ -74,9 +74,9 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T014 Add TSDoc comments to all exports in `src/features/likes/`
-- [ ] T015 Ensure `LikeButton` has appropriate `aria-label` for accessibility
-- [ ] T016 Run validation per `quickstart.md` manual verification steps
+- [x] T014 Add TSDoc comments to all exports in `src/features/likes/`
+- [x] T015 Ensure `LikeButton` has appropriate `aria-label` for accessibility
+- [x] T016 Run validation per `quickstart.md` manual verification steps
 
 ---
 

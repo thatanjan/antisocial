@@ -67,3 +67,34 @@ export type UpdatePostResult =
 export type DeletePostResult =
   | { success: true }
   | { success: false; error: string };
+
+/**
+ * Interface for the author of a post.
+ */
+export interface Author {
+  id: string;
+  name: string;
+  image?: string | null;
+}
+
+/**
+ * Interface for an image associated with a post.
+ */
+export interface PostImage {
+  id: string;
+  url: string;
+}
+
+/**
+ * View model for a Post as used in the UI.
+ */
+export interface Post {
+  id: string;
+  content: string | null;
+  aspectRatio: string | null;
+  createdAt: Date;
+  author: Author;
+  images: PostImage[];
+  likeCount: number;
+  isLiked?: boolean;
+}

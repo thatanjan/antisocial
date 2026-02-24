@@ -1,5 +1,5 @@
 import { formatDistanceToNow } from "date-fns";
-import { Heart, MessageCircle, Share2 } from "lucide-react";
+import { MessageCircle, Share2 } from "lucide-react";
 import Link from "next/link";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -10,30 +10,11 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import type { AspectRatio } from "../types";
+import { LikeButton } from "@/features/likes/components/LikeButton";
+import type { AspectRatio, Post } from "../types";
 import { CarouselDisplay } from "./CarouselDisplay";
 import { CollapsibleDescription } from "./CollapsibleDescription";
 import { PostActions } from "./PostActions";
-
-interface Author {
-  id: string;
-  name: string;
-  image?: string | null;
-}
-
-interface PostImage {
-  id: string;
-  url: string;
-}
-
-interface Post {
-  id: string;
-  content: string | null;
-  aspectRatio: string | null;
-  createdAt: Date;
-  author: Author;
-  images: PostImage[];
-}
 
 interface PostCardProps {
   post: Post;
@@ -83,14 +64,11 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
 
       <CardFooter className="flex items-center justify-between border-border/50 border-t p-2">
         <div className="flex items-center gap-1">
-          <Button
-            className="gap-2 text-muted-foreground hover:text-red-500"
-            size="sm"
-            variant="ghost"
-          >
-            <Heart className="h-4 w-4" />
-            <span>0</span>
-          </Button>
+          <LikeButton
+            initialIsLiked={!!post.isLiked}
+            initialLikeCount={post.likeCount}
+            postId={post.id}
+          />
           <Button
             className="gap-2 text-muted-foreground hover:text-primary"
             size="sm"

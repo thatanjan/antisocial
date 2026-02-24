@@ -2,13 +2,20 @@
 
 import { Heart } from "lucide-react";
 import { startTransition, useOptimistic } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { toggleLikeAction } from "../actions/toggle-like";
 
+/**
+ * Interface for the properties of the LikeButton component.
+ */
 interface LikeButtonProps {
+  /** Initial like status from the server */
   initialIsLiked: boolean;
+  /** Initial like count from the server */
   initialLikeCount: number;
+  /** UUID of the post to toggle likes for */
   postId: string;
 }
 
@@ -37,7 +44,7 @@ export function LikeButton({
       const result = await toggleLikeAction(postId);
 
       if (!result.success) {
-        // Error handling can be added here (e.g., toast)
+        toast.error(result.error || "Failed to toggle like");
         console.error("Failed to toggle like:", result.error);
       }
     });
