@@ -67,6 +67,7 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
           <LikeButton
             initialIsLiked={!!post.isLiked}
             initialLikeCount={post.likeCount}
+            isOwner={isOwner}
             postId={post.id}
           />
           <Button

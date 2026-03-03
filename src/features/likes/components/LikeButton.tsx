@@ -17,6 +17,8 @@ interface LikeButtonProps {
   initialLikeCount: number;
   /** UUID of the post to toggle likes for */
   postId: string;
+  /** Whether the current user is the owner of the post */
+  isOwner: boolean;
 }
 
 /**
@@ -27,6 +29,7 @@ export function LikeButton({
   initialIsLiked,
   initialLikeCount,
   postId,
+  isOwner,
 }: LikeButtonProps) {
   const [optimisticState, addOptimisticLike] = useOptimistic(
     { isLiked: initialIsLiked, likeCount: initialLikeCount },
@@ -38,6 +41,11 @@ export function LikeButton({
 
   const handleLike = async () => {
     const newIsLiked = !optimisticState.isLiked;
+
+    if (isOwner) {
+      toast.error("You cannot like your own post!");
+      return;
+    }
 
     startTransition(async () => {
       addOptimisticLike(newIsLiked);
