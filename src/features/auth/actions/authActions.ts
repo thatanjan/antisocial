@@ -29,11 +29,13 @@ export const signInWithGoogle = async () => {
  * Invalidates the session and clears cookies.
  */
 export const signOutAction = async () => {
-  await auth.api.signOut({
+  const res = await auth.api.signOut({
     headers: await headers(),
   });
 
-  redirect("/login");
+  if (res.success) {
+    redirect("/login");
+  }
 };
 
 /**

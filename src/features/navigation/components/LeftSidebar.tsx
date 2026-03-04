@@ -1,4 +1,5 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { LogoutButton } from "@/features/auth/components/LogoutButton";
 import { PostCreationModal } from "@/features/create-post/components/PostCreationModal";
 import { navItems } from "../utils/mock-data";
 import { NavLinkItem } from "./NavLinkItem";
@@ -12,7 +13,7 @@ export const LeftSidebar = () => {
   return (
     <aside className="sticky top-0 hidden h-screen w-col-side min-w-col flex-col overflow-hidden border-border border-r bg-card/30 backdrop-blur-md lg:flex">
       <ScrollArea className="h-full">
-        <div className="flex flex-col gap-6 p-6">
+        <div className="flex grow flex-col gap-6 p-6 pb-20">
           {/* Brand/Logo Area placeholder if needed */}
           <div className="px-2 py-4">
             <h1 className="font-bold text-2xl text-primary tracking-tighter">
@@ -36,6 +37,11 @@ export const LeftSidebar = () => {
           {/* Create Post Button Section */}
           <div className="mt-4 px-2">
             <PostCreationModal className="w-full justify-start rounded-xl py-6 shadow-md" />
+          </div>
+
+          {/* Logout Section */}
+          <div className="mt-auto px-2">
+            <LogoutButton />
           </div>
         </div>
       </ScrollArea>
