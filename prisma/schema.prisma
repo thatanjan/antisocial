@@ -5,12 +5,12 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../src/generated/client"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -41,8 +41,8 @@ model Session {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([token])
-  @@map("session")
   @@index([userId])
+  @@map("session")
 }
 
 model Account {
@@ -61,8 +61,8 @@ model Account {
   createdAt             DateTime
   updatedAt             DateTime
 
-  @@map("account")
   @@index([userId])
+  @@map("account")
 }
 
 model Verification {
@@ -73,8 +73,8 @@ model Verification {
   createdAt  DateTime?
   updatedAt  DateTime?
 
-  @@map("verification")
   @@index([identifier])
+  @@map("verification")
 }
 
 model Post {
@@ -87,8 +87,8 @@ model Post {
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 
-  @@map("post")
   @@index([authorId])
+  @@map("post")
 }
 
 model PostImage {
@@ -99,6 +99,6 @@ model PostImage {
   fileId     String
   orderIndex Int
 
-  @@map("post_image")
   @@index([postId])
+  @@map("post_image")
 }
