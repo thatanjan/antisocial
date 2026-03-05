@@ -28,7 +28,8 @@
       "!.next",
       "!dist",
       "!build",
-      "!src/components/ui"
+      "!src/components/ui",
+      "!src/generated"
     ]
   },
   "formatter": {
