@@ -11,6 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { LogoutButton } from "@/features/auth/components/LogoutButton";
 import { PostCreationModal } from "@/features/create-post/components/PostCreationModal";
 import { navItems, socialRequests, userSuggestions } from "../utils/mock-data";
 import { NavLinkItem } from "./NavLinkItem";
@@ -92,6 +93,10 @@ export const MobileNav = ({
                       ))}
                     </div>
                   </div>
+                </div>
+
+                <div className="mt-4 border-border/50 border-t pt-6">
+                  <LogoutButton />
                 </div>
               </div>
             </ScrollArea>
