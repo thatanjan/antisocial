@@ -15,9 +15,9 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create project structure per implementation plan in `src/features/post-comments/`
-- [ ] T002 [P] Define TypeScript interfaces for comments, replies, and likes in `src/features/post-comments/types/index.ts`
-- [ ] T003 [P] Define Zod schemas for comment and reply validation in `src/features/post-comments/schemas/index.ts`
+- [x] T001 Create project structure per implementation plan in `src/features/post-comments/`
+- [x] T002 [P] Define TypeScript interfaces for comments, replies, and likes in `src/features/post-comments/types/index.ts`
+- [x] T003 [P] Define Zod schemas for comment and reply validation in `src/features/post-comments/schemas/index.ts`
 
 ---
 
