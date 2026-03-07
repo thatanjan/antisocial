@@ -41,7 +41,7 @@
 
 - [x] T007 [US1] Implement `getCommentsAction` to fetch top-level comments for a post in `src/features/post-comments/actions/comments.ts`
 - [x] T008 [US1] Implement `addCommentAction` with `Post.commentCount` increment in `src/features/post-comments/actions/comments.ts`
-- [ ] T009 [US1] Create `CommentInput` component using `src/components/ui/auto-resize-textarea.tsx` in `src/features/post-comments/components/CommentInput.tsx`
+- [x] T009 [US1] Create `CommentInput` component using `src/components/ui/auto-resize-textarea.tsx` in `src/features/post-comments/components/CommentInput.tsx`
 - [ ] T010 [US1] Create `CommentItem` skeleton to display basic comment info in `src/features/post-comments/components/CommentItem.tsx`
 - [ ] T011 [US1] Create `CommentList` component that displays comments and the `CommentInput` in `src/features/post-comments/components/CommentList.tsx`
 - [ ] T012 [US1] Integrate `CommentList` into the post detail page in `src/app/post/[postId]/page.tsx`
