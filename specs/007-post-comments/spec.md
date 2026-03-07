@@ -93,6 +93,7 @@ As a user, I want to see a limited number of comments initially with the ability
 - **FR-012**: System MUST initially display only 5 replies for any given comment (Newest First).
 - **FR-013**: System MUST provide a "load more" button for replies if more than 5 exist for a parent comment.
 - **FR-014**: System MUST NOT provide a dislike button for comments, maintaining a "Like-only" engagement model for this feature.
+- **FR-015**: System MUST limit comment and reply content to a maximum of 2000 characters.
 
 ### Key Entities *(include if feature involves data)*
 

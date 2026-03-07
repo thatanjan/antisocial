@@ -25,9 +25,9 @@
 
 **Purpose**: Core infrastructure and database schema that MUST be complete before ANY user story can be implemented
 
-- [ ] T004 Add `commentCount` to `Post` model and create `PostComment`, `CommentReply`, `CommentLike`, `ReplyLike` models in `prisma/schema.prisma`
-- [ ] T005 [P] Run `npx prisma generate` to update the Prisma Client
-- [ ] T006 Implement denormalization helper functions for count updates in `src/features/post-comments/utils/counts.ts`
+- [x] T004 Add `commentCount` to `Post` model and create `PostComment`, `CommentReply`, `CommentLike`, `ReplyLike` models in `prisma/schema.prisma`
+- [x] T005 [P] Run `npx prisma generate` to update the Prisma Client
+- [x] T006 Implement denormalization helper functions for count updates in `src/features/post-comments/utils/counts.ts`
 
 ---
 

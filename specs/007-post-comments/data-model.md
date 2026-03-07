@@ -10,7 +10,7 @@ Represents a top-level comment on a post.
 - `id`: `String` (CUID, PK)
 - `postId`: `String` (FK to Post)
 - `authorId`: `String` (FK to User)
-- `content`: `String` (Text)
+- `content`: `String` (Max 2000 chars)
 - `likeCount`: `Int` (Default: 0)
 - `replyCount`: `Int` (Default: 0)
 - `createdAt`: `DateTime`
@@ -21,7 +21,7 @@ Represents a reply to a top-level comment.
 - `id`: `String` (CUID, PK)
 - `commentId`: `String` (FK to PostComment)
 - `authorId`: `String` (FK to User)
-- `content`: `String` (Text)
+- `content`: `String` (Max 2000 chars)
 - `likeCount`: `Int` (Default: 0)
 - `createdAt`: `DateTime`
 - `updatedAt`: `DateTime`

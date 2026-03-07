@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  id            String      @id
+  id            String         @id
   name          String
   email         String
   emailVerified Boolean
@@ -25,6 +25,10 @@ model User {
   accounts      Account[]
   posts         Post[]
   postLikes     PostLikes[]
+  comments      PostComment[]
+  replies       CommentReply[]
+  commentLikes  CommentLike[]
+  replyLikes    ReplyLike[]
 
   @@unique([email])
   @@map("user")
@@ -79,16 +83,18 @@ model Verification {
 }
 
 model Post {
-  id          String      @id @default(cuid())
-  authorId    String
-  author      User        @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  content     String?     @db.Text
-  aspectRatio String?
-  images      PostImage[]
-  likeCount   Int         @default(0)
-  postLikes   PostLikes[]
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id           String        @id @default(cuid())
+  authorId     String
+  author       User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  content      String?       @db.Text
+  aspectRatio  String?
+  images       PostImage[]
+  likeCount    Int           @default(0)
+  postLikes    PostLikes[]
+  commentCount Int           @default(0)
+  comments     PostComment[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 
   @@index([authorId])
   @@map("post")
@@ -118,4 +124,68 @@ model PostImage {
 
   @@index([postId])
   @@map("post_image")
+}
+
+model PostComment {
+  id           String         @id @default(cuid())
+  postId       String
+  post         Post           @relation(fields: [postId], references: [id], onDelete: Cascade)
+  authorId     String
+  author       User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  content      String         @db.VarChar(2000)
+  likeCount    Int            @default(0)
+  replyCount   Int            @default(0)
+  replies      CommentReply[]
+  commentLikes CommentLike[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  @@index([postId])
+  @@index([authorId])
+  @@map("post_comment")
+}
+
+model CommentReply {
+  id         String      @id @default(cuid())
+  commentId  String
+  comment    PostComment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  authorId   String
+  author     User        @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  content    String      @db.VarChar(2000)
+  likeCount  Int         @default(0)
+  replyLikes ReplyLike[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@index([commentId])
+  @@index([authorId])
+  @@map("comment_reply")
+}
+
+model CommentLike {
+  id        String      @id @default(cuid())
+  userId    String
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  commentId String
+  comment   PostComment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  createdAt DateTime    @default(now())
+
+  @@unique([userId, commentId])
+  @@index([userId])
+  @@index([commentId])
+  @@map("comment_like")
+}
+
+model ReplyLike {
+  id        String       @id @default(cuid())
+  userId    String
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  replyId   String
+  reply     CommentReply @relation(fields: [replyId], references: [id], onDelete: Cascade)
+  createdAt DateTime     @default(now())
+
+  @@unique([userId, replyId])
+  @@index([userId])
+  @@index([replyId])
+  @@map("reply_like")
 }
