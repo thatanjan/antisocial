@@ -1,7 +1,7 @@
 "use client";
 
 import { Loader2, MessageSquare } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/authClient";
 import { getCommentsAction } from "../actions/comments";
@@ -15,6 +15,10 @@ import { CommentItem } from "./CommentItem";
 interface CommentListProps {
   /** The ID of the post to display comments for. */
   postId: string;
+  /** Initial set of comments fetched on the server. */
+  initialComments: PostComment[];
+  /** Initial total count of comments fetched on the server. */
+  initialTotalCount: number;
 }
 
 /**
@@ -22,27 +26,23 @@ interface CommentListProps {
  * for a specific post. It implements Core Commenting (US1) and prepares
  * for pagination (US4) and management (US2).
  */
-export const CommentList = ({ postId }: CommentListProps) => {
-  const [comments, setComments] = useState<PostComment[]>([]);
-  const [totalCount, setTotalCount] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+export const CommentList = ({
+  postId,
+  initialComments,
+  initialTotalCount,
+}: CommentListProps) => {
+  const [comments, setComments] = useState<PostComment[]>(initialComments);
+  const [totalCount, setTotalCount] = useState(initialTotalCount);
   const [isFetchingMore, setIsFetchingMore] = useState(false);
   const { data: session } = authClient.useSession();
 
   /**
-   * Initial fetch of comments.
+   * Sync server data if it changes (e.g. on navigation)
    */
-  const fetchComments = useCallback(async () => {
-    setIsLoading(true);
-    const result = await getCommentsAction(postId);
-    setComments(result.comments);
-    setTotalCount(result.total);
-    setIsLoading(false);
-  }, [postId]);
-
   useEffect(() => {
-    fetchComments();
-  }, [fetchComments]);
+    setComments(initialComments);
+    setTotalCount(initialTotalCount);
+  }, [initialComments, initialTotalCount]);
 
   /**
    * Handle "Load More" logic - (US4 Integration ready).
@@ -91,14 +91,7 @@ export const CommentList = ({ postId }: CommentListProps) => {
 
       {/* Comments List */}
       <div className="flex flex-col">
-        {isLoading ? (
-          <div className="flex flex-col items-center justify-center gap-3 py-10 text-muted-foreground">
-            <Loader2 className="h-6 w-6 animate-spin text-primary/50" />
-            <p className="font-medium text-xs italic">
-              Loading conversation...
-            </p>
-          </div>
-        ) : comments.length > 0 ? (
+        {comments.length > 0 ? (
           <div className="divide-y divide-border/30">
             {comments.map((comment) => (
               <CommentItem
@@ -121,7 +114,7 @@ export const CommentList = ({ postId }: CommentListProps) => {
         )}
 
         {/* Load More - US4 */}
-        {!isLoading && comments.length < totalCount && (
+        {comments.length < totalCount && (
           <div className="mt-6 flex justify-center border-border/20 border-t pt-6">
             <Button
               className="gap-2 font-bold text-muted-foreground text-xs transition-all duration-200 hover:scale-105 hover:text-primary active:scale-95"

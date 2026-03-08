@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { PostCard } from "@/features/create-post/components/PostCard";
 import type { Post } from "@/features/create-post/types";
+import { getCommentsAction } from "@/features/post-comments/actions/comments";
 import { CommentList } from "@/features/post-comments/components/CommentList";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
@@ -35,6 +36,10 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
     notFound();
   }
 
+  // 2. Fetch initial comments for first paint
+  const { comments: initialComments, total: initialTotalCount } =
+    await getCommentsAction(post.id, 5, 0);
+
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 sm:px-0">
       <PostCard
@@ -42,7 +47,11 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
         post={post as unknown as Post}
       />
 
-      <CommentList postId={post.id} />
+      <CommentList
+        initialComments={initialComments}
+        initialTotalCount={initialTotalCount}
+        postId={post.id}
+      />
     </div>
   );
 }
