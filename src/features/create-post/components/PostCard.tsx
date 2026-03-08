@@ -70,18 +70,22 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
             isOwner={isOwner}
             postId={post.id}
           />
-          <Button
-            className="gap-2 text-muted-foreground hover:text-primary"
-            size="sm"
-            variant="ghost"
-          >
-            <MessageCircle className="h-4 w-4" />
-            <span>0</span>
-          </Button>
+          <Link href={`/post/${post.id}`} passHref>
+            <Button
+              className="gap-2 text-muted-foreground hover:text-primary"
+              size="sm"
+              type="button"
+              variant="ghost"
+            >
+              <MessageCircle className="h-4 w-4" />
+              <span>{post.commentCount}</span>
+            </Button>
+          </Link>
         </div>
         <Button
           className="gap-2 text-muted-foreground"
           size="sm"
+          type="button"
           variant="ghost"
         >
           <Share2 className="h-4 w-4" />

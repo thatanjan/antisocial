@@ -1,5 +1,9 @@
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { PostCard } from "@/features/create-post/components/PostCard";
+import type { Post } from "@/features/create-post/types";
+import { CommentList } from "@/features/post-comments/components/CommentList";
+import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
 interface PostDetailPageProps {
@@ -12,6 +16,9 @@ interface PostDetailPageProps {
  */
 export default async function PostDetailPage({ params }: PostDetailPageProps) {
   const { id } = await params;
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   // 1. Fetch post data
   const post = await prisma.post.findUnique({
@@ -29,14 +36,13 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <PostCard post={post} />
+    <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 sm:px-0">
+      <PostCard
+        currentUserId={session?.user?.id || ""}
+        post={post as unknown as Post}
+      />
 
-      <div className="py-8 text-center">
-        <p className="text-muted-foreground text-sm italic">
-          Comments section coming soon...
-        </p>
-      </div>
+      <CommentList postId={post.id} />
     </div>
   );
 }
