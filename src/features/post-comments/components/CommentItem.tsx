@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { PostComment } from "../types";
+import { CommentInput } from "./CommentInput";
 
 /**
  * Props for the CommentItem component.
@@ -26,6 +27,12 @@ interface CommentItemProps {
   onEdit?: (comment: PostComment) => void;
   /** Callback for when the user wants to delete. */
   onDelete?: (commentId: string) => void;
+  /** Whether the comment is currently being edited. */
+  isEditing?: boolean;
+  /** Callback to cancel editing. */
+  onEditCancel?: () => void;
+  /** Callback for when the comment is successfully updated. */
+  onCommentUpdated?: (commentId: string, content: string) => void;
 }
 
 /**
@@ -39,6 +46,9 @@ export const CommentItem = ({
   onReply,
   onEdit,
   onDelete,
+  isEditing,
+  onEditCancel,
+  onCommentUpdated,
 }: CommentItemProps) => {
   const isOwner = currentUserId === comment.authorId;
   const timeAgo = formatDistanceToNow(new Date(comment.createdAt), {
@@ -101,9 +111,24 @@ export const CommentItem = ({
           )}
         </div>
 
-        <p className="wrap-break-word mt-0.5 whitespace-pre-wrap text-[13px] text-foreground/90 leading-relaxed">
-          {comment.content}
-        </p>
+        {isEditing && onCommentUpdated ? (
+          <div className="mt-1">
+            <CommentInput
+              autoFocus
+              commentId={comment.id}
+              initialContent={comment.content}
+              onCancel={onEditCancel}
+              onSubmit={async (content) =>
+                onCommentUpdated(comment.id, content)
+              }
+              postId={comment.postId}
+            />
+          </div>
+        ) : (
+          <p className="wrap-break-word mt-0.5 whitespace-pre-wrap text-[13px] text-foreground/90 leading-relaxed">
+            {comment.content}
+          </p>
+        )}
 
         {/* Comment Interactions (Like/Reply) - US3 */}
         <div className="mt-2 flex items-center gap-4">

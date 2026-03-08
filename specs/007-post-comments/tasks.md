@@ -60,10 +60,10 @@
 
 ### Implementation for User Story 2
 
-- [ ] T015 [US2] Implement `updateCommentAction` in `src/features/post-comments/actions/comments.ts`
-- [ ] T016 [US2] Implement `deleteCommentAction` with cascade logic and `Post.commentCount` decrement in `src/features/post-comments/actions/comments.ts`
-- [ ] T017 [US2] Add edit/delete dropdown menu to `CommentItem` (conditional on ownership) in `src/features/post-comments/components/CommentItem.tsx`
-- [ ] T018 [US2] Implement optimistic updates for adding, editing, and deleting comments in `src/features/post-comments/components/CommentList.tsx` using `useOptimistic`
+- [x] T015 [US2] Implement `updateCommentAction` in `src/features/post-comments/actions/comments.ts`
+- [x] T016 [US2] Implement `deleteCommentAction` with cascade logic and `Post.commentCount` decrement in `src/features/post-comments/actions/comments.ts`
+- [x] T017 [US2] Add edit/delete dropdown menu to `CommentItem` (conditional on ownership) in `src/features/post-comments/components/CommentItem.tsx`
+- [x] T018 [US2] Implement optimistic updates for adding, editing, and deleting comments in `src/features/post-comments/components/CommentList.tsx` using `useOptimistic`
 
 **Checkpoint**: Users have full control over their own comments with instant UI feedback.
 

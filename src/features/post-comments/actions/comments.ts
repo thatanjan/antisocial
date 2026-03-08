@@ -10,7 +10,10 @@ import type {
   FetchCommentsResponse,
   PostComment,
 } from "../types";
-import { incrementPostCommentCount } from "../utils/counts";
+import {
+  decrementPostCommentCount,
+  incrementPostCommentCount,
+} from "../utils/counts";
 
 /**
  * Server action to fetch top-level comments for a post.
@@ -140,6 +143,155 @@ export const addCommentAction = async (
     return {
       success: false,
       error: "An unexpected error occurred while adding your comment.",
+    };
+  }
+};
+
+/**
+ * Server action to update an existing comment.
+ * Validates ownership and input, then updates the record.
+ *
+ * @param commentId - ID of the comment to update
+ * @param content - New content for the comment
+ * @returns CommentActionResult indicating success or error
+ */
+export const updateCommentAction = async (
+  commentId: string,
+  content: string,
+): Promise<CommentActionResult> => {
+  try {
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+
+    if (!session || !session.user) {
+      return {
+        success: false,
+        error: "Unauthorized. Please log in to edit your comment.",
+      };
+    }
+
+    // Validate input
+    const validated = commentSchema.safeParse({ content });
+    if (!validated.success) {
+      return {
+        success: false,
+        error: validated.error.issues.map((e) => e.message).join(", "),
+      };
+    }
+
+    // Fetch comment to check ownership
+    const comment = await prisma.postComment.findUnique({
+      where: { id: commentId },
+      select: { authorId: true, postId: true },
+    });
+
+    if (!comment) {
+      return { success: false, error: "Comment not found." };
+    }
+
+    if (comment.authorId !== session.user.id) {
+      return {
+        success: false,
+        error: "Forbidden. You can only edit your own comments.",
+      };
+    }
+
+    const updatedComment = await prisma.postComment.update({
+      where: { id: commentId },
+      data: { content: validated.data.content },
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
+      },
+    });
+
+    revalidatePath(`/post/${comment.postId}`);
+
+    const formattedComment: PostComment = {
+      ...updatedComment,
+      isLiked: false, // For update, we can keep it false, caller should ideally merge with existing state
+    };
+
+    return { success: true, comment: formattedComment };
+  } catch (error) {
+    console.error("Failed to update comment:", error);
+    return {
+      success: false,
+      error: "An unexpected error occurred while updating your comment.",
+    };
+  }
+};
+
+/**
+ * Server action to delete a comment.
+ * Validates ownership, deletes the record, and decrements denormalized counts.
+ * Uses a transaction to ensure consistency with cascade and counts.
+ *
+ * @param commentId - ID of the comment to delete
+ * @returns CommentActionResult (success: true/false)
+ */
+export const deleteCommentAction = async (
+  commentId: string,
+): Promise<{ success: boolean; error?: string }> => {
+  try {
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+
+    if (!session || !session.user) {
+      return {
+        success: false,
+        error: "Unauthorized. Please log in to delete your comment.",
+      };
+    }
+
+    // Fetch comment to check ownership and get counts for denormalization
+    const comment = await prisma.postComment.findUnique({
+      where: { id: commentId },
+      select: { authorId: true, postId: true, replyCount: true },
+    });
+
+    if (!comment) {
+      return { success: false, error: "Comment not found." };
+    }
+
+    if (comment.authorId !== session.user.id) {
+      return {
+        success: false,
+        error: "Forbidden. You can only delete your own comments.",
+      };
+    }
+
+    // Delete comment with count decrement in a transaction
+    await prisma.$transaction(async (tx) => {
+      // Delete the comment (Prisma will handle cascade deletes of replies and likes if configured)
+      await tx.postComment.delete({
+        where: { id: commentId },
+      });
+
+      // Decrement denormalized count on Post
+      // We decrement by 1 (the comment itself) + the number of replies it had
+      await decrementPostCommentCount(
+        tx,
+        comment.postId,
+        1 + comment.replyCount,
+      );
+    });
+
+    revalidatePath(`/post/${comment.postId}`);
+
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to delete comment:", error);
+    return {
+      success: false,
+      error: "An unexpected error occurred while deleting your comment.",
     };
   }
 };
