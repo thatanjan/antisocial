@@ -41,7 +41,7 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
     await getCommentsAction(post.id, 5, 0);
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 sm:px-0">
+    <div className="mx-auto flex w-full flex-col gap-6 px-4 sm:px-0">
       <PostCard
         currentUserId={session?.user?.id || ""}
         post={post as unknown as Post}
