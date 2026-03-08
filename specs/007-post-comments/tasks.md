@@ -77,8 +77,8 @@
 
 ### Implementation for User Story 3
 
-- [ ] T019 [P] [US3] Implement `toggleCommentLikeAction` in `src/features/post-comments/actions/likes.ts`
-- [ ] T020 [P] [US3] Implement `toggleReplyLikeAction` in `src/features/post-comments/actions/likes.ts`
+- [x] T019 [P] [US3] Implement `toggleCommentLikeAction` in `src/features/post-comments/actions/likes.ts`
+- [x] T020 [P] [US3] Implement `toggleReplyLikeAction` in `src/features/post-comments/actions/likes.ts`
 - [ ] T021 [US3] Implement `addReplyAction`, `updateReplyAction`, and `deleteReplyAction` in `src/features/post-comments/actions/replies.ts`
 - [ ] T022 [US3] Create `CommentLikeButton` component with optimistic UI for both comments and replies in `src/features/post-comments/components/CommentLikeButton.tsx`
 - [ ] T023 [US3] Create `ReplyList` component that displays nested replies and a reply form in `src/features/post-comments/components/ReplyList.tsx`
