@@ -5,7 +5,11 @@ import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { replySchema } from "../schemas";
-import type { CommentReply, ReplyActionResult } from "../types";
+import type {
+  CommentReply,
+  FetchRepliesResponse,
+  ReplyActionResult,
+} from "../types";
 import {
   decrementCommentReplyCount,
   decrementPostCommentCount,
@@ -267,7 +271,7 @@ export const getRepliesAction = async (
   commentId: string,
   limit: number = 5,
   offset: number = 0,
-) => {
+): Promise<FetchRepliesResponse> => {
   try {
     const session = await auth.api.getSession({
       headers: await headers(),
@@ -291,7 +295,7 @@ export const getRepliesAction = async (
               }
             : false,
         },
-        orderBy: { createdAt: "asc" },
+        orderBy: { createdAt: "desc" },
         take: limit,
         skip: offset,
       }),

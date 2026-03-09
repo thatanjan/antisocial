@@ -86,10 +86,16 @@ export const CommentList = ({
   const handleLoadMore = async () => {
     if (isFetchingMore || comments.length >= totalCount) return;
     setIsFetchingMore(true);
-    const result = await getCommentsAction(postId, 5, comments.length);
-    setComments((prev) => [...prev, ...result.comments]);
-    setTotalCount(result.total);
-    setIsFetchingMore(false);
+    try {
+      const result = await getCommentsAction(postId, 5, comments.length);
+      setComments((prev) => [...prev, ...result.comments]);
+      setTotalCount(result.total);
+    } catch (error) {
+      console.error("Failed to load more comments:", error);
+      toast.error("Failed to load more comments");
+    } finally {
+      setIsFetchingMore(false);
+    }
   };
 
   /**

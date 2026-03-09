@@ -98,9 +98,9 @@
 
 ### Implementation for User Story 4
 
-- [ ] T027 [US4] Update `getCommentsAction` and `getRepliesAction` to support limit/offset pagination in `src/features/post-comments/actions/`
-- [ ] T028 [US4] Add "Load More" button logic to `CommentList.tsx` to fetch and append the next 5 comments.
-- [ ] T029 [US4] Add "Load More" button logic to `ReplyList.tsx` to fetch and append the next 5 replies.
+- [x] T027 [US4] Update `getCommentsAction` and `getRepliesAction` to support limit/offset pagination in `src/features/post-comments/actions/`
+- [x] T028 [US4] Add "Load More" button logic to `CommentList.tsx` to fetch and append the next 5 comments.
+- [x] T029 [US4] Add "Load More" button logic to `ReplyList.tsx` to fetch and append the next 5 replies.
 
 ---
 

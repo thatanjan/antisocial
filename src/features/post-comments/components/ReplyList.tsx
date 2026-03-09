@@ -73,7 +73,7 @@ export const ReplyList = ({
     ) => {
       switch (action) {
         case "add":
-          return [...state, payload as CommentReply];
+          return [payload as CommentReply, ...state];
         case "update":
           return state.map((r) =>
             r.id === payload.id ? { ...r, ...payload } : r,
@@ -135,7 +135,7 @@ export const ReplyList = ({
         const res = await addReplyAction(commentId, content);
         if (res.success && res.reply) {
           const newReply = res.reply;
-          setReplies((prev) => [...prev, newReply]);
+          setReplies((prev) => [newReply, ...prev]);
           setTotal((prev) => prev + 1);
           setIsAddingReply(false);
           onReplyAdded?.();
