@@ -1,7 +1,8 @@
 "use client";
 
 import { formatDistanceToNow } from "date-fns";
-import { Heart, MoreHorizontal, Reply } from "lucide-react";
+import { MoreHorizontal, Reply } from "lucide-react";
+import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +13,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import type { PostComment } from "../types";
 import { CommentInput } from "./CommentInput";
+import { CommentLikeButton } from "./CommentLikeButton";
+import { ReplyList } from "./ReplyList";
 
 /**
  * Props for the CommentItem component.
@@ -50,6 +53,7 @@ export const CommentItem = ({
   onEditCancel,
   onCommentUpdated,
 }: CommentItemProps) => {
+  const [showReplies, setShowReplies] = useState(false);
   const isOwner = currentUserId === comment.authorId;
   const timeAgo = formatDistanceToNow(new Date(comment.createdAt), {
     addSuffix: true,
@@ -131,31 +135,41 @@ export const CommentItem = ({
         )}
 
         {/* Comment Interactions (Like/Reply) - US3 */}
-        <div className="mt-2 flex items-center gap-4">
-          <button
-            className={`flex items-center gap-1.5 font-medium text-[11px] transition-colors hover:text-primary ${
-              comment.isLiked ? "text-primary" : "text-muted-foreground"
-            }`}
-            type="button"
-          >
-            <Heart
-              className={`h-3 w-3 ${comment.isLiked ? "fill-primary" : ""}`}
+        <div className="mt-2 flex flex-col gap-2">
+          <div className="flex items-center gap-4">
+            <CommentLikeButton
+              initialIsLiked={!!comment.isLiked}
+              initialLikeCount={comment.likeCount}
+              targetId={comment.id}
+              targetType="comment"
             />
-            <span>{comment.likeCount > 0 ? comment.likeCount : "Like"}</span>
-          </button>
 
-          <button
-            className="flex items-center gap-1.5 font-medium text-[11px] text-muted-foreground transition-colors hover:text-primary"
-            onClick={() => onReply?.(comment)}
-            type="button"
-          >
-            <Reply className="h-3 w-3" />
-            <span>
-              {comment.replyCount > 0
-                ? `${comment.replyCount} Replies`
-                : "Reply"}
-            </span>
-          </button>
+            <button
+              className="flex items-center gap-1.5 font-medium text-[11px] text-muted-foreground transition-colors hover:text-primary"
+              onClick={() => {
+                setShowReplies(!showReplies);
+                onReply?.(comment);
+              }}
+              type="button"
+            >
+              <Reply className="h-3 w-3" />
+              <span>
+                {comment.replyCount > 0
+                  ? `${comment.replyCount} ${comment.replyCount === 1 ? "Reply" : "Replies"}`
+                  : "Reply"}
+              </span>
+            </button>
+          </div>
+
+          {showReplies && (
+            <div className="mt-1">
+              <ReplyList
+                commentId={comment.id}
+                currentUserId={currentUserId}
+                postId={comment.postId}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
