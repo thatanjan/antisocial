@@ -80,7 +80,7 @@
 - [x] T019 [P] [US3] Implement `toggleCommentLikeAction` in `src/features/post-comments/actions/likes.ts`
 - [x] T020 [P] [US3] Implement `toggleReplyLikeAction` in `src/features/post-comments/actions/likes.ts`
 - [x] T021 [US3] Implement `addReplyAction`, `updateReplyAction`, and `deleteReplyAction` in `src/features/post-comments/actions/replies.ts`
-- [ ] T022 [US3] Create `CommentLikeButton` component with optimistic UI for both comments and replies in `src/features/post-comments/components/CommentLikeButton.tsx`
+- [x] T022 [US3] Create `CommentLikeButton` component with optimistic UI for both comments and replies in `src/features/post-comments/components/CommentLikeButton.tsx`
 - [ ] T023 [US3] Create `ReplyList` component that displays nested replies and a reply form in `src/features/post-comments/components/ReplyList.tsx`
 - [ ] T024 [US3] Integrate `CommentLikeButton` and `ReplyList` into `CommentItem.tsx`
 - [ ] T025 [US3] Ensure `CommentInput` or similar is used for replies but restricted to one level deep.
