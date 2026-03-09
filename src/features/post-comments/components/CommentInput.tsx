@@ -96,7 +96,7 @@ export const CommentInput = ({
         <div className="group relative">
           <AutosizeTextarea
             autoFocus={autoFocus}
-            className="scrollbar-hide resize-none border-border bg-background/50 pr-24 transition-all duration-200 focus-within:bg-background focus:border-primary group-hover:border-primary/50"
+            className="scrollbar-hide resize-none border-border bg-background/50 pr-24 transition-colors duration-200 focus-within:bg-background focus:border-primary group-hover:border-primary/50"
             disabled={isPending}
             maxHeight={300}
             minHeight={40}
