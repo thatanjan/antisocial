@@ -106,10 +106,10 @@
 
 ## Phase 7: Polish & Cross-Cutting Concerns
 
-- [ ] T030 Add loading skeletons for comment and reply lists in `src/features/post-comments/components/`
-- [ ] T031 Ensure all error cases show user-friendly toasts using `sonner`
-- [ ] T032 Add TSDoc comments to all new functions and components per Constitution I.
-- [ ] T033 Verify all colors use standard Tailwind variables from `globals.css` per Constitution III.
+- [x] T030 Add loading skeletons for comment and reply lists in `src/features/post-comments/components/`
+- [x] T031 Ensure all error cases show user-friendly toasts using `sonner`
+- [x] T032 Add TSDoc comments to all new functions and components per Constitution I.
+- [x] T033 Verify all colors use standard Tailwind variables from `globals.css` per Constitution III.
 
 ---
 

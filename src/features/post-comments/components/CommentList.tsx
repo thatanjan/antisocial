@@ -9,10 +9,8 @@ import { deleteCommentAction, getCommentsAction } from "../actions/comments";
 import type { PostComment } from "../types";
 import { CommentInput } from "./CommentInput";
 import { CommentItem } from "./CommentItem";
+import { CommentListSkeleton } from "./CommentSkeleton";
 
-/**
- * Props for the CommentList component.
- */
 interface CommentListProps {
   /** The ID of the post to display comments for. */
   postId: string;
@@ -22,9 +20,6 @@ interface CommentListProps {
   initialTotalCount: number;
 }
 
-/**
- * Type for optimistic updates on the comments stream.
- */
 type CommentOptimisticAction =
   | { type: "add"; comment: PostComment }
   | { type: "update"; comment: PostComment }
@@ -44,6 +39,10 @@ export const CommentList = ({
   const [totalCount, setTotalCount] = useState(initialTotalCount);
   const [isFetchingMore, setIsFetchingMore] = useState(false);
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
+
+  const [isInitialLoading, setIsInitialLoading] = useState(
+    initialComments.length === 0 && initialTotalCount === 0,
+  );
   const [, startTransition] = useTransition();
 
   const { data: session } = authClient.useSession();
@@ -78,6 +77,7 @@ export const CommentList = ({
     setComments(initialComments);
     setTotalCount(initialTotalCount);
     addOptimisticComment({ type: "sync", comments: initialComments });
+    setIsInitialLoading(false);
   }, [initialComments, initialTotalCount, addOptimisticComment]);
 
   /**
@@ -205,7 +205,9 @@ export const CommentList = ({
 
       {/* Comments List */}
       <div className="flex flex-col">
-        {optimisticComments.length > 0 ? (
+        {isInitialLoading ? (
+          <CommentListSkeleton count={3} />
+        ) : optimisticComments.length > 0 ? (
           <div className="divide-y divide-border/30">
             {optimisticComments.map((comment) => (
               <CommentItem

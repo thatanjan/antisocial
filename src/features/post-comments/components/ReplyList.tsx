@@ -21,6 +21,7 @@ import {
 import type { CommentReply } from "../types";
 import { CommentInput } from "./CommentInput";
 import { CommentLikeButton } from "./CommentLikeButton";
+import { ReplyListSkeleton } from "./CommentSkeleton";
 
 /**
  * Props for the ReplyList component.
@@ -53,6 +54,8 @@ export const ReplyList = ({
   const [replies, setReplies] = useState<CommentReply[]>([]);
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  /** True only during the very first fetch so we can show the loading skeleton. */
+  const [isInitialFetch, setIsInitialFetch] = useState(true);
   const [isAddingReply, setIsAddingReply] = useState(false);
   const [editingReplyId, setEditingReplyId] = useState<string | null>(null);
 
@@ -98,8 +101,10 @@ export const ReplyList = ({
         setTotal(res.total);
       } catch (error) {
         console.error("Failed to fetch replies:", error);
+        toast.error("Failed to load replies. Please try again.");
       } finally {
         setIsLoading(false);
+        setIsInitialFetch(false);
       }
     };
     fetchReplies();
@@ -216,103 +221,110 @@ export const ReplyList = ({
 
   return (
     <div className="mt-2 flex flex-col gap-1 border-border/50 border-l-2 pl-4 transition-all duration-300">
-      {optimisticReplies.map((reply) => {
-        const timeAgo = formatDistanceToNow(new Date(reply.createdAt), {
-          addSuffix: true,
-        });
-        const isOwner = currentUserId === reply.authorId;
-        const isEditing = editingReplyId === reply.id;
+      {/* Show skeleton while the first fetch is in flight */}
+      {isInitialFetch && isLoading ? (
+        <ReplyListSkeleton count={3} />
+      ) : (
+        optimisticReplies.map((reply) => {
+          const timeAgo = formatDistanceToNow(new Date(reply.createdAt), {
+            addSuffix: true,
+          });
+          const isOwner = currentUserId === reply.authorId;
+          const isEditing = editingReplyId === reply.id;
 
-        return (
-          <div
-            className="group relative flex gap-3 py-2 transition-colors duration-200"
-            key={reply.id}
-          >
-            {/* Author Avatar */}
-            <Avatar className="mt-0.5 h-6 w-6 rounded-full border border-border/50 shadow-xs">
-              <AvatarImage
-                alt={reply.author.name}
-                src={reply.author.image ?? undefined}
-              />
-              <AvatarFallback className="bg-secondary font-semibold text-[8px] text-secondary-foreground">
-                {reply.author.name?.charAt(0).toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
+          return (
+            <div
+              className="group relative flex gap-3 py-2 transition-colors duration-200"
+              key={reply.id}
+            >
+              {/* Author Avatar */}
+              <Avatar className="mt-0.5 h-6 w-6 rounded-full border border-border/50 shadow-xs">
+                <AvatarImage
+                  alt={reply.author.name}
+                  src={reply.author.image ?? undefined}
+                />
+                <AvatarFallback className="bg-secondary font-semibold text-[8px] text-secondary-foreground">
+                  {reply.author.name?.charAt(0).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
 
-            <div className="flex min-w-0 flex-1 flex-col">
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <span className="truncate font-semibold text-foreground text-xs">
-                    {reply.author.name}
-                  </span>
-                  <span className="whitespace-nowrap text-[10px] text-muted-foreground">
-                    {timeAgo}
-                  </span>
+              <div className="flex min-w-0 flex-1 flex-col">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="truncate font-semibold text-foreground text-xs">
+                      {reply.author.name}
+                    </span>
+                    <span className="whitespace-nowrap text-[10px] text-muted-foreground">
+                      {timeAgo}
+                    </span>
+                  </div>
+
+                  {/* Reply Actions (Edit/Delete) */}
+                  {isOwner && !isEditing && (
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          className="h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100 aria-expanded:opacity-100"
+                          size="icon"
+                          variant="ghost"
+                        >
+                          <MoreHorizontal className="h-3 w-3" />
+                          <span className="sr-only">Reply options</span>
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="p-1">
+                        <DropdownMenuItem
+                          className="cursor-pointer py-1 text-xs"
+                          onClick={() => setEditingReplyId(reply.id)}
+                        >
+                          Edit
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          className="cursor-pointer py-1 text-destructive text-xs focus:bg-destructive/10 focus:text-destructive"
+                          onClick={() => handleDeleteReply(reply.id)}
+                        >
+                          Delete
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  )}
                 </div>
 
-                {/* Reply Actions (Edit/Delete) */}
-                {isOwner && !isEditing && (
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        className="h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100 aria-expanded:opacity-100"
-                        size="icon"
-                        variant="ghost"
-                      >
-                        <MoreHorizontal className="h-3 w-3" />
-                        <span className="sr-only">Reply options</span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="p-1">
-                      <DropdownMenuItem
-                        className="cursor-pointer py-1 text-xs"
-                        onClick={() => setEditingReplyId(reply.id)}
-                      >
-                        Edit
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        className="cursor-pointer py-1 text-destructive text-xs focus:bg-destructive/10 focus:text-destructive"
-                        onClick={() => handleDeleteReply(reply.id)}
-                      >
-                        Delete
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                {isEditing ? (
+                  <div className="mt-1">
+                    <CommentInput
+                      autoFocus
+                      commentId={commentId}
+                      initialContent={reply.content}
+                      onCancel={() => setEditingReplyId(null)}
+                      onSubmit={(content) =>
+                        handleUpdateReply(reply.id, content)
+                      }
+                      postId={postId}
+                    />
+                  </div>
+                ) : (
+                  <p className="wrap-break-word mt-0.5 whitespace-pre-wrap font-normal text-foreground/90 text-xs leading-relaxed">
+                    {reply.content}
+                  </p>
+                )}
+
+                {/* Reply Interactions (Like) */}
+                {!isEditing && (
+                  <div className="mt-1.5 flex items-center gap-4">
+                    <CommentLikeButton
+                      initialIsLiked={!!reply.isLiked}
+                      initialLikeCount={reply.likeCount}
+                      targetId={reply.id}
+                      targetType="reply"
+                    />
+                  </div>
                 )}
               </div>
-
-              {isEditing ? (
-                <div className="mt-1">
-                  <CommentInput
-                    autoFocus
-                    commentId={commentId}
-                    initialContent={reply.content}
-                    onCancel={() => setEditingReplyId(null)}
-                    onSubmit={(content) => handleUpdateReply(reply.id, content)}
-                    postId={postId}
-                  />
-                </div>
-              ) : (
-                <p className="wrap-break-word mt-0.5 whitespace-pre-wrap font-normal text-foreground/90 text-xs leading-relaxed">
-                  {reply.content}
-                </p>
-              )}
-
-              {/* Reply Interactions (Like) */}
-              {!isEditing && (
-                <div className="mt-1.5 flex items-center gap-4">
-                  <CommentLikeButton
-                    initialIsLiked={!!reply.isLiked}
-                    initialLikeCount={reply.likeCount}
-                    targetId={reply.id}
-                    targetType="reply"
-                  />
-                </div>
-              )}
             </div>
-          </div>
-        );
-      })}
+          );
+        })
+      )}
 
       {/* Pagination: Load More */}
       {hasMore && (
