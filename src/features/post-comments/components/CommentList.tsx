@@ -76,7 +76,9 @@ export const CommentList = ({
   useEffect(() => {
     setComments(initialComments);
     setTotalCount(initialTotalCount);
-    addOptimisticComment({ type: "sync", comments: initialComments });
+    startTransition(() => {
+      addOptimisticComment({ type: "sync", comments: initialComments });
+    });
     setIsInitialLoading(false);
   }, [initialComments, initialTotalCount, addOptimisticComment]);
 
