@@ -51,16 +51,18 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
         {isOwner && <PostActions post={post} />}
       </CardHeader>
 
-      <CardContent className="space-y-4 p-4 pt-0">
-        {post.images.length > 0 && (
-          <CarouselDisplay
-            aspectRatio={(post.aspectRatio as AspectRatio) || "1:1"}
-            images={post.images}
-          />
-        )}
+      <Link href={`/post/${post.id}`} passHref>
+        <CardContent className="space-y-4 p-4 pt-0">
+          {post.images.length > 0 && (
+            <CarouselDisplay
+              aspectRatio={(post.aspectRatio as AspectRatio) || "1:1"}
+              images={post.images}
+            />
+          )}
 
-        {post.content && <CollapsibleDescription content={post.content} />}
-      </CardContent>
+          {post.content && <CollapsibleDescription content={post.content} />}
+        </CardContent>
+      </Link>
 
       <CardFooter className="flex items-center justify-between border-border/50 border-t p-2">
         <div className="flex items-center gap-1">
