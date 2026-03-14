@@ -51,16 +51,18 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
         {isOwner && <PostActions post={post} />}
       </CardHeader>
 
-      <CardContent className="space-y-4 p-4 pt-0">
-        {post.images.length > 0 && (
-          <CarouselDisplay
-            aspectRatio={(post.aspectRatio as AspectRatio) || "1:1"}
-            images={post.images}
-          />
-        )}
+      <Link href={`/post/${post.id}`} passHref>
+        <CardContent className="space-y-4 p-4 pt-0">
+          {post.images.length > 0 && (
+            <CarouselDisplay
+              aspectRatio={(post.aspectRatio as AspectRatio) || "1:1"}
+              images={post.images}
+            />
+          )}
 
-        {post.content && <CollapsibleDescription content={post.content} />}
-      </CardContent>
+          {post.content && <CollapsibleDescription content={post.content} />}
+        </CardContent>
+      </Link>
 
       <CardFooter className="flex items-center justify-between border-border/50 border-t p-2">
         <div className="flex items-center gap-1">
@@ -70,18 +72,22 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
             isOwner={isOwner}
             postId={post.id}
           />
-          <Button
-            className="gap-2 text-muted-foreground hover:text-primary"
-            size="sm"
-            variant="ghost"
-          >
-            <MessageCircle className="h-4 w-4" />
-            <span>0</span>
-          </Button>
+          <Link href={`/post/${post.id}`} passHref>
+            <Button
+              className="gap-2 text-muted-foreground hover:text-primary"
+              size="sm"
+              type="button"
+              variant="ghost"
+            >
+              <MessageCircle className="h-4 w-4" />
+              <span>{post.commentCount}</span>
+            </Button>
+          </Link>
         </div>
         <Button
           className="gap-2 text-muted-foreground"
           size="sm"
+          type="button"
           variant="ghost"
         >
           <Share2 className="h-4 w-4" />

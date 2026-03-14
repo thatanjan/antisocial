@@ -1,5 +1,10 @@
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { PostCard } from "@/features/create-post/components/PostCard";
+import type { Post } from "@/features/create-post/types";
+import { getCommentsAction } from "@/features/post-comments/actions/comments";
+import { CommentList } from "@/features/post-comments/components/CommentList";
+import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
 interface PostDetailPageProps {
@@ -12,6 +17,9 @@ interface PostDetailPageProps {
  */
 export default async function PostDetailPage({ params }: PostDetailPageProps) {
   const { id } = await params;
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   // 1. Fetch post data
   const post = await prisma.post.findUnique({
@@ -28,15 +36,22 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
     notFound();
   }
 
-  return (
-    <div className="flex flex-col gap-6">
-      <PostCard post={post} />
+  // 2. Fetch initial comments for first paint
+  const { comments: initialComments, total: initialTotalCount } =
+    await getCommentsAction(post.id, 5, 0);
 
-      <div className="py-8 text-center">
-        <p className="text-muted-foreground text-sm italic">
-          Comments section coming soon...
-        </p>
-      </div>
+  return (
+    <div className="mx-auto flex w-full flex-col gap-6 px-4 sm:px-0">
+      <PostCard
+        currentUserId={session?.user?.id || ""}
+        post={post as unknown as Post}
+      />
+
+      <CommentList
+        initialComments={initialComments}
+        initialTotalCount={initialTotalCount}
+        postId={post.id}
+      />
     </div>
   );
 }

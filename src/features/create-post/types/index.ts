@@ -96,5 +96,6 @@ export interface Post {
   author: Author;
   images: PostImage[];
   likeCount: number;
+  commentCount: number;
   isLiked?: boolean;
 }
