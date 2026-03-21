@@ -168,3 +168,9 @@ Biome is configured in `biome.json`:
 - Ignores: node_modules, .next, dist, build, src/components/ui, src/generated
 
 Run `npm run lint` before committing to catch issues.
+
+## Active Technologies
+- TypeScript (strict mode) + Shadcn UI, React Hook Form, Zod, Better Auth (008-user-follow)
+
+## Recent Changes
+- 008-user-follow: Added TypeScript (strict mode) + Shadcn UI, React Hook Form, Zod, Better Auth
