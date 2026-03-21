@@ -16,8 +16,8 @@
 
 **Purpose**: Create feature directory structure and verify existing dependencies
 
-- [ ] T001 [P] Create feature directory structure `src/features/follow/` with subdirectories: actions/, components/, hooks/, types/, utils/
-- [ ] T002 [P] Create TypeScript type definitions for Follow entity in `src/features/follow/types/index.ts`
+- [x] T001 [P] Create feature directory structure `src/features/follow/` with subdirectories: actions/, components/, hooks/, types/, utils/
+- [x] T002 [P] Create TypeScript type definitions for Follow entity in `src/features/follow/types/index.ts`
 
 ---
 
