@@ -27,8 +27,8 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T003 Add Follow model to Prisma schema in `prisma/schema.prisma` with: id, followerId, followeeId, createdAt, unique constraint on (followerId, followeeId), indexes on (followerId, createdAt) and (followeeId, createdAt)
-- [ ] T004 Add followerCount and followingCount fields to User model in `prisma/schema.prisma`
+- [x] T003 Add Follow model to Prisma schema in `prisma/schema.prisma` with: id, followerId, followeeId, createdAt, unique constraint on (followerId, followeeId), indexes on (followerId, createdAt) and (followeeId, createdAt)
+- [x] T004 Add followerCount and followingCount fields to User model in `prisma/schema.prisma`
 - [ ] T005 Create raw SQL migration for PostgreSQL partitioning in `prisma/migrations/` to partition follows table by follower_id ranges
 - [ ] T006 Run `npx prisma generate` to update Prisma client with new schema
 - [ ] T007 Create follow-related Zod validation schemas in `src/features/follow/types/index.ts` for follow-user and unfollow-user actions
