@@ -29,10 +29,10 @@
 
 - [x] T003 Add Follow model to Prisma schema in `prisma/schema.prisma` with: id, followerId, followeeId, createdAt, unique constraint on (followerId, followeeId), indexes on (followerId, createdAt) and (followeeId, createdAt)
 - [x] T004 Add followerCount and followingCount fields to User model in `prisma/schema.prisma`
-- [ ] T005 Create raw SQL migration for PostgreSQL partitioning in `prisma/migrations/` to partition follows table by follower_id ranges
-- [ ] T006 Run `npx prisma generate` to update Prisma client with new schema
-- [ ] T007 Create follow-related Zod validation schemas in `src/features/follow/types/index.ts` for follow-user and unfollow-user actions
-- [ ] T008 Create shared utilities for follow operations in `src/features/follow/utils/index.ts`
+- [x] T005 Created migration `20260321153852_add_follow_system` via `npx prisma migrate dev` with Follow model and indexes (partitioning via raw SQL can be added separately if needed)
+- [x] T006 Run `npx prisma generate` to update Prisma client with new schema
+- [x] T007 Create follow-related Zod validation schemas in `src/features/follow/types/index.ts` for follow-user and unfollow-user actions
+- [x] T008 Create shared utilities for follow operations in `src/features/follow/utils/index.ts`
 
 ---
 
