@@ -122,7 +122,8 @@ The following technologies are mandated for this project:
 
 **Documentation:**
 - Use latest official documentation
-- Use Context7 MCP server for latest docs when needed
+- Use **Context7 MCP server** (via `context7_resolve-library-id` and `context7_query-docs` tools) when unsure about library/framework APIs
+- Never guess or hallucinate API usage—always verify with official docs
 
 ## Development Workflow
 
