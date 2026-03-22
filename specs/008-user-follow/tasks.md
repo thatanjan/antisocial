@@ -44,9 +44,9 @@
 
 ### Implementation
 
-- [ ] T009 [P] [US1-US3] Create `follow-user.ts` server action in `src/features/follow/actions/follow-user.ts` with: session validation, self-follow check (returns error if followerId === followeeId), duplicate follow check, Prisma create with count updates, return { success, error }
-- [ ] T010 [P] [P1-US3] Create `unfollow-user.ts` server action in `src/features/follow/actions/unfollow-user.ts` with: session validation, Prisma delete with count decrements, return { success, error }
-- [ ] T011 [P] [US1-US3] Create `check-follow-status.ts` server action in `src/features/follow/actions/check-follow-status.ts` to check if current user follows target user
+- [x] T009 [P] [US1-US3] Create `follow-actions.ts` server actions in `src/features/follow/actions/follow-actions.ts` with: `followUser` (session validation, self-follow check, duplicate check, Prisma create, count updates), `unfollowUser` (session validation, Prisma delete, count decrements), `checkFollowStatus` (check if current user follows target user)
+- [ ] T010 (combined into T009)
+- [ ] T011 (combined into T009)
 - [ ] T012 [US1-US3] Create `follow-button.tsx` component in `src/features/follow/components/follow-button.tsx` with: client component ("use client"), calls follow/unfollow actions, displays "Follow" or "Following" state based on status, shows error toast on failure
 
 ---
