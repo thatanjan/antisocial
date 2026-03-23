@@ -1,6 +1,7 @@
 "use server";
 
 import { headers } from "next/headers";
+import { PrismaClientKnownRequestError } from "@/generated/client/internal/prismaNamespace";
 import { auth } from "@/lib/auth";
 import db from "@/lib/prisma";
 import {
@@ -101,19 +102,24 @@ export const unfollowUser = async (input: {
 
   const followerId = session.user.id;
 
-  const exists = await checkFollowExists(followerId, followeeId);
-  if (!exists) {
-    return { success: false, error: "Not following this user" };
-  }
-
-  await db.follow.delete({
-    where: {
-      followerId_followeeId: {
-        followerId,
-        followeeId,
+  try {
+    await db.follow.delete({
+      where: {
+        followerId_followeeId: {
+          followerId,
+          followeeId,
+        },
       },
-    },
-  });
+    });
+  } catch (error: unknown) {
+    if (
+      error instanceof PrismaClientKnownRequestError &&
+      error.code === "P2025"
+    ) {
+      return { success: false, error: "Not following this user" };
+    }
+    throw error;
+  }
 
   await decrementFollowCounts(followerId, followeeId);
 
