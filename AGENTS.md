@@ -150,6 +150,12 @@ export async function myAction(data: z.infer<typeof Schema>) {
 - When unsure about library/framework APIs or best practices, use the **Context7 MCP server** via `context7_resolve-library-id` and `context7_query-docs` tools
 - Never guess or hallucinate API usage—always verify with official docs
 
+### Code Readability
+
+- Add blank lines between logical sections of code to improve readability
+- Don't overdo it—avoid excessive blank lines that waste space
+- Group related lines together and separate distinct blocks with single blank lines
+
 ### Miscellaneous
 
 - Use Lucide React for icons
