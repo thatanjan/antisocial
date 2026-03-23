@@ -52,30 +52,14 @@ export const followUser = async (input: {
     return { success: false, error: "Already following this user" };
   }
 
-  const follow = await db.follow.create({
+  await db.follow.create({
     data: { followerId, followeeId },
   });
 
   await incrementFollowCounts(followerId, followeeId);
 
-  const [follower, followee] = await Promise.all([
-    db.user.findUnique({
-      where: { id: followerId },
-      select: { followingCount: true },
-    }),
-    db.user.findUnique({
-      where: { id: followeeId },
-      select: { followerCount: true },
-    }),
-  ]);
-
   return {
     success: true,
-    data: {
-      followId: follow.id,
-      followingCount: follower?.followingCount ?? 0,
-      followerCount: followee?.followerCount ?? 0,
-    },
   };
 };
 
@@ -123,23 +107,8 @@ export const unfollowUser = async (input: {
 
   await decrementFollowCounts(followerId, followeeId);
 
-  const [follower, followee] = await Promise.all([
-    db.user.findUnique({
-      where: { id: followerId },
-      select: { followingCount: true },
-    }),
-    db.user.findUnique({
-      where: { id: followeeId },
-      select: { followerCount: true },
-    }),
-  ]);
-
   return {
     success: true,
-    data: {
-      followingCount: follower?.followingCount ?? 0,
-      followerCount: followee?.followerCount ?? 0,
-    },
   };
 };
 

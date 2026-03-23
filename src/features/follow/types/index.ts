@@ -3,11 +3,6 @@
  */
 export interface FollowUserResult {
   success: boolean;
-  data?: {
-    followId: string;
-    followingCount: number;
-    followerCount: number;
-  };
   error?: string;
 }
 
@@ -16,10 +11,6 @@ export interface FollowUserResult {
  */
 export interface UnfollowUserResult {
   success: boolean;
-  data?: {
-    followingCount: number;
-    followerCount: number;
-  };
   error?: string;
 }
 
