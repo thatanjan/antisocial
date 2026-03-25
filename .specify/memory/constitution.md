@@ -122,7 +122,8 @@ The following technologies are mandated for this project:
 
 **Documentation:**
 - Use latest official documentation
-- Use Context7 MCP server for latest docs when needed
+- Use **Context7 MCP server** (via `context7_resolve-library-id` and `context7_query-docs` tools) when unsure about library/framework APIs
+- Never guess or hallucinate API usage—always verify with official docs
 
 ## Development Workflow
 
@@ -141,6 +142,7 @@ The following technologies are mandated for this project:
 4. Use Server Actions for mutations—no route handlers unless approved
 5. Define colors as CSS variables before using in Tailwind
 6. Follow feature-based file structure strictly
+7. Add blank lines between logical sections of code for readability (but avoid excessive spacing)
 
 ### Code Review Checklist
 
@@ -153,6 +155,7 @@ The following technologies are mandated for this project:
 - [ ] Correct feature directory structure
 - [ ] No testing code (unless explicitly requested)
 - [ ] Docker configuration updated (if new services added)
+- [ ] Proper code readability with appropriate line breaks
 
 ## Governance
 

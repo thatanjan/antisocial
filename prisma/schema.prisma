@@ -14,21 +14,25 @@ datasource db {
 }
 
 model User {
-  id            String         @id
-  name          String
-  email         String
-  emailVerified Boolean
-  image         String?
-  createdAt     DateTime
-  updatedAt     DateTime
-  sessions      Session[]
-  accounts      Account[]
-  posts         Post[]
-  postLikes     PostLikes[]
-  comments      PostComment[]
-  replies       CommentReply[]
-  commentLikes  CommentLike[]
-  replyLikes    ReplyLike[]
+  id             String         @id
+  name           String
+  email          String
+  emailVerified  Boolean
+  image          String?
+  createdAt      DateTime
+  updatedAt      DateTime
+  followerCount  Int            @default(0)
+  followingCount Int            @default(0)
+  sessions       Session[]
+  accounts       Account[]
+  posts          Post[]
+  postLikes      PostLikes[]
+  comments       PostComment[]
+  replies        CommentReply[]
+  commentLikes   CommentLike[]
+  replyLikes     ReplyLike[]
+  following      Follow[]       @relation("Follower")
+  followers      Follow[]       @relation("Followee")
 
   @@unique([email])
   @@map("user")
@@ -177,7 +181,7 @@ model CommentLike {
 }
 
 model ReplyLike {
-  id        String       @id @default(cuid())
+  id        String       @id
   userId    String
   user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   replyId   String
@@ -188,4 +192,18 @@ model ReplyLike {
   @@index([userId])
   @@index([replyId])
   @@map("reply_like")
+}
+
+model Follow {
+  id         String   @id @default(cuid())
+  followerId String
+  followeeId String
+  follower   User     @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
+  followee   User     @relation("Followee", fields: [followeeId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([followerId, followeeId])
+  @@index([followerId, createdAt(sort: Desc)])
+  @@index([followeeId, createdAt(sort: Desc)])
+  @@map("follow")
 }
