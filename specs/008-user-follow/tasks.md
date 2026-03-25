@@ -45,8 +45,8 @@
 ### Implementation
 
 - [x] T009 [P] [US1-US3] Create `follow-actions.ts` server actions in `src/features/follow/actions/follow-actions.ts` with: `followUser` (session validation, self-follow check, duplicate check, Prisma create, count updates), `unfollowUser` (session validation, Prisma delete, count decrements), `checkFollowStatus` (check if current user follows target user)
-- [ ] T010 (combined into T009)
-- [ ] T011 (combined into T009)
+- [x] T010 (combined into T009)
+- [x] T011 (combined into T009)
 - [ ] T012 [US1-US3] Create `follow-button.tsx` component in `src/features/follow/components/follow-button.tsx` with: client component ("use client"), calls follow/unfollow actions, displays "Follow" or "Following" state based on status, shows error toast on failure
 
 ---
@@ -59,8 +59,8 @@
 
 ### Implementation
 
-- [ ] T013 [P] [US4] Create `get-followers.ts` server action in `src/features/follow/actions/get-followers.ts` with: pagination support, returns list of users following the target user with createdAt
-- [ ] T014 [P] [US4] Create `get-following.ts` server action in `src/features/follow/actions/get-following.ts` with: pagination support, returns list of users the target user follows with createdAt
+- [x] T013 [P] [US4] Create `get-followers.ts` server action in `src/features/follow/actions/get-followers.ts` with: pagination support, returns list of users following the target user with createdAt
+- [x] T014 [P] [US4] Create `get-following.ts` server action in `src/features/follow/actions/get-following.ts` with: pagination support, returns list of users the target user follows with createdAt
 - [ ] T015 [US4] Create `followers-list.tsx` component in `src/features/follow/components/followers-list.tsx` with: server component, calls get-followers action, displays user list with avatar and name
 - [ ] T016 [US4] Create `following-list.tsx` component in `src/features/follow/components/following-list.tsx` with: server component, calls get-following action, displays user list with avatar and name
 
@@ -70,9 +70,9 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T017 [P] Add loading states and error handling to all follow-related components
+- [ ] T017 Create profile page route at `src/app/profile/[id]/page.tsx` that displays user profile image, name, and follow/unfollow button (uses follow-button component from Phase 3)
 - [ ] T018 [P] Update profile page to display followerCount and followingCount from User model
-- [ ] T019 Add periodic count reconciliation script in `src/features/follow/utils/reconcile-counts.ts` to fix any count drift (optional, for data consistency)
+- [ ] T019 [P] Add loading states and error handling to all follow-related components
 
 ---
 
@@ -127,17 +127,18 @@
 
 ## Summary
 
-| Metric | Count |
-|--------|-------|
-| Total Tasks | 19 |
-| Phase 1 (Setup) | 2 |
-| Phase 2 (Foundational) | 6 |
-| Phase 3 (US1-US3) | 4 |
-| Phase 4 (US4) | 4 |
-| Phase 5 (Polish) | 3 |
-| Parallelizable Tasks | 12 |
+| Metric                 | Count |
+| ---------------------- | ----- |
+| Total Tasks            | 19    |
+| Phase 1 (Setup)        | 2     |
+| Phase 2 (Foundational) | 6     |
+| Phase 3 (US1-US3)      | 4     |
+| Phase 4 (US4)          | 4     |
+| Phase 5 (Polish)       | 3     |
+| Parallelizable Tasks   | 12    |
 
 ### MVP Scope
+
 **Phase 1 + Phase 2 + Phase 3** = Core follow functionality with self-follow prevention and duplicate prevention.
 
 ### Files to Create/Modify
