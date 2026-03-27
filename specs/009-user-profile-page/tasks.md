@@ -54,7 +54,7 @@ description: 'Task list for implementing user profile page feature'
 
 ### Implementation for User Story 1
 
-- [ ] T004 [P] [US1] Create `ProfileHeader.tsx` component in `src/features/user-profile/components/`
+- [x] T004 [P] [US1] Create `ProfileHeader.tsx` component in `src/features/user-profile/components/`
 - [ ] T005 [P] [US1] Create `ProfileTabs.tsx` client component in `src/features/user-profile/components/`
 - [ ] T006 [US1] Create `ProfilePage.tsx` component in `src/features/user-profile/components/` (depends on T004, T005)
 - [ ] T007 [US1] Create profile route at `src/app/(authenticated)/profile/[userId]/page.tsx`
