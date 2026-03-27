@@ -55,11 +55,11 @@ description: 'Task list for implementing user profile page feature'
 ### Implementation for User Story 1
 
 - [x] T004 [P] [US1] Create `ProfileHeader.tsx` component in `src/features/user-profile/components/`
-- [ ] T005 [P] [US1] Create `ProfileTabs.tsx` client component in `src/features/user-profile/components/`
-- [ ] T006 [US1] Create `ProfilePage.tsx` component in `src/features/user-profile/components/` (depends on T004, T005)
-- [ ] T007 [US1] Create profile route at `src/app/(authenticated)/profile/[userId]/page.tsx`
-- [ ] T008 [US1] Implement user data fetching in profile route using Prisma
-- [ ] T009 [US1] Display own profile with "Edit Profile" button (no Follow button)
+- [x] T005 [P] [US1] Create `ProfileTabs.tsx` client component in `src/features/user-profile/components/`
+- [x] T006 [US1] Create `ProfilePage.tsx` component in `src/features/user-profile/components/` (depends on T004, T005)
+- [x] T007 [US1] Create profile route at `src/app/(authenticated)/profile/[userId]/page.tsx`
+- [x] T008 [US1] Implement user data fetching in profile route using Prisma
+- [x] T009 [US1] Display own profile with "Edit Profile" button (no Follow button)
 
 **Checkpoint**: User can view their own profile with correct information and posts
 

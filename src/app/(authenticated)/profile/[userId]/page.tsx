@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
-import { ProfileHeader } from "@/features/user-profile/components/ProfileHeader";
+import { ProfilePage } from "@/features/user-profile/components/ProfilePage";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
@@ -11,10 +11,10 @@ interface ProfilePageProps {
 }
 
 /**
- * Profile page that displays user information.
- * Fetches user data and renders the profile header.
+ * Profile page that displays user information and posts.
+ * Fetches user data, posts, and renders the profile page component.
  */
-export default async function ProfilePage({ params }: ProfilePageProps) {
+export default async function UserProfilePage({ params }: ProfilePageProps) {
   const { userId } = await params;
 
   const session = await auth.api.getSession({
@@ -49,6 +49,32 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
     isFollowing = follow !== null;
   }
 
+  // Fetch user's posts
+  const postsData = await prisma.post.findMany({
+    where: { authorId: user.id },
+    include: {
+      author: true,
+      images: {
+        orderBy: { orderIndex: "asc" },
+      },
+      postLikes: {
+        where: {
+          userId: currentUserId,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 20,
+  });
+
+  // Map posts to include isLiked
+  const posts = postsData.map((post) => ({
+    ...post,
+    isLiked: post.postLikes.length > 0,
+  }));
+
   // Map user to profile format
   const profile = {
     id: user.id,
@@ -62,12 +88,12 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
   };
 
   return (
-    <div className="flex flex-col gap-6">
-      <ProfileHeader
-        isFollowing={isFollowing}
-        isOwnProfile={isOwnProfile}
-        profile={profile}
-      />
-    </div>
+    <ProfilePage
+      currentUserId={currentUserId ?? ""}
+      isFollowing={isFollowing}
+      isOwnProfile={isOwnProfile}
+      posts={posts}
+      profile={profile}
+    />
   );
 }
