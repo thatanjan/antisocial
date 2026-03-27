@@ -29,7 +29,7 @@ description: 'Task list for implementing user profile page feature'
 
 **Purpose**: Create feature directory structure
 
-- [ ] T001 Create feature directory structure at `src/features/user-profile/` with components, utils, and types subdirectories
+- [x] T001 Create feature directory structure at `src/features/user-profile/` with components, utils, and types subdirectories
 
 ---
 
@@ -39,8 +39,8 @@ description: 'Task list for implementing user profile page feature'
 
 **CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T002 [P] Create profile types in `src/features/user-profile/types/index.ts`
-- [ ] T003 [P] Create utility function `format-user-stats.ts` in `src/features/user-profile/utils/`
+- [x] T002 [P] Create profile types in `src/features/user-profile/types/index.ts`
+- [x] T003 [P] Create utility function `format-user-stats.ts` in `src/features/user-profile/utils/`
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
