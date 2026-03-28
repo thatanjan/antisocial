@@ -48,32 +48,6 @@ export default async function UserProfilePage({ params }: ProfilePageProps) {
     isFollowing = follow !== null;
   }
 
-  // Fetch user's posts
-  const postsData = await prisma.post.findMany({
-    where: { authorId: user.id },
-    include: {
-      author: true,
-      images: {
-        orderBy: { orderIndex: "asc" },
-      },
-      postLikes: {
-        where: {
-          userId: currentUserId,
-        },
-      },
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-    take: 20,
-  });
-
-  // Map posts to include isLiked
-  const posts = postsData.map((post) => ({
-    ...post,
-    isLiked: post.postLikes.length > 0,
-  }));
-
   // Map user to profile format
   const profile = {
     id: user.id,
@@ -91,8 +65,8 @@ export default async function UserProfilePage({ params }: ProfilePageProps) {
       currentUserId={currentUserId ?? ""}
       isFollowing={isFollowing}
       isOwnProfile={isOwnProfile}
-      posts={posts}
       profile={profile}
+      profileUserId={user.id}
     />
   );
 }

@@ -91,11 +91,11 @@ description: 'Task list for implementing user profile page feature'
 
 ### Implementation for User Story 3
 
-- [ ] T015 [P] [US3] Fetch user's posts in profile route with pagination support
-- [ ] T016 [US3] Reuse existing `PostList` component from `src/features/create-post/components/PostList.tsx`
-- [ ] T017 [US3] Display posts in reverse chronological order
-- [ ] T018 [US3] Handle empty state when user has no posts
-- [ ] T019 [US3] Implement "Load More" functionality for pagination
+- [x] T015 [P] [US3] Fetch user's posts in profile route with pagination support
+- [x] T016 [US3] Reuse existing `PostList` component from `src/features/create-post/components/PostList.tsx`
+- [x] T017 [US3] Display posts in reverse chronological order
+- [x] T018 [US3] Handle empty state when user has no posts
+- [x] T019 [US3] Implement "Load More" functionality for pagination
 
 **Checkpoint**: Posts display correctly with proper ordering and empty state handling
 

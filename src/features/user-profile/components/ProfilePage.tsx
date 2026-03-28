@@ -1,4 +1,3 @@
-import type { Post } from "@/features/create-post/types";
 import type { UserProfile } from "../types";
 import { ProfileHeader } from "./ProfileHeader";
 import { ProfileTabContent } from "./ProfileTabContent";
@@ -10,8 +9,8 @@ interface ProfilePageProps {
   isOwnProfile: boolean;
   /** Whether the current user is following this profile */
   isFollowing: boolean;
-  /** User's posts */
-  posts: Post[];
+  /** The profile user's ID for fetching posts */
+  profileUserId: string;
   /** Current user ID for post interactions */
   currentUserId: string;
 }
@@ -24,7 +23,7 @@ export const ProfilePage = ({
   profile,
   isOwnProfile,
   isFollowing,
-  posts,
+  profileUserId,
   currentUserId,
 }: ProfilePageProps) => {
   return (
@@ -35,7 +34,10 @@ export const ProfilePage = ({
         profile={profile}
       />
 
-      <ProfileTabContent currentUserId={currentUserId} posts={posts} />
+      <ProfileTabContent
+        currentUserId={currentUserId}
+        profileUserId={profileUserId}
+      />
     </div>
   );
 };
