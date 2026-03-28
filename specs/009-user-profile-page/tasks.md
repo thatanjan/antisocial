@@ -73,7 +73,7 @@ description: 'Task list for implementing user profile page feature'
 
 ### Implementation for User Story 2
 
-- [ ] T010 [US2] Add follow status check logic in profile route
+- [x] T010 [US2] Add follow status check logic in profile route
 - [ ] T011 [US2] Display "Follow" button when not following another user
 - [ ] T012 [US2] Display "Unfollow" button when already following another user
 - [ ] T013 [US2] Connect Follow/Unfollow button to existing follow actions from `src/features/follow/actions/`

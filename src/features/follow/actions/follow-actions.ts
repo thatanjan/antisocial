@@ -1,9 +1,8 @@
 "use server";
 
-import { headers } from "next/headers";
 import { PrismaClientKnownRequestError } from "@/generated/client/internal/prismaNamespace";
-import { auth } from "@/lib/auth";
 import db from "@/lib/prisma";
+import { getSession } from "@/lib/session";
 import {
   CheckFollowStatusSchema,
   FollowUserSchema,
@@ -36,7 +35,7 @@ export const followUser = async (input: {
 
   const { followeeId } = parsed.data;
 
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await getSession();
   if (!session?.user) {
     return { success: false, error: "Unauthorized" };
   }
@@ -79,7 +78,7 @@ export const unfollowUser = async (input: {
 
   const { followeeId } = parsed.data;
 
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await getSession();
   if (!session?.user) {
     return { success: false, error: "Unauthorized" };
   }
@@ -128,7 +127,7 @@ export const checkFollowStatus = async (input: {
 
   const { userId } = parsed.data;
 
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await getSession();
   if (!session?.user) {
     return { success: false, error: "Unauthorized" };
   }

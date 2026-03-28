@@ -1,11 +1,10 @@
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { PostCard } from "@/features/create-post/components/PostCard";
 import type { Post } from "@/features/create-post/types";
 import { getCommentsAction } from "@/features/post-comments/actions/comments";
 import { CommentList } from "@/features/post-comments/components/CommentList";
-import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { getSession } from "@/lib/session";
 
 interface PostDetailPageProps {
   params: Promise<{ id: string }>;
@@ -17,9 +16,7 @@ interface PostDetailPageProps {
  */
 export default async function PostDetailPage({ params }: PostDetailPageProps) {
   const { id } = await params;
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getSession();
 
   // 1. Fetch post data
   const post = await prisma.post.findUnique({

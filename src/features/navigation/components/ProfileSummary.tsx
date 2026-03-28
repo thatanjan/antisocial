@@ -1,7 +1,6 @@
 import { MapPin } from "lucide-react";
-import { headers } from "next/headers";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { auth } from "@/lib/auth";
+import { getSession } from "@/lib/session";
 import type { MockUser } from "../types";
 import { currentUser as dummyUser } from "../utils/mock-data";
 
@@ -10,9 +9,7 @@ import { currentUser as dummyUser } from "../utils/mock-data";
  * Server component that fetches the session directly.
  */
 export const ProfileSummary = async () => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getSession();
 
   // Map session user to MockUser interface, falling back to dummy data
   const user: MockUser = session?.user

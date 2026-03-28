@@ -1,8 +1,7 @@
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { ProfilePage } from "@/features/user-profile/components/ProfilePage";
-import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { getSession } from "@/lib/session";
 
 interface ProfilePageProps {
   params: Promise<{
@@ -17,9 +16,7 @@ interface ProfilePageProps {
 export default async function UserProfilePage({ params }: ProfilePageProps) {
   const { userId } = await params;
 
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getSession();
 
   const currentUserId = session?.user?.id;
 
@@ -37,6 +34,7 @@ export default async function UserProfilePage({ params }: ProfilePageProps) {
 
   // Check follow status if not own profile
   let isFollowing = false;
+
   if (!isOwnProfile && currentUserId) {
     const follow = await prisma.follow.findUnique({
       where: {
@@ -46,6 +44,7 @@ export default async function UserProfilePage({ params }: ProfilePageProps) {
         },
       },
     });
+
     isFollowing = follow !== null;
   }
 

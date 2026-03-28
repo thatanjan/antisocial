@@ -3,6 +3,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { getSession as getSessionUtil } from "@/lib/session";
 
 /**
  * Server Action to initiate Google OAuth login.
@@ -43,7 +44,5 @@ export const signOutAction = async () => {
  * Returns the session and user data if authenticated.
  */
 export const getSession = async () => {
-  return await auth.api.getSession({
-    headers: await headers(),
-  });
+  return await getSessionUtil();
 };
