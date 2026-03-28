@@ -1,6 +1,5 @@
-"use client";
-
 import { Calendar } from "lucide-react";
+import dynamic from "next/dynamic";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import type { ProfileHeaderProps } from "../types";
@@ -10,12 +9,17 @@ import {
   formatJoinDate,
 } from "../utils/format-user-stats";
 
+const FollowButton = dynamic(() =>
+  import("./FollowButton").then((mod) => mod.FollowButton),
+);
+
 /**
  * Displays the profile header with user information and action buttons.
  * Shows avatar, name, username, bio, stats, and follow/edit button.
  */
 export const ProfileHeader = ({
   profile: {
+    id,
     name,
     username,
     bio,
@@ -49,9 +53,7 @@ export const ProfileHeader = ({
               Edit Profile
             </Button>
           ) : (
-            <Button size="sm" variant={isFollowing ? "outline" : "default"}>
-              {isFollowing ? "Unfollow" : "Follow"}
-            </Button>
+            <FollowButton isFollowing={isFollowing} userId={id} />
           )}
         </div>
       </div>
