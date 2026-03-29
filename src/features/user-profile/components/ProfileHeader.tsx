@@ -16,6 +16,7 @@ const FollowButton = dynamic(() =>
 /**
  * Displays the profile header with user information and action buttons.
  * Shows avatar, name, username, bio, stats, and follow/edit button.
+ * Designed to float over a cover image/gradient.
  */
 export const ProfileHeader = ({
   profile: {
@@ -32,7 +33,7 @@ export const ProfileHeader = ({
   isFollowing,
 }: ProfileHeaderProps) => {
   return (
-    <div className="rounded-lg border border-border bg-card p-6">
+    <div className="basis-full rounded-lg border border-border bg-card p-6">
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-4">
           <Avatar className="h-20 w-20">
