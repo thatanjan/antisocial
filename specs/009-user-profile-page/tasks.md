@@ -125,8 +125,8 @@ description: 'Task list for implementing user profile page feature'
 **Purpose**: Improvements that affect multiple user stories
 
 - [x] T026 [P] Add cover image/gradient placeholder area to profile header
-- [ ] T027 Handle non-existent profile error state (404)
-- [ ] T028 Add TSDoc comments to all exported components and functions
+- [x] T027 Handle non-existent profile error state (404)
+- [x] T028 Add TSDoc comments to all exported components and functions
 - [ ] T029 Ensure responsive design for mobile, tablet, and desktop
 - [ ] T030 Verify profile page integrates with existing navigation (click username anywhere)
 

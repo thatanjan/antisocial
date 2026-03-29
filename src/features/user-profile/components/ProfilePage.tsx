@@ -2,6 +2,9 @@ import type { UserProfile } from "../types";
 import { ProfileHeader } from "./ProfileHeader";
 import { ProfileTabContent } from "./ProfileTabContent";
 
+/**
+ * Props for the ProfilePage component.
+ */
 interface ProfilePageProps {
   /** The user profile to display */
   profile: UserProfile;
@@ -30,7 +33,7 @@ export const ProfilePage = ({
     <div className="flex flex-col gap-6">
       <div className="relative flex h-72 items-end">
         {/* TODO: Add cover image upload and display functionality */}
-        <div className="absolute·top-0·h-60·w-full·rounded-lg·bg-red-900" />
+        <div className="absolute top-0 h-60 w-full rounded-lg bg-red-900" />
 
         <div className="z-10 flex basis-full justify-center px-6">
           <ProfileHeader

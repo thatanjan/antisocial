@@ -6,20 +6,47 @@ import { getSession } from "@/lib/session";
 
 const PAGE_SIZE = 20;
 
+/**
+ * Parameters for fetching user posts.
+ */
 interface GetUserPostsParams {
+  /** The user ID whose posts to fetch */
   userId: string;
+  /** Cursor for pagination (post ID to start after) */
   cursor?: string;
 }
 
+/**
+ * Result of fetching user posts.
+ */
 interface GetUserPostsResult {
+  /** Array of posts */
   posts: Post[];
+  /** Cursor for next page (null if no more posts) */
   nextCursor: string | null;
+  /** Whether there are more posts to load */
   hasMore: boolean;
 }
 
 /**
  * Fetches posts for a user profile with cursor-based pagination.
  * Returns posts sorted by creation date (newest first).
+ * Includes author info, images, and like status for the current user.
+ *
+ * @param params - The fetch parameters including userId and optional cursor
+ * @returns Promise resolving to posts array and pagination info
+ *
+ * @example
+ * ```ts
+ * // Fetch first page
+ * const result = await getUserPosts({ userId: "123" });
+ *
+ * // Fetch next page
+ * const nextResult = await getUserPosts({
+ *   userId: "123",
+ *   cursor: result.nextCursor ?? undefined
+ * });
+ * ```
  */
 export async function getUserPosts({
   userId,
