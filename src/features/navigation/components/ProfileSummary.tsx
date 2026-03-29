@@ -1,4 +1,5 @@
 import { MapPin } from "lucide-react";
+import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getSession } from "@/lib/session";
 import type { MockUser } from "../types";
@@ -30,7 +31,10 @@ export const ProfileSummary = async () => {
     : dummyUser;
 
   return (
-    <div className="flex flex-col items-center rounded-2xl border border-border bg-card p-6 shadow-sm">
+    <Link
+      className="flex flex-col items-center rounded-2xl border border-border bg-card p-6 shadow-sm"
+      href={`/profile/${user.id}`}
+    >
       <Avatar className="h-20 w-20 border-4 border-background shadow-xl">
         <AvatarImage alt={user.name} src={user.avatar} />
         <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
@@ -72,7 +76,7 @@ export const ProfileSummary = async () => {
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
