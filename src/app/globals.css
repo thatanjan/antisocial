@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @plugin "tailwindcss-animate";
 
@@ -66,7 +66,7 @@ a {
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --font-sans: Architects Daughter, sans-serif;
-  --font-mono: "Fira Code", "Courier New", monospace;
+  --font-mono: 'Fira Code', 'Courier New', monospace;
   --font-serif: Georgia, serif;
   --radius: 0.625rem;
   --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
@@ -147,8 +147,8 @@ a {
   --sidebar-ring: oklch(0.7058 0 0);
   --destructive-foreground: oklch(1 0 0);
   --font-sans: Architects Daughter, sans-serif;
-  --font-serif: "Times New Roman", Times, serif;
-  --font-mono: "Courier New", Courier, monospace;
+  --font-serif: 'Times New Roman', Times, serif;
+  --font-mono: 'Courier New', Courier, monospace;
   --shadow-color: #000000;
   --shadow-opacity: 0.03;
   --shadow-blur: 5px;
@@ -210,7 +210,7 @@ a {
   --radius: 0.625rem;
   --font-sans: Architects Daughter, sans-serif;
   --font-serif: Georgia, serif;
-  --font-mono: "Fira Code", "Courier New", monospace;
+  --font-mono: 'Fira Code', 'Courier New', monospace;
   --shadow-color: #000000;
   --shadow-opacity: 0.03;
   --shadow-blur: 5px;
@@ -242,5 +242,9 @@ a {
   body {
     letter-spacing: var(--tracking-normal);
     @apply bg-background text-foreground;
+  }
+
+  button {
+    @apply cursor-pointer;
   }
 }

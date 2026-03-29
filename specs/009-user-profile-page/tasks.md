@@ -109,12 +109,12 @@ description: 'Task list for implementing user profile page feature'
 
 ### Implementation for User Story 4
 
-- [ ] T020 [US4] Implement tab state management in `ProfileTabs.tsx`
-- [ ] T021 [US4] Display Posts tab content (existing posts list)
-- [ ] T022 [US4] Add placeholder content for Shorts tab
-- [ ] T023 [US4] Add placeholder content for Tags tab
-- [ ] T024 [US4] Add placeholder content for Activity tab
-- [ ] T025 [US4] Style active tab with appropriate visual indicator
+- [x] T020 [US4] Implement tab state management in `ProfileTabs.tsx`
+- [x] T021 [US4] Display Posts tab content (existing posts list)
+- [x] T022 [US4] Add placeholder content for Shorts tab
+- [x] T023 [US4] Add placeholder content for Tags tab
+- [x] T024 [US4] Add placeholder content for Activity tab
+- [x] T025 [US4] Style active tab with appropriate visual indicator and spread the tabs across the width of the container
 
 **Checkpoint**: User can switch between tabs with correct content display
 
