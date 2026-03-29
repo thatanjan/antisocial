@@ -33,22 +33,22 @@ export const ProfileHeader = ({
   isFollowing,
 }: ProfileHeaderProps) => {
   return (
-    <div className="basis-full rounded-lg border border-border bg-card p-6">
-      <div className="flex items-start justify-between">
-        <div className="flex items-center gap-4">
-          <Avatar className="h-20 w-20">
+    <div className="w-full rounded-lg border border-border bg-card p-4 sm:p-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="flex items-center gap-3 sm:gap-4">
+          <Avatar className="h-14 w-14 sm:h-20 sm:w-20">
             <AvatarImage alt={name} src={image ?? undefined} />
             <AvatarFallback>{name.charAt(0)}</AvatarFallback>
           </Avatar>
 
           <div className="space-y-1">
-            <h1 className="font-bold text-xl">{name}</h1>
+            <h1 className="font-bold text-lg sm:text-xl">{name}</h1>
             <p className="text-muted-foreground text-sm">@{username}</p>
             {bio && <p className="mt-2 text-sm">{bio}</p>}
           </div>
         </div>
 
-        <div>
+        <div className="flex justify-end">
           {isOwnProfile ? (
             <Button size="sm" variant="outline">
               Edit Profile
@@ -59,7 +59,7 @@ export const ProfileHeader = ({
         </div>
       </div>
 
-      <div className="mt-4 flex items-center gap-6 text-sm">
+      <div className="mt-4 flex flex-wrap items-center gap-3 text-sm sm:gap-6">
         <div className="flex items-center gap-1.5">
           <span className="font-bold">
             {formatFollowingCount(followingCount)}
