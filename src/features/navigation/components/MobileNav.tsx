@@ -41,7 +41,7 @@ export const MobileNav = ({
             </Button>
           </SheetTrigger>
           <SheetContent
-            className="min-w-full max-w-none bg-red-700 p-0 md:hidden"
+            className="min-w-full max-w-none p-0 md:hidden"
             side="left"
           >
             <SheetTitle className="sr-only">Mobile Navigation</SheetTitle>

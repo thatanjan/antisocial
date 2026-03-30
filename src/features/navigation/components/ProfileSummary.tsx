@@ -1,4 +1,3 @@
-import { MapPin } from "lucide-react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getSession } from "@/lib/session";
@@ -32,48 +31,33 @@ export const ProfileSummary = async () => {
 
   return (
     <Link
-      className="flex flex-col items-center rounded-2xl border border-border bg-card p-6 shadow-sm"
+      className="block rounded-2xl border border-border bg-card p-5"
       href={`/profile/${user.id}`}
     >
-      <Avatar className="h-20 w-20 border-4 border-background shadow-xl">
-        <AvatarImage alt={user.name} src={user.avatar} />
-        <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
-      </Avatar>
+      <div className="mb-4 flex items-center gap-3">
+        <Avatar className="h-12 w-12">
+          <AvatarImage alt={user.name} src={user.avatar} />
+          <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+        </Avatar>
 
-      <div className="mt-4 text-center">
-        <h3 className="max-w-social-name truncate font-bold text-lg">
-          {user.name}
-        </h3>
-        <p className="text-muted-foreground text-xs">{user.handle}</p>
+        <div>
+          <h3 className="font-medium text-base">{user.name}</h3>
+          <p className="text-muted-foreground text-sm">{user.handle}</p>
+        </div>
       </div>
 
-      <div className="mt-2 flex items-center gap-1 rounded-full bg-secondary/50 px-2 py-1 text-2xs text-muted-foreground">
-        <MapPin className="h-3 w-3" />
-        <span className="w-social-name truncate">{user.location}</span>
-      </div>
-
-      <div className="mt-8 grid w-full grid-cols-3 gap-4 border-border/50 border-t pt-6">
-        <div className="text-center">
-          <p className="font-bold text-sm">{formatCount(user.stats.posts)}</p>
-          <p className="text-2xs text-muted-foreground uppercase tracking-wider">
-            Posts
-          </p>
+      <div className="flex justify-between text-sm">
+        <div className="flex-1 text-center">
+          <p className="font-medium">{formatCount(user.stats.posts)}</p>
+          <p className="text-muted-foreground text-xs">Posts</p>
         </div>
-        <div className="border-border/50 border-x text-center">
-          <p className="font-bold text-sm">
-            {formatCount(user.stats.followers)}
-          </p>
-          <p className="text-2xs text-muted-foreground uppercase tracking-wider">
-            Followers
-          </p>
+        <div className="flex-1 border-border border-x text-center">
+          <p className="font-medium">{formatCount(user.stats.followers)}</p>
+          <p className="text-muted-foreground text-xs">Followers</p>
         </div>
-        <div className="text-center">
-          <p className="font-bold text-sm">
-            {formatCount(user.stats.following)}
-          </p>
-          <p className="text-2xs text-muted-foreground uppercase tracking-wider">
-            Following
-          </p>
+        <div className="flex-1 text-center">
+          <p className="font-medium">{formatCount(user.stats.following)}</p>
+          <p className="text-muted-foreground text-xs">Following</p>
         </div>
       </div>
     </Link>
