@@ -99,16 +99,17 @@ a {
   /* Typography Scale */
   --font-size-2xs: 0.625rem;
 
+  /* TODO: Might want to remove since they are not used */
   /* Layout Spacing */
-  --spacing-sidebar-left: var(--spacing-72); /* 288px approx */
-  --spacing-sidebar-right: var(--spacing-80); /* 320px */
-  --spacing-social-name: var(--spacing-32); /* 128px */
-  --max-width-layout: 100rem; /* 1600px */
+  --width-sidebar-left: var(--spacing-72);
+  --width-sidebar-right: var(--spacing-80);
+  --width-social-name: var(--spacing-32);
+  --max-width-layout: 100rem;
 
   /* Column Widths */
   --width-col-side: 30%;
-  --width-col-main: 40%;
-  --min-width-col: 280px;
+  --min-width-col: 320px;
+  --max-width-col-side: 420px;
 }
 
 /* Theme variables for light mode */

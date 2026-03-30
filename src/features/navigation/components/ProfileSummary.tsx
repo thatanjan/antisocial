@@ -49,7 +49,7 @@ export const ProfileSummary = async () => {
 
       <div className="mt-2 flex items-center gap-1 rounded-full bg-secondary/50 px-2 py-1 text-2xs text-muted-foreground">
         <MapPin className="h-3 w-3" />
-        <span className="max-w-social-name truncate">{user.location}</span>
+        <span className="w-social-name truncate">{user.location}</span>
       </div>
 
       <div className="mt-8 grid w-full grid-cols-3 gap-4 border-border/50 border-t pt-6">

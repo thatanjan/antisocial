@@ -31,16 +31,20 @@ export const MobileNav = ({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="sticky top-0 z-50 flex items-center justify-between border-border border-b bg-background/80 px-4 py-3 backdrop-blur-md lg:hidden">
+    <div className="sticky top-0 z-50 flex items-center justify-between border-border border-b bg-background/80 px-4 py-3 backdrop-blur-md md:hidden">
       <div className="flex items-center gap-2">
         <Sheet onOpenChange={setOpen} open={open}>
           <SheetTrigger asChild>
             <Button className="-ml-2" size="icon" variant="ghost">
               <Menu className="h-6 w-6" />
               <span className="sr-only">Toggle menu</span>
-            </Button>
+            </Button>{" "}
+            z
           </SheetTrigger>
-          <SheetContent className="w-[300px] p-0 sm:w-[350px]" side="left">
+          <SheetContent
+            className="w-full max-w-none bg-red-700 p-0"
+            side="left"
+          >
             <SheetTitle className="sr-only">Mobile Navigation</SheetTitle>
             <SheetDescription className="sr-only">
               Navigation menu for accessing profile, links, and social features.
