@@ -38,11 +38,10 @@ export const MobileNav = ({
             <Button className="-ml-2" size="icon" variant="ghost">
               <Menu className="h-6 w-6" />
               <span className="sr-only">Toggle menu</span>
-            </Button>{" "}
-            z
+            </Button>
           </SheetTrigger>
           <SheetContent
-            className="w-full max-w-none bg-red-700 p-0"
+            className="min-w-full max-w-none bg-red-700 p-0 md:hidden"
             side="left"
           >
             <SheetTitle className="sr-only">Mobile Navigation</SheetTitle>
