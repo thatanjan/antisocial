@@ -1,13 +1,15 @@
 "use client";
 
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
+  SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
@@ -29,11 +31,11 @@ export const MobileNav = ({
   profileSummary: React.ReactNode;
 }) => {
   const [open, setOpen] = useState(false);
-
+  console.log(open);
   return (
     <div className="sticky top-0 z-50 flex items-center justify-between border-border border-b bg-background/80 px-4 py-3 backdrop-blur-md md:hidden">
       <div className="flex items-center gap-2">
-        <Sheet onOpenChange={setOpen} open={open}>
+        <Sheet>
           <SheetTrigger asChild>
             <Button className="-ml-2" size="icon" variant="ghost">
               <Menu className="h-6 w-6" />
@@ -42,12 +44,26 @@ export const MobileNav = ({
           </SheetTrigger>
           <SheetContent
             className="min-w-full max-w-none p-0 md:hidden"
+            showCloseButton={false}
             side="left"
           >
-            <SheetTitle className="sr-only">Mobile Navigation</SheetTitle>
-            <SheetDescription className="sr-only">
-              Navigation menu for accessing profile, links, and social features.
-            </SheetDescription>
+            <SheetHeader className="sr-only">
+              <SheetTitle>Mobile Navigation</SheetTitle>
+              <SheetDescription>
+                Navigation menu for accessing profile, links, and social
+                features.
+              </SheetDescription>
+            </SheetHeader>
+            <SheetClose asChild>
+              <Button
+                className="absolute top-4 right-4 z-10"
+                size="icon"
+                variant="ghost"
+              >
+                <X className="h-5 w-5" />
+                <span className="sr-only">Close</span>
+              </Button>
+            </SheetClose>
             <ScrollArea className="h-full">
               <div className="flex flex-col gap-6 p-6">
                 <div className="px-2">
