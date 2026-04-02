@@ -1,7 +1,4 @@
-"use client";
-
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -30,8 +27,6 @@ export const MobileNav = ({
 }: {
   profileSummary: React.ReactNode;
 }) => {
-  const [open, setOpen] = useState(false);
-  console.log(open);
   return (
     <div className="sticky top-0 z-50 flex items-center justify-between border-border border-b bg-background/80 px-4 py-3 backdrop-blur-md md:hidden">
       <div className="flex items-center gap-2">
