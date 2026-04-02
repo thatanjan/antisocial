@@ -1,16 +1,13 @@
-import { headers } from "next/headers";
 import { PostList } from "@/features/create-post/components/PostList";
-import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { getSession } from "@/lib/session";
 
 /**
  * Feed page that displays a list of posts from all users.
  * Fetches the latest 20 posts from the database.
  */
 export default async function FeedPage() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getSession();
 
   const currentUserId = session?.user?.id || "";
 

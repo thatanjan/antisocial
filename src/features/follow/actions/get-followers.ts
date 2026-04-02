@@ -1,0 +1,64 @@
+"use server";
+
+import db from "@/lib/prisma";
+import { getSession } from "@/lib/session";
+import { GetFollowersSchema } from "../schemas";
+import type { GetFollowersResult } from "../types";
+
+/**
+ * Get followers of a user.
+ */
+export const getFollowers = async (input: {
+  userId: string;
+  cursor?: string;
+  limit?: number;
+}): Promise<GetFollowersResult> => {
+  const parsed = GetFollowersSchema.safeParse(input);
+  if (!parsed.success) {
+    return {
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Invalid input",
+    };
+  }
+
+  const { userId, cursor, limit = 20 } = parsed.data;
+
+  const session = await getSession();
+  if (!session?.user) {
+    return { success: false, error: "Unauthorized" };
+  }
+
+  const follows = await db.follow.findMany({
+    where: { followeeId: userId },
+    include: {
+      follower: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      },
+    },
+    orderBy: { createdAt: "desc" },
+    take: limit + 1,
+    cursor: cursor ? { id: cursor } : undefined,
+    skip: cursor ? 1 : 0,
+  });
+
+  const hasMore = follows.length > limit;
+  const users = follows.slice(0, limit);
+  const nextCursor = hasMore ? (users[users.length - 1]?.id ?? null) : null;
+
+  return {
+    success: true,
+    data: {
+      users: users.map((follow) => ({
+        id: follow.follower.id,
+        name: follow.follower.name,
+        image: follow.follower.image,
+        followedAt: follow.createdAt,
+      })),
+      nextCursor,
+    },
+  };
+};

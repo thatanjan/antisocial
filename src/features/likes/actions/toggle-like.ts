@@ -1,9 +1,8 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { headers } from "next/headers";
-import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { getSession } from "@/lib/session";
 import type { ToggleLikeResult } from "../types";
 
 /**
@@ -18,9 +17,7 @@ export const toggleLikeAction = async (
   postId: string,
 ): Promise<ToggleLikeResult> => {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getSession();
 
     if (!session || !session.user) {
       return {

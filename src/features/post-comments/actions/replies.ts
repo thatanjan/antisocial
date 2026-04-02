@@ -1,9 +1,8 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { headers } from "next/headers";
-import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { getSession } from "@/lib/session";
 import { replySchema } from "../schemas";
 import type {
   CommentReply,
@@ -30,9 +29,7 @@ export const addReplyAction = async (
   content: string,
 ): Promise<ReplyActionResult> => {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getSession();
 
     if (!session || !session.user) {
       return {
@@ -118,9 +115,7 @@ export const updateReplyAction = async (
   content: string,
 ): Promise<ReplyActionResult> => {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getSession();
 
     if (!session || !session.user) {
       return {
@@ -201,9 +196,7 @@ export const deleteReplyAction = async (
   replyId: string,
 ): Promise<{ success: boolean; error?: string }> => {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getSession();
 
     if (!session || !session.user) {
       return {
@@ -273,9 +266,7 @@ export const getRepliesAction = async (
   offset: number = 0,
 ): Promise<FetchRepliesResponse> => {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getSession();
 
     const [replies, total] = await Promise.all([
       prisma.commentReply.findMany({
