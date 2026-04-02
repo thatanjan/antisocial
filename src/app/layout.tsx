@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
-import { Architects_Daughter, Geist, Geist_Mono, Inter } from "next/font/google";
+import { DM_Mono, DM_Sans, DM_Serif_Text } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const fontSans = DM_Sans({
   subsets: ["latin"],
+  variable: "--font-sans",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const architectsDaughter = Architects_Daughter({
+const fontSerif = DM_Serif_Text({
   weight: "400",
   subsets: ["latin"],
-  variable: "--font-architects-daughter",
+  variable: "--font-serif",
+});
+
+const fontMono = DM_Mono({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -28,22 +29,23 @@ import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
-
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={cn("font-sans", inter.variable)}>
+    <html
+      className={cn("font-sans", fontSans.variable)}
+      lang="en"
+      suppressHydrationWarning
+    >
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
-          geistSans.variable,
-          geistMono.variable,
-          architectsDaughter.variable,
+          fontSans.variable,
+          fontSerif.variable,
+          fontMono.variable,
         )}
       >
         <ThemeProvider
