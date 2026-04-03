@@ -55,9 +55,9 @@ description: "Task list for Guest Mode feature implementation"
 ### Implementation for User Story 1
 
 - [X] T005 Create GuestButton component in src/features/guest-mode/components/GuestButton.tsx
-- [ ] T006 Create GuestConfirmationModal component in src/features/guest-mode/components/GuestConfirmationModal.tsx
-- [ ] T007 [P] Add "Continue as Guest" button to src/app/(auth)/login/page.tsx
-- [ ] T008 Implement guest sign-in flow in GuestButton using authClient.signIn.anonymous()
+- [X] T006 Create GuestConfirmationModal component in src/features/guest-mode/components/GuestConfirmationModal.tsx
+- [X] T007 [P] Add "Continue as Guest" button to src/app/(auth)/login/page.tsx
+- [X] T008 Implement guest sign-in flow in GuestButton using authClient.signIn.anonymous()
 - [ ] T009 [US1] Update ProfileSummary to display "Guest" for anonymous users in src/features/navigation/components/ProfileSummary.tsx
 
 **Checkpoint**: User Story 1 fully functional - guest can enter and see "Guest" display name
