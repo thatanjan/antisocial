@@ -41,8 +41,8 @@ description: "Task list for Guest Mode feature implementation"
 
 **Purpose**: Database schema changes required for all user stories
 
-- [ ] T003 Add isAnonymous field to User model in prisma/schema.prisma
-- [ ] T004 Run Prisma migration to update database schema
+- [X] T003 Add isAnonymous field to User model in prisma/schema.prisma
+- [X] T004 Run Prisma migration to update database schema
 
 ---
 
