@@ -1,8 +1,7 @@
 "use server";
 
-import { headers } from "next/headers";
-import { auth } from "@/lib/auth";
 import db from "@/lib/prisma";
+import { getSession } from "@/lib/session";
 import { GetFollowingSchema } from "../schemas";
 import type { GetFollowingResult } from "../types";
 
@@ -24,7 +23,7 @@ export const getFollowing = async (input: {
 
   const { userId, cursor, limit = 20 } = parsed.data;
 
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await getSession();
   if (!session?.user) {
     return { success: false, error: "Unauthorized" };
   }

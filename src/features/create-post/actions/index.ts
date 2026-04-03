@@ -1,10 +1,9 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { headers } from "next/headers";
-import { auth } from "@/lib/auth";
 import { imagekit } from "@/lib/imagekit";
 import prisma from "@/lib/prisma";
+import { getSession } from "@/lib/session";
 import { createPostSchema, updatePostSchema } from "../schemas";
 import type {
   CreatePostInput,
@@ -26,9 +25,7 @@ export const createPostAction = async (
 ): Promise<CreatePostResult> => {
   try {
     // 1. Authenticate user
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getSession();
 
     if (!session || !session.user) {
       return {
@@ -87,9 +84,7 @@ export const updatePostAction = async (
   data: UpdatePostInput,
 ): Promise<UpdatePostResult> => {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getSession();
 
     if (!session || !session.user) {
       return { success: false, error: "Unauthorized" };
@@ -150,9 +145,7 @@ export const deletePostAction = async (
   postId: string,
 ): Promise<DeletePostResult> => {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getSession();
 
     if (!session || !session.user) {
       return { success: false, error: "Unauthorized" };

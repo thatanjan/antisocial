@@ -82,7 +82,7 @@ import { z } from 'zod'
 
 const Schema = z.object({ name: z.string() })
 
-export async function myAction(data: z.infer<typeof Schema>) {
+export const myAction = async (data: z.infer<typeof Schema>) => {
   const parsed = Schema.safeParse(data)
   if (!parsed.success) return { success: false, error: 'Invalid data' }
   // ... logic
@@ -214,6 +214,7 @@ Biome is configured in `biome.json`:
 Run `npm run lint` before committing to catch issues.
 
 ## Active Technologies
+- PostgreSQL (009-user-profile-page)
 - PostgreSQL (010-guest-mode)
 
 - TypeScript (strict mode) + Shadcn UI, React Hook Form, Zod, Better Auth (008-user-follow)

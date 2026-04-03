@@ -1,9 +1,8 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { headers } from "next/headers";
-import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { getSession } from "@/lib/session";
 import { commentSchema } from "../schemas";
 import type {
   CommentActionResult,
@@ -30,9 +29,7 @@ export const getCommentsAction = async (
   offset: number = 0,
 ): Promise<FetchCommentsResponse> => {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getSession();
 
     const [comments, total] = await Promise.all([
       prisma.postComment.findMany({
@@ -84,9 +81,7 @@ export const addCommentAction = async (
   content: string,
 ): Promise<CommentActionResult> => {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getSession();
 
     if (!session || !session.user) {
       return {
@@ -160,9 +155,7 @@ export const updateCommentAction = async (
   content: string,
 ): Promise<CommentActionResult> => {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getSession();
 
     if (!session || !session.user) {
       return {
@@ -240,9 +233,7 @@ export const deleteCommentAction = async (
   commentId: string,
 ): Promise<{ success: boolean; error?: string }> => {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getSession();
 
     if (!session || !session.user) {
       return {
