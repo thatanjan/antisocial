@@ -36,6 +36,7 @@ No test framework is currently configured. Do not write test files unless explic
 - Use **strict mode** (enabled in tsconfig.json)
 - Prefer `const` over `let`; only use `let` when reassignment is strictly necessary
 - Use arrow functions: `const myFn = () => { ... }`
+- Use arrow functions for creating components.
 - Avoid `any`; use proper types or `unknown` where needed
 - Add JSDoc/TSDoc comments for complex functions and public APIs
 
