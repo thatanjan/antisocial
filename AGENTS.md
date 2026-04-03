@@ -202,6 +202,7 @@ Biome is configured in `biome.json`:
 Run `npm run lint` before committing to catch issues.
 
 ## Active Technologies
+- PostgreSQL (010-guest-mode)
 
 - TypeScript (strict mode) + Shadcn UI, React Hook Form, Zod, Better Auth (008-user-follow)
 
