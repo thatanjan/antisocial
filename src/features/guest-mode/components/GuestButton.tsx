@@ -1,10 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { authClient } from "@/lib/authClient";
+import { signInAsGuest } from "../actions/sign-in";
 import { GuestConfirmationModal } from "./GuestConfirmationModal";
 
 interface GuestButtonProps {
@@ -12,25 +11,15 @@ interface GuestButtonProps {
 }
 
 const GuestButton = ({ disabled }: GuestButtonProps) => {
-  const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleGuestSignIn = async () => {
-    try {
-      setIsLoading(true);
-      const { error: signInError } = await authClient.signIn.anonymous();
-      if (signInError) {
-        console.error("Failed to sign in as guest:", signInError);
-        toast.error("Failed to sign in as guest");
-        return;
-      }
-      setShowModal(false);
-      router.push("/feed");
-    } catch (err) {
-      console.error("Guest sign-in failed:", err);
-      toast.error("Failed to sign in as guest");
-    } finally {
+    setIsLoading(true);
+    const result = await signInAsGuest();
+
+    if (!result.success) {
+      toast.error(result.error ?? "Failed to sign in as guest");
       setIsLoading(false);
     }
   };
