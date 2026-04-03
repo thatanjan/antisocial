@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
-import { Architects_Daughter, Geist, Geist_Mono } from "next/font/google";
+import { DM_Mono, DM_Sans, DM_Serif_Text } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const fontSans = DM_Sans({
   subsets: ["latin"],
+  variable: "--font-sans",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const architectsDaughter = Architects_Daughter({
+const fontSerif = DM_Serif_Text({
   weight: "400",
   subsets: ["latin"],
-  variable: "--font-architects-daughter",
+  variable: "--font-serif",
+});
+
+const fontMono = DM_Mono({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -34,13 +35,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      className={cn("font-sans", fontSans.variable)}
+      lang="en"
+      suppressHydrationWarning
+    >
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
-          geistSans.variable,
-          geistMono.variable,
-          architectsDaughter.variable,
+          fontSans.variable,
+          fontSerif.variable,
+          fontMono.variable,
         )}
       >
         <ThemeProvider

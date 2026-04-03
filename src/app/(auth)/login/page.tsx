@@ -1,9 +1,8 @@
-import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AuthLogo } from "@/features/auth/components/AuthLogo";
 import { GoogleButton } from "@/features/auth/components/GoogleButton";
-import { auth } from "@/lib/auth";
+import { getSession } from "@/lib/session";
 
 /**
  * Login Page (Server Component).
@@ -15,9 +14,7 @@ const LoginPage = async (props: {
   const searchParams = await props.searchParams;
   const error = searchParams.error;
 
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getSession();
 
   if (session) {
     redirect("/");
