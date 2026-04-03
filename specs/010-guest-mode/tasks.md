@@ -54,7 +54,7 @@ description: "Task list for Guest Mode feature implementation"
 
 ### Implementation for User Story 1
 
-- [ ] T005 Create GuestButton component in src/features/guest-mode/components/GuestButton.tsx
+- [X] T005 Create GuestButton component in src/features/guest-mode/components/GuestButton.tsx
 - [ ] T006 Create GuestConfirmationModal component in src/features/guest-mode/components/GuestConfirmationModal.tsx
 - [ ] T007 [P] Add "Continue as Guest" button to src/app/(auth)/login/page.tsx
 - [ ] T008 Implement guest sign-in flow in GuestButton using authClient.signIn.anonymous()
