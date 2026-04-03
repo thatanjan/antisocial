@@ -32,8 +32,8 @@ description: "Task list for Guest Mode feature implementation"
 
 **Purpose**: Configure Better Auth anonymous plugin
 
-- [ ] T001 Add anonymous plugin to src/lib/auth.ts with emailDomainName option
-- [ ] T002 Add anonymousClient plugin to src/lib/authClient.ts
+- [X] T001 Add anonymous plugin to src/lib/auth.ts with emailDomainName option
+- [X] T002 Add anonymousClient plugin to src/lib/authClient.ts
 
 ---
 
