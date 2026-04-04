@@ -1,3 +1,4 @@
+import { VenetianMask } from "lucide-react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getSession } from "@/lib/session";
@@ -12,6 +13,7 @@ export const ProfileSummary = async () => {
   const session = await getSession();
 
   // Map session user to MockUser interface, falling back to dummy data
+  const isAnonymous = session?.user?.isAnonymous ?? false;
   const user: MockUser = session?.user
     ? {
         id: session.user.id,
@@ -20,12 +22,13 @@ export const ProfileSummary = async () => {
         avatar:
           session.user.image ||
           `https://api.dicebear.com/7.x/avataaars/svg?seed=${session.user.id}`,
-        location: "Global Wanderer", // Dummy as it's not in DB yet
+        location: "Global Wanderer",
         stats: {
-          posts: 0, // Dummy for now
+          posts: 0,
           followers: 0,
           following: 0,
         },
+        isAnonymous,
       }
     : dummyUser;
 
@@ -41,7 +44,12 @@ export const ProfileSummary = async () => {
         </Avatar>
 
         <div>
-          <h3 className="font-medium text-base">{user.name}</h3>
+          <h3 className="flex items-center gap-2 font-medium text-base">
+            {user.name}
+            {user.isAnonymous && (
+              <VenetianMask className="h-4 w-4 text-muted-foreground" />
+            )}
+          </h3>
           <p className="text-muted-foreground text-sm">{user.handle}</p>
         </div>
       </div>
