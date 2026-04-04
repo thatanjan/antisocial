@@ -16,6 +16,16 @@ const signInAsGuest = async () => {
 
     redirect("/feed");
   } catch (err) {
+    // HACK: Check for Next.js redirect error and re-throw it to allow proper redirection
+    if (
+      err &&
+      typeof err === "object" &&
+      "digest" in err &&
+      typeof err.digest === "string" &&
+      err.digest.startsWith("NEXT_REDIRECT")
+    ) {
+      throw err;
+    }
     console.error("Guest sign-in failed:", err);
     return { success: false, error: "Failed to sign in as guest" };
   }

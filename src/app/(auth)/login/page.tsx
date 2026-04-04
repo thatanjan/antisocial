@@ -5,13 +5,15 @@ import { GoogleButton } from "@/features/auth/components/GoogleButton";
 import { GuestButton } from "@/features/guest-mode/components/GuestButton";
 import { getSession } from "@/lib/session";
 
+interface LoginPageProps {
+  searchParams: Promise<{ error?: string }>;
+}
+
 /**
  * Login Page (Server Component).
  * Provides the main entry point for user authentication.
  */
-const LoginPage = async (props: {
-  searchParams: Promise<{ error?: string }>;
-}) => {
+const LoginPage = async (props: LoginPageProps) => {
   const searchParams = await props.searchParams;
   const error = searchParams.error;
 
