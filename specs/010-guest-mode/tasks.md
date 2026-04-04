@@ -80,58 +80,20 @@ description: "Task list for Guest Mode feature implementation"
 
 ---
 
-## Phase 5: User Story 3 - Convert to Registered User (Priority: P2)
+## Phase 5: Guest Cleanup (Cron Job)
 
-**Goal**: Guest can sign up with Google and convert their session to a permanent account
+**Goal**: Clean up anonymous users after 48 hours of inactivity
 
-**Independent Test**: Enter guest mode, click Google sign-in, verify account is created and guest is removed
+### Implementation
 
-### Implementation for User Story 3
-
-- [ ] T013 [US3] Configure onLinkAccount callback in src/lib/auth.ts for account migration
-- [ ] T014 [US3] Test guest-to-registered conversion via Google OAuth
-
-**Checkpoint**: Guest can convert to permanent account seamlessly
+- [ ] T013 Add cron job to delete anonymous users inactive for 48 hours
 
 ---
 
-## Phase 6: User Story 4 - Sign Out from Guest Mode (Priority: P2)
+## Phase 6: Polish & Cross-Cutting Concerns
 
-**Goal**: Guest can exit guest mode and return to login page
-
-**Independent Test**: Enter guest mode, click "Exit Guest Mode", verify redirect to login
-
-### Implementation for User Story 4
-
-- [ ] T015 [US4] Add "Exit Guest Mode" option in profile menu
-- [ ] T016 [US4] Implement exit guest mode using authClient.deleteAnonymousUser()
-- [ ] T017 [US4] Add exit button to ProfileSummary component
-
-**Checkpoint**: Guest can exit and return to login page
-
----
-
-## Phase 7: User Story 5 - Restricted Actions for Guests (Priority: P1)
-
-**Goal**: Guests see registration prompts when attempting restricted actions (create post, like, comment, follow)
-
-**Independent Test**: Try each restricted action as guest, verify registration prompt appears
-
-### Implementation for User Story 5
-
-- [ ] T018 [P] [US5] Add guest check to create post component in src/features/create-post/components/CreatePost.tsx
-- [ ] T019 [P] [US5] Add guest check to like button in src/features/likes/components/ToggleLike.tsx
-- [ ] T020 [P] [US5] Add guest check to comment component in src/features/post-comments/components/CommentForm.tsx
-- [ ] T021 [P] [US5] Add guest check to follow button in src/features/follow/components/FollowButton.tsx
-
-**Checkpoint**: All restricted actions show registration prompts for guests
-
----
-
-## Phase 8: Polish & Cross-Cutting Concerns
-
-- [ ] T022 Run lint and typecheck to verify code quality
-- [ ] T023 Verify all user stories work together in integration
+- [ ] T014 Run lint and typecheck to verify code quality
+- [ ] T015 Verify all user stories work together in integration
 
 ---
 
@@ -150,9 +112,6 @@ description: "Task list for Guest Mode feature implementation"
 
 - **User Story 1 (P1)**: Can start after Foundational - No dependencies on other stories (MVP)
 - **User Story 2 (P1)**: Can start after Foundational - Works with US1 but independently testable
-- **User Story 3 (P2)**: Can start after Foundational - Uses US1 session for conversion
-- **User Story 4 (P2)**: Can start after Foundational - Uses US1 session for exit
-- **User Story 5 (P1)**: Can start after Foundational - Works with all stories
 
 ### Within Each User Story
 
@@ -165,7 +124,6 @@ description: "Task list for Guest Mode feature implementation"
 - T001, T002 can run in parallel (Setup)
 - T003, T004 can run in parallel (Foundational)
 - T010, T011, T012 can run in parallel (US2)
-- T018, T019, T020, T021 can run in parallel (US5)
 
 ---
 
@@ -197,23 +155,20 @@ Task: "Add 'Continue as Guest' button to src/app/(auth)/login/page.tsx"
 1. Complete Setup + Foundational → Foundation ready
 2. Add User Story 1 → Test independently → Deploy/Demo (MVP!)
 3. Add User Story 2 → Test independently → Deploy/Demo
-4. Add User Story 3-4 → Test → Deploy/Demo
-5. Add User Story 5 → Test → Deploy/Demo
-6. Polish → Final deployment
+4. Add Cleanup Phase → Test → Deploy/Demo
+5. Polish → Final deployment
 
 ---
 
 ## Summary
 
-- **Total Task Count**: 23
+- **Total Task Count**: 15
 - **Task Count by User Story**:
   - US1: 5 tasks (MVP)
   - US2: 3 tasks
-  - US3: 2 tasks
-  - US4: 3 tasks
-  - US5: 4 tasks
+  - Cleanup: 1 task
   - Polish: 2 tasks
-- **Parallel Opportunities**: 4 task groups identified
+- **Parallel Opportunities**: 3 task groups identified
 - **MVP Scope**: User Story 1 (Enter App as Guest) - 5 tasks
 
 All tasks follow the checklist format with ID, optional [P] marker, optional [Story] label, and exact file paths.
