@@ -58,7 +58,7 @@ description: "Task list for Guest Mode feature implementation"
 - [X] T006 Create GuestConfirmationModal component in src/features/guest-mode/components/GuestConfirmationModal.tsx
 - [X] T007 [P] Add "Continue as Guest" button to src/app/(auth)/login/page.tsx
 - [X] T008 Implement guest sign-in flow in GuestButton using authClient.signIn.anonymous()
-- [ ] T009 [US1] Update ProfileSummary to display "Guest" for anonymous users in src/features/navigation/components/ProfileSummary.tsx
+- [X] T009 [US1] Update ProfileSummary to display "Guest" for anonymous users in src/features/navigation/components/ProfileSummary.tsx
 
 **Checkpoint**: User Story 1 fully functional - guest can enter and see "Guest" display name
 
@@ -72,9 +72,9 @@ description: "Task list for Guest Mode feature implementation"
 
 ### Implementation for User Story 2
 
-- [ ] T010 [P] [US2] Verify feed page works for anonymous users in src/app/(authenticated)/feed/page.tsx
-- [ ] T011 [P] [US2] Verify post details page accessible to guests in src/app/(authenticated)/post/[id]/page.tsx
-- [ ] T012 [P] [US2] Verify user profile page accessible to guests
+- [X] T010 [P] [US2] Verify feed page works for anonymous users in src/app/(authenticated)/feed/page.tsx
+- [X] T011 [P] [US2] Verify post details page accessible to guests in src/app/(authenticated)/post/[id]/page.tsx
+- [X] T012 [P] [US2] Verify user profile page accessible to guests
 
 **Checkpoint**: Guest can browse all read-only content
 
