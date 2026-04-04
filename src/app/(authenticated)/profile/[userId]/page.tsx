@@ -53,11 +53,12 @@ export default async function UserProfilePage({ params }: ProfilePageProps) {
     id: user.id,
     name: user.name,
     username: user.name.toLowerCase().replace(/\s/g, ""),
-    bio: null, // Bio field doesn't exist in schema yet
+    bio: null,
     image: user.image,
     createdAt: user.createdAt,
     followerCount: user.followerCount,
     followingCount: user.followingCount,
+    isAnonymous: user.isAnonymous,
   };
 
   return (
