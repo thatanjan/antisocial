@@ -86,7 +86,7 @@ description: "Task list for Guest Mode feature implementation"
 
 ### Implementation
 
-- [ ] T013 Add cron job to delete anonymous users inactive for 48 hours
+- [X] T013 Add cron job to delete anonymous users inactive for 48 hours
 
 ---
 
