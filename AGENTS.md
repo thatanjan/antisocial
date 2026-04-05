@@ -20,6 +20,8 @@ This document provides guidelines for agents working on the antisocial codebase.
 ### Database
 
 - `npm run postinstall` - Auto-runs after `npm install` to generate Prisma client
+- `npx prisma migrate dev --create-only` - Generate a migration file **without applying** it
+- `npx prisma migrate dev` - Apply pending migrations (only after user approval)
 
 ### Note on Testing
 
@@ -34,6 +36,7 @@ No test framework is currently configured. Do not write test files unless explic
 - Use **strict mode** (enabled in tsconfig.json)
 - Prefer `const` over `let`; only use `let` when reassignment is strictly necessary
 - Use arrow functions: `const myFn = () => { ... }`
+- Use arrow functions for creating components.
 - Avoid `any`; use proper types or `unknown` where needed
 - Add JSDoc/TSDoc comments for complex functions and public APIs
 
@@ -137,8 +140,16 @@ export const myAction = async (data: z.infer<typeof Schema>) => {
 
 - Use Prisma Client via `import { prisma } from "@/lib/prisma"`
 - Follow Prisma naming conventions (singular model names)
-- Run `npx prisma generate` after schema changes
 - Use proper error handling for DB operations
+
+**Migration Workflow (MUST follow):**
+
+1. After any `schema.prisma` change, run `npx prisma migrate dev --create-only` to generate the migration file **without applying** it.
+2. **Do NOT run `npx prisma migrate dev`** (which applies the migration) until the user explicitly approves.
+3. Present the generated migration SQL to the user for review.
+4. Only after user approval, run `npx prisma migrate dev` to apply the migration.
+5. Run `npx prisma generate` to regenerate the Prisma Client after the migration is applied.
+
 
 ### Authentication
 
@@ -151,6 +162,7 @@ export const myAction = async (data: z.infer<typeof Schema>) => {
 - Never guess or hallucinate API usage—always verify with official docs
 
 ### Code Readability
+
 
 - Add blank lines between logical sections of code to improve readability
 - Don't overdo it—avoid excessive blank lines that waste space
@@ -203,6 +215,7 @@ Run `npm run lint` before committing to catch issues.
 
 ## Active Technologies
 - PostgreSQL (009-user-profile-page)
+- PostgreSQL (010-guest-mode)
 
 - TypeScript (strict mode) + Shadcn UI, React Hook Form, Zod, Better Auth (008-user-follow)
 

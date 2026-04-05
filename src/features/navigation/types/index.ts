@@ -35,6 +35,8 @@ export interface MockUser {
     /** Total number of users followed */
     following: number;
   };
+  /** Whether this is a guest/anonymous user */
+  isAnonymous: boolean;
 }
 
 /**

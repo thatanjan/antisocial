@@ -2,13 +2,13 @@
   ============================================================================
   SYNC IMPACT REPORT
   ============================================================================
-  Version change: 1.3.0 → 1.5.0
+  Version change: 1.5.0 → 1.6.0
   
   Updated Principles:
-  - III. Component & Styling Standards (Strict color variable rules & NO arbitrary values)
+  - VII. Database Migration Workflow (NEW — require user approval before applying migrations)
   
   Previous:
-  - III. Component & Styling Standards (Strict color variable rules)
+  - N/A (new principle)
   
   Templates requiring updates:
   - ✅ spec-template.md: No blocking conflicts
@@ -103,6 +103,18 @@ The entire application stack MUST be containerized using Docker. All development
 - `npm run dev` SHOULD work, but `docker-compose up` is the standard for full stack execution
 - No implicit host dependencies (e.g., local Node version, local Postgres) should be assumed for production parity
 
+### VII. Database Migration Workflow
+
+All database schema changes MUST follow a two-step migration workflow. Migrations MUST be generated without being applied, then presented for user review and explicit approval before execution.
+
+**Non-Negotiables:**
+- After any `schema.prisma` change, run `npx prisma migrate dev --create-only` to generate the migration file **without applying** it
+- **NEVER** run `npx prisma migrate dev` (which applies the migration) without explicit user approval
+- Present the generated migration SQL to the user for review before applying
+- Only after user approval, run `npx prisma migrate dev` to apply the pending migration
+- Run `npx prisma generate` to regenerate the Prisma Client after migrations are applied
+- Migration names MUST be descriptive (e.g., `add_user_bio_field`, `create_comments_table`)
+
 ## Technology Stack
 
 The following technologies are mandated for this project:
@@ -156,6 +168,7 @@ The following technologies are mandated for this project:
 - [ ] No testing code (unless explicitly requested)
 - [ ] Docker configuration updated (if new services added)
 - [ ] Proper code readability with appropriate line breaks
+- [ ] Database migrations generated with `--create-only` and approved before applying
 
 ## Governance
 
@@ -177,4 +190,4 @@ This constitution supersedes all other development practices for this project. A
 - Violations require documented justification
 - Repeated violations trigger constitution review
 
-**Version**: 1.5.0 | **Ratified**: 2026-01-20 | **Last Amended**: 2026-01-27
+**Version**: 1.6.0 | **Ratified**: 2026-01-20 | **Last Amended**: 2026-04-03

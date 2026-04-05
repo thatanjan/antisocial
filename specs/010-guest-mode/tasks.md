@@ -1,0 +1,174 @@
+---
+
+description: "Task list for Guest Mode feature implementation"
+---
+
+# Tasks: Guest Mode for Anonymous Users
+
+**Input**: Design documents from `/specs/010-guest-mode/`
+**Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md
+
+**Tests**: Not requested - skipped per spec
+
+**Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
+
+## Format: `[ID] [P?] [Story] Description`
+
+- **[P]**: Can run in parallel (different files, no dependencies)
+- **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
+- Include exact file paths in descriptions
+
+## Path Conventions
+
+- **Next.js App Router**: `src/app/` for pages and layouts
+- **Global components**: `src/components/` (Shadcn + approved custom)
+- **Feature code**: `src/features/[feature-name]/` with subdirectories for components, hooks, utils, types, actions
+- **Library integrations**: `src/lib/` (prisma, auth, etc.)
+- **Prisma**: `prisma/schema.prisma`
+
+---
+
+## Phase 1: Setup (Shared Infrastructure)
+
+**Purpose**: Configure Better Auth anonymous plugin
+
+- [X] T001 Add anonymous plugin to src/lib/auth.ts with emailDomainName option
+- [X] T002 Add anonymousClient plugin to src/lib/authClient.ts
+
+---
+
+## Phase 2: Foundational (Blocking Prerequisites)
+
+**Purpose**: Database schema changes required for all user stories
+
+- [X] T003 Add isAnonymous field to User model in prisma/schema.prisma
+- [X] T004 Run Prisma migration to update database schema
+
+---
+
+## Phase 3: User Story 1 - Enter App as Guest (Priority: P1) 🎯 MVP
+
+**Goal**: User can click "Continue as Guest" on login page and access the app with a temporary session
+
+**Independent Test**: Visit login page, click "Continue as Guest", verify user lands on feed with guest session
+
+### Implementation for User Story 1
+
+- [X] T005 Create GuestButton component in src/features/guest-mode/components/GuestButton.tsx
+- [X] T006 Create GuestConfirmationModal component in src/features/guest-mode/components/GuestConfirmationModal.tsx
+- [X] T007 [P] Add "Continue as Guest" button to src/app/(auth)/login/page.tsx
+- [X] T008 Implement guest sign-in flow in GuestButton using authClient.signIn.anonymous()
+- [X] T009 [US1] Update ProfileSummary to display "Guest" for anonymous users in src/features/navigation/components/ProfileSummary.tsx
+
+**Checkpoint**: User Story 1 fully functional - guest can enter and see "Guest" display name
+
+---
+
+## Phase 4: User Story 2 - Browse Content as Guest (Priority: P1)
+
+**Goal**: Guest can view posts, comments, and user profiles (read-only)
+
+**Independent Test**: Enter guest mode, visit feed, verify all content is visible
+
+### Implementation for User Story 2
+
+- [X] T010 [P] [US2] Verify feed page works for anonymous users in src/app/(authenticated)/feed/page.tsx
+- [X] T011 [P] [US2] Verify post details page accessible to guests in src/app/(authenticated)/post/[id]/page.tsx
+- [X] T012 [P] [US2] Verify user profile page accessible to guests
+
+**Checkpoint**: Guest can browse all read-only content
+
+---
+
+## Phase 5: Guest Cleanup (Cron Job)
+
+**Goal**: Clean up anonymous users after 48 hours of inactivity
+
+### Implementation
+
+- [X] T013 Add cron job to delete anonymous users inactive for 48 hours
+
+---
+
+## Phase 6: Polish & Cross-Cutting Concerns
+
+- [X] T014 Run lint and typecheck to verify code quality
+- [X] T015 Verify all user stories work together in integration
+
+---
+
+## Dependencies & Execution Order
+
+### Phase Dependencies
+
+- **Setup (Phase 1)**: No dependencies - can start immediately
+- **Foundational (Phase 2)**: Depends on Setup - BLOCKS all user stories
+- **User Stories (Phase 3-7)**: All depend on Foundational phase completion
+  - User stories can proceed in parallel where marked [P]
+  - Or sequentially in priority order (P1 → P2)
+- **Polish (Phase 8)**: Depends on all user stories being complete
+
+### User Story Dependencies
+
+- **User Story 1 (P1)**: Can start after Foundational - No dependencies on other stories (MVP)
+- **User Story 2 (P1)**: Can start after Foundational - Works with US1 but independently testable
+
+### Within Each User Story
+
+- Components before integration
+- UI updates after auth setup
+- Story complete before moving to next priority
+
+### Parallel Opportunities
+
+- T001, T002 can run in parallel (Setup)
+- T003, T004 can run in parallel (Foundational)
+- T010, T011, T012 can run in parallel (US2)
+
+---
+
+## Parallel Example: User Story 1 (MVP)
+
+```bash
+# These can run in parallel within US1:
+Task: "Create GuestButton component in src/features/guest-mode/components/GuestButton.tsx"
+Task: "Create GuestConfirmationModal component in src/features/guest-mode/components/GuestConfirmationModal.tsx"
+
+# After T005, T006 complete:
+Task: "Add 'Continue as Guest' button to src/app/(auth)/login/page.tsx"
+```
+
+---
+
+## Implementation Strategy
+
+### MVP First (User Story 1 Only)
+
+1. Complete Phase 1: Setup (T001, T002)
+2. Complete Phase 2: Foundational (T003, T004)
+3. Complete Phase 3: User Story 1 (T005-T009)
+4. **STOP and VALIDATE**: Test guest entry works
+5. Deploy/demo if ready
+
+### Incremental Delivery
+
+1. Complete Setup + Foundational → Foundation ready
+2. Add User Story 1 → Test independently → Deploy/Demo (MVP!)
+3. Add User Story 2 → Test independently → Deploy/Demo
+4. Add Cleanup Phase → Test → Deploy/Demo
+5. Polish → Final deployment
+
+---
+
+## Summary
+
+- **Total Task Count**: 15
+- **Task Count by User Story**:
+  - US1: 5 tasks (MVP)
+  - US2: 3 tasks
+  - Cleanup: 1 task
+  - Polish: 2 tasks
+- **Parallel Opportunities**: 3 task groups identified
+- **MVP Scope**: User Story 1 (Enter App as Guest) - 5 tasks
+
+All tasks follow the checklist format with ID, optional [P] marker, optional [Story] label, and exact file paths.
