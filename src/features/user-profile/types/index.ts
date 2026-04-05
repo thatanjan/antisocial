@@ -24,6 +24,8 @@ export interface UserProfile {
   followerCount: number;
   /** Number of users this user follows */
   followingCount: number;
+  /** Whether this is a guest/anonymous user */
+  isAnonymous: boolean;
 }
 
 /**

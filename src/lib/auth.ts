@@ -1,6 +1,7 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
+import { anonymous } from "better-auth/plugins";
 import prisma from "./prisma";
 
 /**
@@ -19,7 +20,10 @@ export const auth = betterAuth({
     },
   },
   plugins: [
-    nextCookies(), // nextCookies should be at the last item of the array
+    anonymous({
+      emailDomainName: "guest.local",
+    }),
+    nextCookies(),
   ],
 });
 export type Auth = typeof auth;

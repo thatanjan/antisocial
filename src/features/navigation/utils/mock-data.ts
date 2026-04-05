@@ -14,6 +14,7 @@ export const currentUser: MockUser = {
     followers: 122100,
     following: 1140,
   },
+  isAnonymous: false,
 };
 
 /**

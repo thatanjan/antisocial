@@ -1,4 +1,4 @@
-import { Calendar } from "lucide-react";
+import { Calendar, VenetianMask } from "lucide-react";
 import dynamic from "next/dynamic";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -28,6 +28,7 @@ export const ProfileHeader = ({
     followingCount,
     followerCount,
     createdAt,
+    isAnonymous,
   },
   isOwnProfile,
   isFollowing,
@@ -42,7 +43,12 @@ export const ProfileHeader = ({
           </Avatar>
 
           <div className="space-y-1">
-            <h1 className="font-bold text-lg sm:text-xl">{name}</h1>
+            <h1 className="flex items-center gap-2 font-bold text-lg sm:text-xl">
+              {name}
+              {isAnonymous && (
+                <VenetianMask className="h-4 w-4 text-muted-foreground" />
+              )}
+            </h1>
             <p className="text-muted-foreground text-sm">@{username}</p>
             {bio && <p className="mt-2 text-sm">{bio}</p>}
           </div>
