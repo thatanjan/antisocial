@@ -92,8 +92,8 @@ description: "Task list for Guest Mode feature implementation"
 
 ## Phase 6: Polish & Cross-Cutting Concerns
 
-- [ ] T014 Run lint and typecheck to verify code quality
-- [ ] T015 Verify all user stories work together in integration
+- [X] T014 Run lint and typecheck to verify code quality
+- [X] T015 Verify all user stories work together in integration
 
 ---
 
