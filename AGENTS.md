@@ -225,5 +225,11 @@ Run `npm run lint` before committing to catch issues.
 
 <!-- SPECKIT START -->
 For additional context about technologies to be used, project structure,
-shell commands, and other important information, read the current plan
+shell commands, and other important information, read the current plan:
+
+- **News Feed (011)**: [specs/011-news-feed/plan.md](./specs/011-news-feed/plan.md)
+  - Hybrid Redis cache strategy with sorted sets
+  - Fan-out-on-write for hot users (>1000 followers)
+  - Server actions for feed fetching and cache invalidation
+  - Graceful degradation when cache unavailable
 <!-- SPECKIT END -->
