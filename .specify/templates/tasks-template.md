@@ -20,14 +20,10 @@ description: "Task list template for feature implementation"
 
 ## Path Conventions
 
-- **Next.js App Router**: `src/app/` for pages and layouts
-- **Global components**: `src/components/` (Shadcn + approved custom)
-- **Global hooks**: `src/hooks/`
-- **Global utilities**: `src/utils/`
-- **Global types**: `src/types/`
-- **Feature code**: `src/features/[feature-name]/` with subdirectories for components, hooks, utils, types, actions
-- **Library integrations**: `src/lib/` (prisma, auth, etc.)
-- **Constitution Note**: Testing code NOT required unless explicitly requested
+- **Single project**: `src/`, `tests/` at repository root
+- **Web app**: `backend/src/`, `frontend/src/`
+- **Mobile**: `api/src/`, `ios/src/` or `android/src/`
+- Paths shown below assume single project - adjust based on plan.md structure
 
 <!-- 
   ============================================================================
@@ -69,11 +65,7 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] T004 Setup database schema and migrations framework
 - [ ] T005 [P] Implement authentication/authorization framework
 - [ ] T006 [P] Setup API routing and middleware structure
--                                                                                                                                                       │
-│  ○ /speckit.clarify (optional) - Ask structured questions to de-risk ambiguous areas before planning (run before /speckit.plan if used)                                │
-│  ○ /speckit.analyze (optional) - Cross-artifact consistency & alignment report (after /speckit.tasks, before /speckit.implement)                                       │
-│  ○ /speckit.checklist (optional) - Generate quality checklists to validate requirements completeness, clarity, and consistency (after /speckit.plan)                   │
-│                                         [ ] T007 Create base models/entities that all stories depend on
+- [ ] T007 Create base models/entities that all stories depend on
 - [ ] T008 Configure error handling and logging infrastructure
 - [ ] T009 Setup environment configuration management
 

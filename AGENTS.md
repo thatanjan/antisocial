@@ -222,3 +222,8 @@ Run `npm run lint` before committing to catch issues.
 ## Recent Changes
 
 - 008-user-follow: Added TypeScript (strict mode) + Shadcn UI, React Hook Form, Zod, Better Auth
+
+<!-- SPECKIT START -->
+For additional context about technologies to be used, project structure,
+shell commands, and other important information, read the current plan
+<!-- SPECKIT END -->
