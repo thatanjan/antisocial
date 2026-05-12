@@ -6,12 +6,6 @@ This document provides guidelines for agents working on the antisocial codebase.
 
 ## Commands
 
-### Development
-
-- `npm run dev` - Start Next.js development server (Turbopack)
-- `npm run build` - Build the Next.js application
-- `npm run start` - Start production server
-
 ### Linting & Formatting
 
 - `npm run lint` - Run Biome linter
@@ -45,7 +39,6 @@ No test framework is currently configured. Do not write test files unless explic
 - Use path aliases defined in `tsconfig.json`:
   - `@/` for `src/` (e.g., `@/components`, `@/lib/utils`)
   - `@/components/ui` for shadcn UI components
-- Organize imports with Biome (auto-runs on save)
 - Group imports: external libs → internal aliases → relative
 
 ### File Structure
@@ -117,15 +110,9 @@ export const myAction = async (data: z.infer<typeof Schema>) => {
    - ✅ `bg-card text-card-foreground`
    - ✅ Hover states: `hover:bg-primary hover:text-primary-foreground`
 
-3. **Borders** - Use design tokens:
+3. **Custom values** - Add to `@theme inline` in `globals.css`, not inline
 
-   - ✅ `border-border`, `border-input`
-   - ❌ `border-[#ccc]`, `border-gray-300`
-
-4. **Custom values** - Add to `@theme inline` in `globals.css`, not inline
-
-5. **Use shadcn components** - Prefer existing components over custom ones
-   - Install with: `npx shadcn@latest add <component>`
+4. **Use shadcn components** - Prefer existing components over custom ones
    - Ask before creating custom components
 
 ### Naming Conventions
@@ -150,7 +137,6 @@ export const myAction = async (data: z.infer<typeof Schema>) => {
 4. Only after user approval, run `npx prisma migrate dev` to apply the migration.
 5. Run `npx prisma generate` to regenerate the Prisma Client after the migration is applied.
 
-
 ### Authentication
 
 - Use Better Auth via `@/lib/authClient`
@@ -158,11 +144,11 @@ export const myAction = async (data: z.infer<typeof Schema>) => {
 
 ### Documentation
 
-- When unsure about library/framework APIs or best practices, use the **Context7 MCP server** via `context7_resolve-library-id` and `context7_query-docs` tools
+- When unsure about library/framework APIs or best practices, ask me.
+- If I approve then, use the **Context7 MCP server** via `context7_resolve-library-id` and `context7_query-docs` tools
 - Never guess or hallucinate API usage—always verify with official docs
 
 ### Code Readability
-
 
 - Add blank lines between logical sections of code to improve readability
 - Don't overdo it—avoid excessive blank lines that waste space
@@ -180,19 +166,6 @@ export const myAction = async (data: z.infer<typeof Schema>) => {
 
 ## Existing Agent Rules
 
-### From ignore-prompts.md
-
-1. Code quality and reusability
-2. KISS, DRY principles
-3. Add TSDoc comments
-4. Self-explanatory code
-5. Use shadcn components (ask before custom)
-6. Use Tailwind + shadcn for styling
-7. Use Tailwind colors, ask before custom colors
-8. Use Next.js Cache components
-9. Prefer server components (ask before client)
-10. Use server actions, not route handlers
-
 ### From tailwind-shadcn-customization skill
 
 - Enforce Tailwind CSS rules (no arbitrary values, foreground/background contrast)
@@ -202,18 +175,8 @@ export const myAction = async (data: z.infer<typeof Schema>) => {
 
 ---
 
-## Linter Configuration
-
-Biome is configured in `biome.json`:
-
-- ESLint-like rules for JS/TS
-- Tailwind class sorting (useSortedClasses)
-- Next.js and React recommended rules
-- Ignores: node_modules, .next, dist, build, src/components/ui, src/generated
-
-Run `npm run lint` before committing to catch issues.
-
 ## Active Technologies
+
 - PostgreSQL (009-user-profile-page)
 - PostgreSQL (010-guest-mode)
 
@@ -224,6 +187,7 @@ Run `npm run lint` before committing to catch issues.
 - 008-user-follow: Added TypeScript (strict mode) + Shadcn UI, React Hook Form, Zod, Better Auth
 
 <!-- SPECKIT START -->
+
 For additional context about technologies to be used, project structure,
 shell commands, and other important information, read the current plan:
 
@@ -232,4 +196,4 @@ shell commands, and other important information, read the current plan:
   - Fan-out-on-write for hot users (>1000 followers)
   - Server actions for feed fetching and cache invalidation
   - Graceful degradation when cache unavailable
-<!-- SPECKIT END -->
+  <!-- SPECKIT END -->
