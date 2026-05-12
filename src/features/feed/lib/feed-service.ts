@@ -1,0 +1,269 @@
+/**
+ * Feed service functions for the news feed feature.
+ * Handles both Redis caching and database fallback.
+ */
+
+"use server";
+
+import prisma from "@/lib/prisma";
+import {
+  FEED_CACHE_MAX_SIZE,
+  FEED_CACHE_TTL,
+  HOT_USER_THRESHOLD,
+  redis,
+} from "@/lib/redis";
+import type { FeedPost, FeedResponse } from "../types";
+
+const DEFAULT_PAGE_SIZE = 20;
+const MAX_PAGE_SIZE = 50;
+
+const getCacheKey = (userId: string): string => `feed:${userId}`;
+
+/**
+ * Get feed posts from Redis cache (sorted set).
+ */
+export const getFeedFromCache = async (
+  userId: string,
+  cursor: string | null,
+  limit: number,
+): Promise<{
+  postIds: string[];
+  nextCursor: string | null;
+  hasMore: boolean;
+} | null> => {
+  try {
+    const key = getCacheKey(userId);
+
+    const min = "-inf";
+    const max = cursor
+      ? (`(${new Date(cursor).getTime()}` as "-inf" | "+inf" | `(${number}`)
+      : "+inf";
+
+    const results = await redis.zrange<string[]>(key, min, max, {
+      byScore: true,
+      rev: true,
+      withScores: true,
+      offset: 0,
+      count: limit + 1,
+    });
+
+    if (!results || results.length === 0) {
+      return null;
+    }
+
+    const hasMore = results.length > limit * 2;
+    const items = hasMore ? results.slice(0, limit * 2) : results;
+
+    const postIds: string[] = [];
+    let nextCursor: string | null = null;
+
+    for (let i = 0; i < items.length; i += 2) {
+      postIds.push(items[i]);
+      if (i === items.length - 2) {
+        nextCursor = new Date(parseInt(items[i + 1], 10)).toISOString();
+      }
+    }
+
+    return { postIds, nextCursor, hasMore };
+  } catch (error) {
+    console.error("Redis cache read error:", error);
+    return null;
+  }
+};
+
+/**
+ * Store feed posts in Redis cache (sorted set).
+ */
+export const setFeedCache = async (
+  userId: string,
+  posts: Array<{ postId: string; createdAt: Date }>,
+): Promise<void> => {
+  try {
+    const key = getCacheKey(userId);
+
+    if (posts.length === 0) return;
+
+    for (const p of posts) {
+      await redis.zadd(key, { score: p.createdAt.getTime(), member: p.postId });
+    }
+
+    await redis.expire(key, FEED_CACHE_TTL);
+
+    const count = await redis.zcard(key);
+    if (count > FEED_CACHE_MAX_SIZE) {
+      await redis.zremrangebyrank(key, 0, count - FEED_CACHE_MAX_SIZE - 1);
+    }
+  } catch (error) {
+    console.error("Redis cache write error:", error);
+  }
+};
+
+/**
+ * Get feed posts from database (fallback when cache unavailable).
+ */
+export const getFeedFromDb = async (
+  userId: string,
+  cursor: string | null,
+  limit: number,
+): Promise<FeedResponse> => {
+  const followees = await prisma.follow.findMany({
+    where: { followerId: userId },
+    select: { followeeId: true },
+  });
+
+  const followeeIds = followees.map((f) => f.followeeId);
+
+  if (followeeIds.length === 0) {
+    return { posts: [], nextCursor: null, hasMore: false };
+  }
+
+  const cursorDate = cursor ? new Date(cursor) : undefined;
+
+  const postsData = await prisma.post.findMany({
+    where: {
+      authorId: { in: followeeIds },
+      ...(cursorDate ? { createdAt: { lt: cursorDate } } : {}),
+    },
+    include: {
+      author: { select: { id: true, name: true, image: true } },
+      images: { orderBy: { orderIndex: "asc" } },
+    },
+    orderBy: { createdAt: "desc" },
+    take: limit + 1,
+  });
+
+  const hasMore = postsData.length > limit;
+  const posts = hasMore ? postsData.slice(0, limit) : postsData;
+
+  const nextCursor =
+    posts.length > 0 ? posts[posts.length - 1].createdAt.toISOString() : null;
+
+  return {
+    posts: posts.map(transformToFeedPost),
+    nextCursor,
+    hasMore,
+  };
+};
+
+/**
+ * Transform Prisma post to FeedPost.
+ */
+const transformToFeedPost = (post: {
+  id: string;
+  content: string | null;
+  createdAt: Date;
+  likeCount: number;
+  commentCount: number;
+  author: { id: string; name: string; image: string | null };
+  images: Array<{ id: string; url: string; orderIndex: number }>;
+}): FeedPost => ({
+  id: post.id,
+  content: post.content,
+  createdAt: post.createdAt,
+  likeCount: post.likeCount,
+  commentCount: post.commentCount,
+  isLiked: false,
+  author: {
+    id: post.author.id,
+    name: post.author.name,
+    image: post.author.image,
+  },
+  images: post.images.map((img) => ({
+    id: img.id,
+    url: img.url,
+    orderIndex: img.orderIndex,
+  })),
+});
+
+/**
+ * Main function to get feed with cache fallback.
+ */
+export const getFeedFromFollowees = async (
+  userId: string,
+  cursor: string | null,
+  limit: number,
+): Promise<FeedResponse> => {
+  const normalizedLimit = Math.min(
+    Math.max(1, limit ?? DEFAULT_PAGE_SIZE),
+    MAX_PAGE_SIZE,
+  );
+
+  const cacheResult = await getFeedFromCache(userId, cursor, normalizedLimit);
+
+  if (cacheResult && cacheResult.postIds.length > 0) {
+    const posts = await prisma.post.findMany({
+      where: { id: { in: cacheResult.postIds } },
+      include: {
+        author: { select: { id: true, name: true, image: true } },
+        images: { orderBy: { orderIndex: "asc" } },
+      },
+    });
+
+    const postMap = new Map(posts.map((p) => [p.id, p]));
+    const orderedPosts = cacheResult.postIds
+      .map((id) => postMap.get(id))
+      .filter((p): p is NonNullable<typeof p> => p !== null);
+
+    return {
+      posts: orderedPosts.map(transformToFeedPost),
+      nextCursor: cacheResult.nextCursor,
+      hasMore: cacheResult.hasMore,
+    };
+  }
+
+  return getFeedFromDb(userId, cursor, normalizedLimit);
+};
+
+/**
+ * Invalidate a user's feed cache.
+ */
+export const invalidateFeedCache = async (userId: string): Promise<void> => {
+  try {
+    const key = getCacheKey(userId);
+    await redis.del(key);
+  } catch (error) {
+    console.error("Redis cache invalidate error:", error);
+  }
+};
+
+/**
+ * Fan-out a post to followers' caches (for hot users).
+ */
+export const fanOutPostToFollowers = async (
+  postId: string,
+  authorId: string,
+  createdAt: Date,
+): Promise<{ success: boolean; fanOutCount: number }> => {
+  try {
+    const author = await prisma.user.findUnique({
+      where: { id: authorId },
+      select: { followerCount: true },
+    });
+
+    if (!author || author.followerCount <= HOT_USER_THRESHOLD) {
+      return { success: true, fanOutCount: 0 };
+    }
+
+    const followers = await prisma.follow.findMany({
+      where: { followeeId: authorId },
+      select: { followerId: true },
+      take: FEED_CACHE_MAX_SIZE,
+    });
+
+    const score = createdAt.getTime();
+    const promises: Promise<unknown>[] = [];
+
+    for (const follower of followers) {
+      const key = getCacheKey(follower.followerId);
+      promises.push(redis.zadd(key, { score, member: postId }));
+      promises.push(redis.expire(key, FEED_CACHE_TTL));
+    }
+
+    await Promise.all(promises);
+
+    return { success: true, fanOutCount: followers.length };
+  } catch (error) {
+    console.error("Fan-out error:", error);
+    return { success: true, fanOutCount: 0 };
+  }
+};

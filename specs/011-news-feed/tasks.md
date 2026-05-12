@@ -36,10 +36,10 @@ description: "Task list template for feature implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T004 [P] Create feed service core functions in src/features/feed/lib/feed-service.ts
-- [ ] T005 Implement getFeedFromCache function with sorted set operations
-- [ ] T006 Implement getFeedFromDb function with Prisma queries
-- [ ] T007 [P] Add cache fallback logic for Redis unavailable scenarios
+- [x] T004 [P] Create feed service core functions in src/features/feed/lib/feed-service.ts
+- [x] T005 Implement getFeedFromCache function with sorted set operations
+- [x] T006 Implement getFeedFromDb function with Prisma queries
+- [x] T007 [P] Add cache fallback logic for Redis unavailable scenarios
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
