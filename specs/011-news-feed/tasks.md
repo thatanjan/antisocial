@@ -53,7 +53,7 @@ description: "Task list template for feature implementation"
 
 ### Implementation for User Story 1
 
-- [ ] T008 [P] [US1] Create getFeed server action in src/features/feed/actions/get-feed.ts
+- [x] T008 [P] [US1] Create getFeed server action in src/features/feed/actions/get-feed.ts
 - [ ] T009 [US1] Add cursor-based pagination logic to getFeed action
 - [ ] T010 [US1] Implement empty-state handling for no follows/no posts
 - [ ] T011 [P] [US1] Update feed page in src/app/(authenticated)/feed/page.tsx to use getFeed action

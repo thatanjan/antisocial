@@ -12,7 +12,12 @@ import {
   HOT_USER_THRESHOLD,
   redis,
 } from "@/lib/redis";
-import type { FeedPost, FeedResponse } from "../types";
+import type {
+  FeedCacheResult,
+  FeedPost,
+  FeedResponse,
+  PrismaPostForFeed,
+} from "../types";
 
 const DEFAULT_PAGE_SIZE = 20;
 const MAX_PAGE_SIZE = 50;
@@ -26,11 +31,7 @@ export const getFeedFromCache = async (
   userId: string,
   cursor: string | null,
   limit: number,
-): Promise<{
-  postIds: string[];
-  nextCursor: string | null;
-  hasMore: boolean;
-} | null> => {
+): Promise<FeedCacheResult | null> => {
   try {
     const key = getCacheKey(userId);
 
@@ -39,6 +40,7 @@ export const getFeedFromCache = async (
       ? (`(${new Date(cursor).getTime()}` as "-inf" | "+inf" | `(${number}`)
       : "+inf";
 
+    // zrange returns interleaved [member, score, member, score...] when withScores=true
     const results = await redis.zrange<string[]>(key, min, max, {
       byScore: true,
       rev: true,
@@ -47,6 +49,7 @@ export const getFeedFromCache = async (
       count: limit + 1,
     });
 
+    // empty cache
     if (!results || results.length === 0) {
       return null;
     }
@@ -57,6 +60,7 @@ export const getFeedFromCache = async (
     const postIds: string[] = [];
     let nextCursor: string | null = null;
 
+    // parse interleaved [member, score, member, score...]
     for (let i = 0; i < items.length; i += 2) {
       postIds.push(items[i]);
       if (i === items.length - 2) {
@@ -83,6 +87,7 @@ export const setFeedCache = async (
 
     if (posts.length === 0) return;
 
+    // store each post in sorted set with score = createdAt timestamp
     for (const p of posts) {
       await redis.zadd(key, { score: p.createdAt.getTime(), member: p.postId });
     }
@@ -148,32 +153,19 @@ export const getFeedFromDb = async (
 /**
  * Transform Prisma post to FeedPost.
  */
-const transformToFeedPost = (post: {
-  id: string;
-  content: string | null;
-  createdAt: Date;
-  likeCount: number;
-  commentCount: number;
-  author: { id: string; name: string; image: string | null };
-  images: Array<{ id: string; url: string; orderIndex: number }>;
-}): FeedPost => ({
-  id: post.id,
-  content: post.content,
-  createdAt: post.createdAt,
-  likeCount: post.likeCount,
-  commentCount: post.commentCount,
-  isLiked: false,
-  author: {
-    id: post.author.id,
-    name: post.author.name,
-    image: post.author.image,
-  },
-  images: post.images.map((img) => ({
-    id: img.id,
-    url: img.url,
-    orderIndex: img.orderIndex,
-  })),
-});
+const transformToFeedPost = (post: PrismaPostForFeed): FeedPost => {
+  const { author, images, ...rest } = post;
+  return {
+    ...rest,
+    isLiked: false,
+    author: { id: author.id, name: author.name, image: author.image },
+    images: images.map((img) => ({
+      id: img.id,
+      url: img.url,
+      orderIndex: img.orderIndex,
+    })),
+  };
+};
 
 /**
  * Main function to get feed with cache fallback.
@@ -190,6 +182,7 @@ export const getFeedFromFollowees = async (
 
   const cacheResult = await getFeedFromCache(userId, cursor, normalizedLimit);
 
+  // cache hit: fetch posts by ids and maintain order
   if (cacheResult && cacheResult.postIds.length > 0) {
     const posts = await prisma.post.findMany({
       where: { id: { in: cacheResult.postIds } },
@@ -253,6 +246,7 @@ export const fanOutPostToFollowers = async (
     const score = createdAt.getTime();
     const promises: Promise<unknown>[] = [];
 
+    // add post to each follower's cache
     for (const follower of followers) {
       const key = getCacheKey(follower.followerId);
       promises.push(redis.zadd(key, { score, member: postId }));
