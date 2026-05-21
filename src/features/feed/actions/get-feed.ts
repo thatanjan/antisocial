@@ -26,11 +26,7 @@ export const getFeedAction = async (
 
     const { cursor, limit } = parsed.data;
 
-    const result = await getFeedFromFollowees(
-      session.user.id,
-      cursor ?? null,
-      limit,
-    );
+    const result = await getFeedFromFollowees(session.user.id, cursor, limit);
 
     return {
       success: true,

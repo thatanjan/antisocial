@@ -1,7 +1,11 @@
 import { z } from "zod";
 
 export const getFeedSchema = z.object({
-  cursor: z.string().nullable().optional(),
+  cursor: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((val) => (val === "" ? null : (val ?? null))),
   limit: z
     .number()
     .int()
