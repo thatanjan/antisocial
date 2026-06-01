@@ -6,24 +6,36 @@ import { PostCard } from "./PostCard";
 interface PostListProps {
   initialPosts: Post[];
   currentUserId: string;
+  emptyReason?: "NO_FOLLOWEES" | "NO_POSTS";
 }
 
-/**
- * Client component to manage and display the feed of posts.
- * Uses useState to store and display the posts, allowing for future
- * client-side updates (like deleting a post from the list).
- */
-export function PostList({ initialPosts, currentUserId }: PostListProps) {
-  // Use initialPosts directly from props to ensure the list reflects
-  // server-side revalidation (e.g. after a like toggle).
+export function PostList({
+  initialPosts,
+  currentUserId,
+  emptyReason,
+}: PostListProps) {
   const posts = initialPosts;
 
   if (posts.length === 0) {
+    if (emptyReason === "NO_FOLLOWEES") {
+      return (
+        <div className="flex flex-col items-center justify-center rounded-lg border-2 border-border border-dashed py-12 text-center">
+          <h3 className="font-semibold text-lg">Follow some people</h3>
+          <p className="text-muted-foreground text-sm">
+            Your feed is empty because you are not following anyone yet. Find
+            people to follow and their posts will show up here.
+          </p>
+        </div>
+      );
+    }
+
     return (
       <div className="flex flex-col items-center justify-center rounded-lg border-2 border-border border-dashed py-12 text-center">
         <h3 className="font-semibold text-lg">No posts yet</h3>
         <p className="text-muted-foreground text-sm">
-          Be the first one to share something!
+          {emptyReason === "NO_POSTS"
+            ? "People you follow have not posted anything yet."
+            : "Be the first one to share something!"}
         </p>
       </div>
     );

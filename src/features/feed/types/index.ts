@@ -5,6 +5,7 @@
 export interface FeedPost {
   id: string;
   content: string | null;
+  aspectRatio: string | null;
   images: FeedPostImage[];
   author: FeedUser;
   likeCount: number;
@@ -25,10 +26,13 @@ export interface FeedUser {
   image: string | null;
 }
 
+export type EmptyReason = "NO_FOLLOWEES" | "NO_POSTS";
+
 export interface FeedResponse {
   posts: FeedPost[];
   nextCursor: string | null;
   hasMore: boolean;
+  emptyReason?: EmptyReason;
 }
 
 export interface GetFeedInput {
@@ -47,6 +51,7 @@ export type GetFeedResult =
         posts: FeedPost[];
         nextCursor: string | null;
         hasMore: boolean;
+        emptyReason?: EmptyReason;
       };
     }
   | {
@@ -63,6 +68,7 @@ export interface FeedCacheResult {
 export interface PrismaPostForFeed {
   id: string;
   content: string | null;
+  aspectRatio: string | null;
   createdAt: Date;
   likeCount: number;
   commentCount: number;

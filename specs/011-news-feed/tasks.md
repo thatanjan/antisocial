@@ -55,9 +55,9 @@ description: "Task list template for feature implementation"
 
 - [x] T008 [P] [US1] Create getFeed server action in src/features/feed/actions/get-feed.ts
 - [x] T009 [US1] Add cursor-based pagination logic to getFeed action
-- [ ] T010 [US1] Implement empty-state handling for no follows/no posts
-- [ ] T011 [P] [US1] Update feed page in src/app/(authenticated)/feed/page.tsx to use getFeed action
-- [ ] T012 [US1] Integrate PostList component for rendering feed posts
+- [x] T010 [US1] Implement empty-state handling for no follows/no posts
+- [x] T011 [P] [US1] Update feed page in src/app/(authenticated)/feed/page.tsx to use getFeed action
+- [x] T012 [US1] Integrate PostList component for rendering feed posts
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 

@@ -1,38 +1,32 @@
 import { PostList } from "@/features/create-post/components/PostList";
-import prisma from "@/lib/prisma";
+import { getFeedAction } from "@/features/feed/actions/get-feed";
 import { getSession } from "@/lib/session";
 
 /**
- * Feed page that displays a list of posts from all users.
- * Fetches the latest 20 posts from the database.
+ * Feed page that displays posts from followed users.
+ * Delegates to getFeedAction which handles cache + DB fallback.
  */
 export default async function FeedPage() {
   const session = await getSession();
 
   const currentUserId = session?.user?.id || "";
 
-  const postsData = await prisma.post.findMany({
-    include: {
-      author: true,
-      images: {
-        orderBy: { orderIndex: "asc" },
-      },
-      postLikes: {
-        where: {
-          userId: currentUserId,
-        },
-      },
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-    take: 20,
-  });
+  const result = await getFeedAction();
 
-  // Map the Prisma data to our Post view model
-  const posts = postsData.map((post) => ({
-    ...post,
-    isLiked: post.postLikes.length > 0,
+  if (!result.success) {
+    throw new Error(result.error);
+  }
+
+  const posts = result.data.posts.map((p) => ({
+    id: p.id,
+    content: p.content,
+    aspectRatio: p.aspectRatio,
+    author: { id: p.author.id, name: p.author.name, image: p.author.image },
+    images: p.images.map((img) => ({ id: img.id, url: img.url })),
+    likeCount: p.likeCount,
+    commentCount: p.commentCount,
+    isLiked: p.isLiked,
+    createdAt: p.createdAt,
   }));
 
   return (
@@ -41,7 +35,11 @@ export default async function FeedPage() {
         <h2 className="font-bold text-xl tracking-tight">Your Feed</h2>
       </div>
 
-      <PostList currentUserId={currentUserId} initialPosts={posts} />
+      <PostList
+        currentUserId={currentUserId}
+        emptyReason={result.data.emptyReason}
+        initialPosts={posts}
+      />
     </div>
   );
 }

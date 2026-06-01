@@ -34,6 +34,7 @@ export const getFeedAction = async (
         posts: result.posts,
         nextCursor: result.nextCursor,
         hasMore: result.hasMore,
+        ...(result.emptyReason ? { emptyReason: result.emptyReason } : {}),
       },
     };
   } catch (error) {

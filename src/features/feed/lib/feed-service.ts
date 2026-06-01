@@ -119,7 +119,12 @@ export const getFeedFromDb = async (
   const followeeIds = followees.map((f) => f.followeeId);
 
   if (followeeIds.length === 0) {
-    return { posts: [], nextCursor: null, hasMore: false };
+    return {
+      posts: [],
+      nextCursor: null,
+      hasMore: false,
+      emptyReason: "NO_FOLLOWEES" as const,
+    };
   }
 
   const cursorDate = cursor ? new Date(cursor) : undefined;
@@ -147,6 +152,9 @@ export const getFeedFromDb = async (
     posts: posts.map(transformToFeedPost),
     nextCursor,
     hasMore,
+    ...(posts.length === 0 && cursor === null
+      ? { emptyReason: "NO_POSTS" as const }
+      : {}),
   };
 };
 
