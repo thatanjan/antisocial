@@ -38,7 +38,9 @@ export default async function FeedPage() {
       <PostList
         currentUserId={currentUserId}
         emptyReason={result.data.emptyReason}
+        hasMore={result.data.hasMore}
         initialPosts={posts}
+        nextCursor={result.data.nextCursor}
       />
     </div>
   );

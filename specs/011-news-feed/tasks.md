@@ -71,10 +71,10 @@ description: "Task list template for feature implementation"
 
 ### Implementation for User Story 2
 
-- [ ] T013 [P] [US2] Add cursor-based pagination to Redis sorted set queries
-- [ ] T014 [US2] Add cursor-based pagination to database queries
-- [ ] T015 [US2] Add hasMore boolean and nextCursor to feed response
-- [ ] T016 [US2] Integrate pagination with PostList component
+- [x] T013 [P] [US2] Add cursor-based pagination to Redis sorted set queries
+- [x] T014 [US2] Add cursor-based pagination to database queries
+- [x] T015 [US2] Add hasMore boolean and nextCursor to feed response
+- [x] T016 [US2] Integrate pagination with PostList component
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
