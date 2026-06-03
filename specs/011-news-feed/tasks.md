@@ -88,9 +88,9 @@ description: "Task list template for feature implementation"
 
 ### Implementation for User Story 3
 
-- [ ] T017 [P] [US3] Wrap Redis operations in try-catch with database fallback
-- [ ] T018 [US3] Add logging for cache failures without blocking user
-- [ ] T019 [US3] Add post deletion handling - filter out non-existent posts on read
+- [x] T017 [P] [US3] Wrap Redis operations in try-catch with database fallback
+- [x] T018 [US3] Add logging for cache failures without blocking user
+- [x] T019 [US3] Add post deletion handling - filter out non-existent posts on read
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -100,7 +100,7 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T020 Create invalidate-feed cache server action in src/features/feed/actions/invalidate-feed.ts
+- [x] T020 Create invalidate-feed cache server action in src/features/feed/actions/invalidate-feed.ts
 - [ ] T021 [P] Modify src/features/create-post/actions/index.ts to add fan-out call after post creation
 - [ ] T022 Modify src/features/follow/actions/follow-actions.ts to call invalidate-feed on follow/unfollow
 - [ ] T023 [P] Add FeedList component wrapper in src/features/feed/components/FeedList.tsx

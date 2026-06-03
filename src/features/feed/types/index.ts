@@ -40,10 +40,6 @@ export interface GetFeedInput {
   limit?: number;
 }
 
-export interface InvalidateFeedInput {
-  userId: string;
-}
-
 export type GetFeedResult =
   | {
       success: true;
