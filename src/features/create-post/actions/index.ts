@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { fanOutPostToFollowers } from "@/features/feed/lib/feed-service";
 import { imagekit } from "@/lib/imagekit";
 import prisma from "@/lib/prisma";
 import { getSession } from "@/lib/session";
@@ -61,6 +62,10 @@ export const createPostAction = async (
         },
       },
     });
+
+    fanOutPostToFollowers(post.id, session.user.id, post.createdAt).catch(
+      (err) => console.error("Fan-out after post creation failed:", err),
+    );
 
     return { success: true, postId: post.id };
   } catch (error) {
