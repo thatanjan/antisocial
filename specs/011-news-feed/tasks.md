@@ -103,8 +103,8 @@ description: "Task list template for feature implementation"
 - [x] T020 Create invalidate-feed cache server action in src/features/feed/actions/invalidate-feed.ts
 - [x] T021 [P] Modify src/features/create-post/actions/index.ts to add fan-out call after post creation
 - [ ] T022 Modify src/features/follow/actions/follow-actions.ts to call invalidate-feed on follow/unfollow
-- [ ] T023 [P] Add FeedList component wrapper in src/features/feed/components/FeedList.tsx
-- [ ] T024 Run npm run lint and fix any issues
+- [x] T023 [P] Add FeedList component wrapper in src/features/feed/components/FeedList.tsx
+- [x] T024 Run npm run lint and fix any issues
 
 ---
 

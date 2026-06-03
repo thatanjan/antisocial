@@ -14,5 +14,3 @@ export const getFeedSchema = z.object({
     .optional()
     .default(20),
 });
-
-
