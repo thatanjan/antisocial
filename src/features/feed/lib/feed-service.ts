@@ -217,7 +217,16 @@ export const getFeedFromFollowees = async (
     };
   }
 
-  return getFeedFromDb(userId, cursor, normalizedLimit);
+  const postsFromDb = await getFeedFromDb(userId, cursor, normalizedLimit);
+
+  if (postsFromDb.posts.length > 0 && cursor === null) {
+    setFeedCache(
+      userId,
+      postsFromDb.posts.map((p) => ({ postId: p.id, createdAt: p.createdAt })),
+    );
+  }
+
+  return postsFromDb;
 };
 
 /**
