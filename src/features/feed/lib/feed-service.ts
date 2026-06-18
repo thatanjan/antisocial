@@ -129,6 +129,11 @@ export const getFeedFromDb = async (
 
   const cursorDate = cursor ? new Date(cursor) : undefined;
 
+  // add some comment for the follwing block
+  // fetch posts from followees, ordered by createdAt descending, with optional cursor for pagination
+  // include author and images, limit to limit + 1 to check for hasMore
+  // if cursor is provided, fetch posts created before the cursor date
+  // if no posts are found and cursor is null, return emptyReason NO_POSTS
   const postsData = await prisma.post.findMany({
     where: {
       authorId: { in: followeeIds },
