@@ -1,14 +1,9 @@
 import { PostList } from "@/features/create-post/components/PostList";
-import { getFeedAction } from "@/features/feed/actions/get-feed";
 import { getSession } from "@/lib/session";
+import { getFeedAction } from "../actions/get-feed";
 
-/**
- * Feed page that displays posts from followed users.
- * Delegates to getFeedAction which handles cache + DB fallback.
- */
-export default async function FeedPage() {
+export const FeedList = async () => {
   const session = await getSession();
-
   const currentUserId = session?.user?.id || "";
 
   const result = await getFeedAction();
@@ -44,4 +39,4 @@ export default async function FeedPage() {
       />
     </div>
   );
-}
+};

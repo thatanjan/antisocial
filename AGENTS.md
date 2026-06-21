@@ -1,16 +1,10 @@
-# AGENTS.md - Development Guidelines for antisocial
+# AGENTS.md - Dev Guidelines for antisocial
 
 ## Overview
 
-This document provides guidelines for agents working on the antisocial codebase. It covers build commands, linting, code style, and project conventions.
+Guidelines for agents on antisocial codebase. Covers build commands, linting, code style, project conventions.
 
 ## Commands
-
-### Development
-
-- `npm run dev` - Start Next.js development server (Turbopack)
-- `npm run build` - Build the Next.js application
-- `npm run start` - Start production server
 
 ### Linting & Formatting
 
@@ -20,12 +14,12 @@ This document provides guidelines for agents working on the antisocial codebase.
 ### Database
 
 - `npm run postinstall` - Auto-runs after `npm install` to generate Prisma client
-- `npx prisma migrate dev --create-only` - Generate a migration file **without applying** it
+- `npx prisma migrate dev --create-only` - Generate migration file **without applying**
 - `npx prisma migrate dev` - Apply pending migrations (only after user approval)
 
 ### Note on Testing
 
-No test framework is currently configured. Do not write test files unless explicitly requested.
+No test framework. Skip tests unless requested.
 
 ---
 
@@ -33,24 +27,23 @@ No test framework is currently configured. Do not write test files unless explic
 
 ### TypeScript
 
-- Use **strict mode** (enabled in tsconfig.json)
-- Prefer `const` over `let`; only use `let` when reassignment is strictly necessary
-- Use arrow functions: `const myFn = () => { ... }`
-- Use arrow functions for creating components.
-- Avoid `any`; use proper types or `unknown` where needed
-- Add JSDoc/TSDoc comments for complex functions and public APIs
+- **strict mode** (tsconfig.json)
+- Prefer `const` over `let`; `let` only when reassignment needed
+- Arrow functions: `const myFn = () => { ... }`
+- Arrow functions for components.
+- Avoid `any`; use proper types or `unknown`
+- JSDoc/TSDoc for complex functions and public APIs
 
 ### Imports & Organization
 
-- Use path aliases defined in `tsconfig.json`:
+- Path aliases from `tsconfig.json`:
   - `@/` for `src/` (e.g., `@/components`, `@/lib/utils`)
   - `@/components/ui` for shadcn UI components
-- Organize imports with Biome (auto-runs on save)
 - Group imports: external libs → internal aliases → relative
 
 ### File Structure
 
-Follow the feature-based architecture:
+Follow feature-based architecture:
 
 ```
 src/
@@ -71,9 +64,9 @@ src/
 ### Server Actions
 
 - Place in `features/*/actions/*.ts`
-- Use named exports
-- Always return `{ success: boolean; error?: string; ... }`
-- Use Zod for input validation
+- Named exports
+- Return `{ success: boolean; error?: string; ... }`
+- Zod for input validation
 - Example:
 
 ```ts
@@ -93,23 +86,23 @@ export const myAction = async (data: z.infer<typeof Schema>) => {
 ### Client vs Server Components
 
 - Default to **server components**
-- Add `"use client"` only when needed (hooks, event handlers, interactive UI)
-- Ask before converting server components to client components
+- `"use client"` only when needed (hooks, event handlers, interactive UI)
+- Ask before converting server to client components
 
 ### Error Handling
 
-- Use `try/catch` with proper error logging (`console.error`)
-- Display user-friendly errors via `sonner` toast: `toast.error("Message")`
+- `try/catch` with `console.error`
+- User-friendly errors via `sonner` toast: `toast.error("Message")`
 - Return error objects from server actions, don't throw in production
 
 ### Styling (Tailwind + shadcn/ui)
 
-**Follow the tailwind-shadcn-customization skill:**
+**Follow tailwind-shadcn-customization skill:**
 
 1. **No arbitrary values** - Never use square bracket syntax:
 
    - ❌ `text-[14px]`, `w-[300px]`, `bg-[#1a1a1a]`
-   - ✅ Use design tokens: `text-sm`, `w-72`, `bg-card`
+   - ✅ Design tokens: `text-sm`, `w-72`, `bg-card`
 
 2. **Foreground/Background contrast** - Every background needs matching text color:
 
@@ -117,15 +110,9 @@ export const myAction = async (data: z.infer<typeof Schema>) => {
    - ✅ `bg-card text-card-foreground`
    - ✅ Hover states: `hover:bg-primary hover:text-primary-foreground`
 
-3. **Borders** - Use design tokens:
+3. **Custom values** - Add to `@theme inline` in `globals.css`, not inline
 
-   - ✅ `border-border`, `border-input`
-   - ❌ `border-[#ccc]`, `border-gray-300`
-
-4. **Custom values** - Add to `@theme inline` in `globals.css`, not inline
-
-5. **Use shadcn components** - Prefer existing components over custom ones
-   - Install with: `npx shadcn@latest add <component>`
+4. **Use shadcn components** - Prefer existing over custom
    - Ask before creating custom components
 
 ### Naming Conventions
@@ -138,82 +125,58 @@ export const myAction = async (data: z.infer<typeof Schema>) => {
 
 ### Database (Prisma)
 
-- Use Prisma Client via `import { prisma } from "@/lib/prisma"`
+- Prisma Client via `import { prisma } from "@/lib/prisma"`
 - Follow Prisma naming conventions (singular model names)
-- Use proper error handling for DB operations
+- Handle DB errors properly
 
 **Migration Workflow (MUST follow):**
 
-1. After any `schema.prisma` change, run `npx prisma migrate dev --create-only` to generate the migration file **without applying** it.
-2. **Do NOT run `npx prisma migrate dev`** (which applies the migration) until the user explicitly approves.
-3. Present the generated migration SQL to the user for review.
-4. Only after user approval, run `npx prisma migrate dev` to apply the migration.
-5. Run `npx prisma generate` to regenerate the Prisma Client after the migration is applied.
-
+1. After any `schema.prisma` change, run `npx prisma migrate dev --create-only` to generate migration file **without applying**.
+2. **Do NOT run `npx prisma migrate dev`** until user explicitly approves.
+3. Present migration SQL to user for review.
+4. Only after user approval, run `npx prisma migrate dev` to apply migration.
+5. Run `npx prisma generate` to regenerate Prisma Client after migration.
 
 ### Authentication
 
-- Use Better Auth via `@/lib/authClient`
-- Use server-side auth checks in actions: `const session = await authClient.api.getSession({ headers: headers() })`
+- Better Auth via `@/lib/authClient`
+- Server-side auth checks in actions: `const session = await authClient.api.getSession({ headers: headers() })`
 
 ### Documentation
 
-- When unsure about library/framework APIs or best practices, use the **Context7 MCP server** via `context7_resolve-library-id` and `context7_query-docs` tools
-- Never guess or hallucinate API usage—always verify with official docs
+- Unsure about API? Ask me.
+- If I approve, use **Context7 MCP server** via `context7_resolve-library-id` and `context7_query-docs` tools
+- Never hallucinate API usage - verify with official docs
 
 ### Code Readability
 
-
-- Add blank lines between logical sections of code to improve readability
-- Don't overdo it—avoid excessive blank lines that waste space
-- Group related lines together and separate distinct blocks with single blank lines
+- Blank lines between logical sections
+- Avoid excessive blank lines
+- Group related lines, separate distinct blocks with single blank lines
 
 ### Miscellaneous
 
-- Use Lucide React for icons
-- Use `sonner` for toasts: `import { toast } from "sonner"`
-- Use `date-fns` for date formatting
-- Use Zod for all form validation
-- Use React Hook Form with Zod resolver for forms
+- Lucide React for icons
+- `sonner` for toasts: `import { toast } from "sonner"`
+- `date-fns` for date formatting
+- Zod for all form validation
+- React Hook Form with Zod resolver for forms
 
 ---
 
 ## Existing Agent Rules
 
-### From ignore-prompts.md
-
-1. Code quality and reusability
-2. KISS, DRY principles
-3. Add TSDoc comments
-4. Self-explanatory code
-5. Use shadcn components (ask before custom)
-6. Use Tailwind + shadcn for styling
-7. Use Tailwind colors, ask before custom colors
-8. Use Next.js Cache components
-9. Prefer server components (ask before client)
-10. Use server actions, not route handlers
-
 ### From tailwind-shadcn-customization skill
 
 - Enforce Tailwind CSS rules (no arbitrary values, foreground/background contrast)
-- Use design tokens only
+- Design tokens only
 - Extend theme in globals.css for custom values
 - See `.agents/skills/tailwind-shadcn-customization/SKILL.md` for full details
 
 ---
 
-## Linter Configuration
-
-Biome is configured in `biome.json`:
-
-- ESLint-like rules for JS/TS
-- Tailwind class sorting (useSortedClasses)
-- Next.js and React recommended rules
-- Ignores: node_modules, .next, dist, build, src/components/ui, src/generated
-
-Run `npm run lint` before committing to catch issues.
-
 ## Active Technologies
+
 - PostgreSQL (009-user-profile-page)
 - PostgreSQL (010-guest-mode)
 
@@ -224,6 +187,13 @@ Run `npm run lint` before committing to catch issues.
 - 008-user-follow: Added TypeScript (strict mode) + Shadcn UI, React Hook Form, Zod, Better Auth
 
 <!-- SPECKIT START -->
-For additional context about technologies to be used, project structure,
-shell commands, and other important information, read the current plan
-<!-- SPECKIT END -->
+
+Additional context about technologies, project structure,
+shell commands, other important info - read current plan:
+
+- **News Feed (011)**: [specs/011-news-feed/plan.md](./specs/011-news-feed/plan.md)
+  - Hybrid Redis cache strategy with sorted sets
+  - Fan-out-on-write for hot users (>1000 followers)
+  - Server actions for feed fetching and cache invalidation
+  - Graceful degradation when cache unavailable
+  <!-- SPECKIT END -->
