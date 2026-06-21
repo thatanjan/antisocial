@@ -35,10 +35,14 @@ export const getFeedFromCache = async (
   try {
     const key = getCacheKey(userId);
 
-    const min = "-inf";
-    const max = cursor
-      ? (`(${new Date(cursor).getTime()}` as "-inf" | "+inf" | `(${number}`)
-      : "+inf";
+    const min = "-inf" as const;
+    let max: "-inf" | "+inf" | `(${number}` = "+inf";
+    if (cursor) {
+      const cursorTime = new Date(cursor).getTime();
+      if (!Number.isNaN(cursorTime)) {
+        max = `(${cursorTime}`;
+      }
+    }
 
     // zrange returns interleaved [member, score, member, score...] when withScores=true
     const results = await redis.zrange<string[]>(key, min, max, {
@@ -87,10 +91,11 @@ export const setFeedCache = async (
 
     if (posts.length === 0) return;
 
-    // store each post in sorted set with score = createdAt timestamp
-    for (const p of posts) {
-      await redis.zadd(key, { score: p.createdAt.getTime(), member: p.postId });
-    }
+    await Promise.all(
+      posts.map((p) =>
+        redis.zadd(key, { score: p.createdAt.getTime(), member: p.postId }),
+      ),
+    );
 
     await redis.expire(key, FEED_CACHE_TTL);
 
@@ -220,7 +225,7 @@ export const getFeedFromFollowees = async (
   const postsFromDb = await getFeedFromDb(userId, cursor, normalizedLimit);
 
   if (postsFromDb.posts.length > 0 && cursor === null) {
-    setFeedCache(
+    await setFeedCache(
       userId,
       postsFromDb.posts.map((p) => ({ postId: p.id, createdAt: p.createdAt })),
     );
@@ -265,6 +270,8 @@ export const fanOutPostToFollowers = async (
       take: FEED_CACHE_MAX_SIZE,
     });
 
+    // TODO: Batch into chunks of 50 to avoid overwhelming Upstash (HTTP-based Redis).
+    // Upstash is REST-based, so 1000+ parallel HTTP requests hit rate limits.
     const score = createdAt.getTime();
     const promises: Promise<unknown>[] = [];
 
