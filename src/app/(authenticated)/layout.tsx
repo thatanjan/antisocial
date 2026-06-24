@@ -24,10 +24,16 @@ export default function AuthenticatedLayout({
         {/* Left Sidebar - Hidden on mobile, handled by LeftSidebar css classes */}
         <LeftSidebar />
 
+        {/* Left Dummy Spacer */}
+        <div className="hidden min-w-col shrink-0 md:block lg:w-col-side lg:max-w-col-side" />
+
         {/* Main Content Area */}
-        <main className="flex h-full w-full min-w-col flex-1 flex-col px-4 py-6 sm:px-6 lg:px-8 lg:py-8 lg:pl-col-side xl:pr-col-side">
+        <main className="mr-6 flex h-full w-full min-w-col flex-1 flex-col py-6 lg:py-8 xl:mr-0">
           {children}
         </main>
+
+        {/* Right Dummy Spacer */}
+        <div className="hidden w-col-side max-w-col-side shrink-0 xl:block" />
 
         {/* Right Sidebar - Hidden on mobile/tablet, handled by RightSidebar css classes */}
         <RightSidebar />
