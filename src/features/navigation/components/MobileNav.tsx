@@ -12,10 +12,9 @@ import {
 } from "@/components/ui/sheet";
 import { LogoutButton } from "@/features/auth/components/LogoutButton";
 import { PostCreationModal } from "@/features/create-post/components/PostCreationModal";
-import { navItems, socialRequests, userSuggestions } from "../utils/mock-data";
+import { navItems, userSuggestions } from "../utils/mock-data";
 import { NavLinkItem } from "./NavLinkItem";
 import { SearchBar } from "./SearchBar";
-import { SocialRequestItem } from "./SocialRequestItem";
 import { UserSuggestionItem } from "./UserSuggestionItem";
 
 /**
@@ -88,16 +87,6 @@ export const MobileNav = ({
                   </p>
                   <div className="flex flex-col gap-4">
                     <SearchBar />
-
-                    {/* Mobile compacted requests view */}
-                    {socialRequests.length > 0 && (
-                      <div className="flex flex-col gap-2">
-                        <h3 className="px-2 font-medium text-xs">Requests</h3>
-                        {socialRequests.slice(0, 2).map((req) => (
-                          <SocialRequestItem key={req.id} request={req} />
-                        ))}
-                      </div>
-                    )}
 
                     {/* Mobile compacted suggestions view */}
                     <div className="flex flex-col gap-2">

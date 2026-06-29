@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { socialRequests, userSuggestions } from "../utils/mock-data";
+import { userSuggestions } from "../utils/mock-data";
 import { SearchBar } from "./SearchBar";
-import { SocialRequestItem } from "./SocialRequestItem";
 import { UserSuggestionItem } from "./UserSuggestionItem";
 
 /**
@@ -14,37 +13,6 @@ export const RightSidebar = () => {
         {/* Search Section */}
         <section>
           <SearchBar />
-        </section>
-
-        {/* Social Requests Section */}
-        <section className="flex flex-col gap-4">
-          <div className="flex items-center justify-between px-2">
-            <h2 className="font-bold text-sm tracking-tight">Requests</h2>
-            {socialRequests.length > 0 && (
-              <span className="rounded-full bg-primary/10 px-2 py-0.5 font-bold text-2xs text-primary">
-                {socialRequests.length}
-              </span>
-            )}
-          </div>
-
-          <div className="flex flex-col gap-1">
-            {socialRequests.map((request) => (
-              <SocialRequestItem key={request.id} request={request} />
-            ))}
-            {socialRequests.length === 0 && (
-              <p className="py-4 text-center text-muted-foreground text-xs">
-                No pending requests
-              </p>
-            )}
-          </div>
-
-          <Button
-            className="w-full text-muted-foreground text-xs transition-colors"
-            size="sm"
-            variant="ghost"
-          >
-            View All
-          </Button>
         </section>
 
         {/* User Suggestions Section */}
