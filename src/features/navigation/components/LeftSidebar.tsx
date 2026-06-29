@@ -10,7 +10,7 @@ import { ProfileSummary } from "./ProfileSummary";
  */
 export const LeftSidebar = () => {
   return (
-    <aside className="fixed top-0 left-0 z-30 hidden h-screen min-w-col flex-col overflow-hidden border-border border-r bg-card/30 backdrop-blur-md md:flex lg:w-col-side lg:max-w-col-side">
+    <aside className="fixed top-0 z-30 hidden h-screen min-w-col flex-col overflow-hidden border-border border-r bg-card/30 backdrop-blur-md md:flex lg:w-col-side lg:max-w-col-side">
       <div className="flex grow flex-col gap-6 p-6 pb-20">
         {/* Brand/Logo Area placeholder if needed */}
         <div className="px-2 py-4">

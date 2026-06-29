@@ -22,21 +22,23 @@ export default function AuthenticatedLayout({
       {/* Main Grid Layout */}
       <div className="mx-4 flex w-full max-w-layout justify-center lg:mx-auto lg:gap-6">
         {/* Left Sidebar - Hidden on mobile, handled by LeftSidebar css classes */}
-        <LeftSidebar />
+        {/* <div className="relative min-w-col bg-red-500"></div> */}
 
         {/* Left Dummy Spacer */}
-        <div className="hidden min-w-col shrink-0 md:block lg:w-col-side lg:max-w-col-side" />
+        <div className="hidden min-w-col shrink-0 md:block lg:w-col-side lg:max-w-col-side">
+          <LeftSidebar />
+        </div>
 
         {/* Main Content Area */}
         <main className="mr-6 flex h-full w-full min-w-col flex-1 flex-col py-6 lg:py-8 xl:mr-0">
           {children}
         </main>
 
-        {/* Right Dummy Spacer */}
-        <div className="hidden w-col-side max-w-col-side shrink-0 xl:block" />
-
         {/* Right Sidebar - Hidden on mobile/tablet, handled by RightSidebar css classes */}
-        <RightSidebar />
+
+        <div className="hidden w-col-side max-w-col-side shrink-0 xl:block">
+          <RightSidebar />
+        </div>
       </div>
     </div>
   );
