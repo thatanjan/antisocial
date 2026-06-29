@@ -34,13 +34,15 @@ const iconMap: Record<string, LucideIcon> = {
 interface NavLinkItemProps {
   /** The navigation item data */
   item: NavItem;
+  /** Optional click handler */
+  onClick?: () => void;
 }
 
 /**
  * A single navigation link for the sidebar.
  * Highlights automatically when the current path matches the destination.
  */
-export const NavLinkItem = ({ item }: NavLinkItemProps) => {
+export const NavLinkItem = ({ item, onClick }: NavLinkItemProps) => {
   const pathname = usePathname();
   const isActive = pathname === item.href;
 
@@ -55,6 +57,7 @@ export const NavLinkItem = ({ item }: NavLinkItemProps) => {
           : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
       )}
       href={item.href}
+      onClick={onClick}
     >
       <Icon
         className={cn(
