@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { NavItem } from "../types";
 
@@ -35,52 +36,53 @@ interface NavLinkItemProps {
   /** The navigation item data */
   item: NavItem;
   /** Optional click handler */
-  onClick?: () => void;
 }
 
 /**
  * A single navigation link for the sidebar.
  * Highlights automatically when the current path matches the destination.
  */
-export const NavLinkItem = ({ item, onClick }: NavLinkItemProps) => {
+export const NavLinkItem = ({ item }: NavLinkItemProps) => {
   const pathname = usePathname();
   const isActive = pathname === item.href;
 
   const Icon = iconMap[item.icon] || HelpCircle;
 
   return (
-    <Link
+    <Button
+      asChild
       className={cn(
-        "group flex items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200",
+        "group flex h-auto items-center justify-start gap-3 rounded-xl px-4 py-3 transition-all duration-200",
         isActive
           ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
           : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
       )}
-      href={item.href}
-      onClick={onClick}
+      variant="ghost"
     >
-      <Icon
-        className={cn(
-          "h-5 w-5 transition-transform duration-200 group-hover:scale-110",
-          isActive
-            ? "text-primary-foreground"
-            : "text-muted-foreground group-hover:text-primary",
-        )}
-      />
-      <span className="font-medium text-sm">{item.label}</span>
-
-      {item.badgeCount !== undefined && item.badgeCount > 0 && (
-        <span
+      <Link href={item.href}>
+        <Icon
           className={cn(
-            "ml-auto rounded-full px-2 py-0.5 font-bold text-2xs",
+            "h-5 w-5 transition-transform duration-200 group-hover:scale-110",
             isActive
-              ? "bg-primary-foreground text-primary"
-              : "bg-primary text-primary-foreground",
+              ? "text-primary-foreground"
+              : "text-muted-foreground group-hover:text-primary",
           )}
-        >
-          {item.badgeCount}
-        </span>
-      )}
-    </Link>
+        />
+        <span className="font-medium text-sm">{item.label}</span>
+
+        {item.badgeCount !== undefined && item.badgeCount > 0 && (
+          <span
+            className={cn(
+              "ml-auto rounded-full px-2 py-0.5 font-bold text-2xs",
+              isActive
+                ? "bg-primary-foreground text-primary"
+                : "bg-primary text-primary-foreground",
+            )}
+          >
+            {item.badgeCount}
+          </span>
+        )}
+      </Link>
+    </Button>
   );
 };

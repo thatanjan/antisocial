@@ -29,12 +29,10 @@ export const MobileNav = ({
 }: {
   profileSummary: React.ReactNode;
 }) => {
-  const [open, setOpen] = useState(false);
-
   return (
     <div className="sticky top-0 z-50 flex items-center justify-between border-border border-b bg-background/80 px-4 py-3 backdrop-blur-md md:hidden">
       <div className="flex items-center gap-2">
-        <Sheet onOpenChange={setOpen} open={open}>
+        <Sheet>
           <SheetTrigger asChild>
             <Button className="-ml-2" size="icon" variant="ghost">
               <Menu className="h-6 w-6" />
@@ -78,11 +76,7 @@ export const MobileNav = ({
                     Menu
                   </p>
                   {navItems.map((item) => (
-                    <NavLinkItem
-                      item={item}
-                      key={item.href}
-                      onClick={() => setOpen(false)}
-                    />
+                    <NavLinkItem item={item} key={item.href} />
                   ))}
                 </nav>
 
