@@ -10,6 +10,8 @@ export interface NavItem {
   icon: string;
   /** Optional count for notifications or badges */
   badgeCount?: number;
+  /** When true, item is disabled (non-interactive, shows "coming soon" tooltip) */
+  disabled?: boolean;
 }
 
 /**

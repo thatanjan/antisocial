@@ -1,4 +1,7 @@
+"use client";
+
 import { Menu, X } from "lucide-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -12,10 +15,9 @@ import {
 } from "@/components/ui/sheet";
 import { LogoutButton } from "@/features/auth/components/LogoutButton";
 import { PostCreationModal } from "@/features/create-post/components/PostCreationModal";
-import { navItems, socialRequests, userSuggestions } from "../utils/mock-data";
+import { navItems, userSuggestions } from "../utils/mock-data";
 import { NavLinkItem } from "./NavLinkItem";
 import { SearchBar } from "./SearchBar";
-import { SocialRequestItem } from "./SocialRequestItem";
 import { UserSuggestionItem } from "./UserSuggestionItem";
 
 /**
@@ -27,10 +29,12 @@ export const MobileNav = ({
 }: {
   profileSummary: React.ReactNode;
 }) => {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="sticky top-0 z-50 flex items-center justify-between border-border border-b bg-background/80 px-4 py-3 backdrop-blur-md md:hidden">
       <div className="flex items-center gap-2">
-        <Sheet>
+        <Sheet onOpenChange={setOpen} open={open}>
           <SheetTrigger asChild>
             <Button className="-ml-2" size="icon" variant="ghost">
               <Menu className="h-6 w-6" />
@@ -74,7 +78,11 @@ export const MobileNav = ({
                     Menu
                   </p>
                   {navItems.map((item) => (
-                    <NavLinkItem item={item} key={item.href} />
+                    <NavLinkItem
+                      item={item}
+                      key={item.href}
+                      onClick={() => setOpen(false)}
+                    />
                   ))}
                 </nav>
 
@@ -88,16 +96,6 @@ export const MobileNav = ({
                   </p>
                   <div className="flex flex-col gap-4">
                     <SearchBar />
-
-                    {/* Mobile compacted requests view */}
-                    {socialRequests.length > 0 && (
-                      <div className="flex flex-col gap-2">
-                        <h3 className="px-2 font-medium text-xs">Requests</h3>
-                        {socialRequests.slice(0, 2).map((req) => (
-                          <SocialRequestItem key={req.id} request={req} />
-                        ))}
-                      </div>
-                    )}
 
                     {/* Mobile compacted suggestions view */}
                     <div className="flex flex-col gap-2">

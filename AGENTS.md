@@ -196,4 +196,8 @@ shell commands, other important info - read current plan:
   - Fan-out-on-write for hot users (>1000 followers)
   - Server actions for feed fetching and cache invalidation
   - Graceful degradation when cache unavailable
+- **News Feed Customization (012)**: [specs/012-news-feed-customization/plan.md](./specs/012-news-feed-customization/plan.md)
+  - Fixed sidebars (replace sticky with fixed positioning)
+  - Remove Requests section from right sidebar
+  - Disable Explore/My Favorites/Direct/Stats with "coming soon" tooltip
   <!-- SPECKIT END -->

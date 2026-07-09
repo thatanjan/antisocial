@@ -109,6 +109,7 @@ a {
 
   /* Column Widths */
   --width-col-side: 30%;
+  --spacing-col-side: 30%;
   --min-width-col: 320px;
   --max-width-col-side: 420px;
   --font-heading: var(--font-sans);
