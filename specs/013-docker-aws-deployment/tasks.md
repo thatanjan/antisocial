@@ -34,10 +34,10 @@
 - [ ] T006 Create multi-stage Dockerfile for Next.js app at `Dockerfile`
 - [ ] T007 Create docker-compose.yml for local development (app + postgres) at `docker-compose.yml`
 - [ ] T008 Create .env.example with required environment variables at `.env.example`
-- [ ] T009 [P] Create scripts/migrate-db.sh for Prisma migrations at `scripts/migrate-db.sh`
-- [ ] T010 [P] Create scripts/deploy-ecs.sh for ECS deployment at `scripts/deploy-ecs.sh`
-- [ ] T011 Make scripts executable at `scripts/migrate-db.sh scripts/deploy-ecs.sh`
-- [ ] T012 Configure GitHub repository secrets documentation at `docs/github-secrets.md`
+- [x] T009 [P] Create scripts/migrate-db.sh for Prisma migrations at `scripts/migrate-db.sh`
+- [x] T010 [P] Create scripts/deploy-ecs.sh for ECS deployment at `scripts/deploy-ecs.sh`
+- [x] T011 Make scripts executable at `scripts/migrate-db.sh scripts/deploy-ecs.sh`
+- [x] T012 Configure GitHub repository secrets documentation at `docs/github-secrets.md`
 
 **Checkpoint**: Foundation ready - Docker builds locally, scripts executable, secrets documented
 
