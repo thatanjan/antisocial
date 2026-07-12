@@ -17,11 +17,11 @@
 
 **Purpose**: Initialize project structure and configuration for Docker AWS deployment
 
-- [ ] T001 Create infra/ directory structure for AWS configs at `infra/`
-- [ ] T002 Create scripts/ directory for deployment scripts at `scripts/`
-- [ ] T003 [P] Configure .dockerignore for Next.js standalone output at `.dockerignore`
-- [ ] T004 [P] Add Docker build dependencies to package.json if needed at `package.json`
-- [ ] T005 [P] Verify next.config.ts has `output: 'standalone'` at `next.config.ts`
+- [X] T001 Create infra/ directory structure for AWS configs at `infra/`
+- [X] T002 Create scripts/ directory for deployment scripts at `scripts/`
+- [X] T003 [P] Configure .dockerignore for Next.js standalone output at `.dockerignore`
+- [X] T004 [P] Add Docker build dependencies to package.json if needed at `package.json`
+- [X] T005 [P] Verify next.config.ts has `output: 'standalone'` at `next.config.ts`
 
 ---
 
