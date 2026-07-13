@@ -1,13 +1,13 @@
 # Implementation Plan: Docker AWS Deployment
 
-**Branch**: `013-docker-aws-deployment` | **Date**: 2026-07-12 | **Spec**: specs/013-docker-aws-deployment/spec.md
+**Branch**: `014-docker-aws-deployment` | **Date**: 2026-07-13 | **Spec**: specs/013-docker-aws-deployment/spec.md
 **Input**: Feature specification from `/specs/013-docker-aws-deployment/spec.md`
 
 **Note**: This template is filled in by the `/speckit.plan` command. See `.specify/templates/plan-template.md` for the execution workflow.
 
 ## Summary
 
-Deploy the Next.js application to AWS using Docker containers orchestrated by ECS Fargate. The application will run as a containerized service behind an Application Load Balancer, with PostgreSQL running as a containerized task on ECS Fargate with EBS volume persistence (single AZ for learning). CI/CD via GitHub Actions: build Docker images, push to ECR, run Prisma migrations in CI, then deploy to ECS. Production-only deployment on main branch push.
+Deploy the Next.js application to AWS using Docker containers orchestrated by ECS Fargate. The application will run as a containerized service behind an Application Load Balancer, with PostgreSQL running as a containerized task on ECS Fargate with EBS volume persistence (single AZ for learning). CI/CD via GitHub Actions: build Docker images, push to ECR, run Prisma migrations in CI, then deploy to ECS. Production-only deployment on main branch push. Docker is used only for production deployments; local development uses `npm run dev` with a local PostgreSQL instance.
 
 ## Technical Context
 
@@ -38,7 +38,7 @@ Deploy the Next.js application to AWS using Docker containers orchestrated by EC
 | III. Component & Styling Standards | ✅ Pass | Shadcn UI, Tailwind tokens only |
 | IV. Server-First Architecture | ✅ Pass | Server Components, Server Actions |
 | V. Feature-Based File Structure | ✅ Pass | Feature modules under src/features/ |
-| VI. Containerization Standards | ✅ Pass | Dockerfile + docker-compose exist, will extend for AWS |
+| VI. Containerization Standards | ✅ Pass | Dockerfile exists for production; local dev uses npm run dev |
 | VII. Database Migration Workflow | ✅ Pass | Migrations in CI with `--create-only`, user approval before apply |
 
 All gates pass. Proceed to Phase 0.
@@ -76,9 +76,7 @@ src/
     └── ...
 
 # Infrastructure (Docker, AWS, CI/CD)
-├── Dockerfile              # Next.js standalone image
-├── docker-compose.yml      # Local dev: app + postgres
-├── docker-compose.aws.yml  # AWS-specific compose (optional)
+├── Dockerfile              # Next.js standalone image (production only)
 ├── .github/
 │   └── workflows/
 │       ├── ci.yml          # CI: lint, typecheck, build, test

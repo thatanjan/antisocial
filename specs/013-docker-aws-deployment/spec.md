@@ -1,9 +1,11 @@
 # Feature Specification: Docker AWS Deployment
 
-**Feature Branch**: `013-docker-aws-deployment`  
+**Feature Branch**: `014-docker-aws-deployment`  
 **Created**: 2026-07-10  
 **Status**: Draft  
 **Input**: User description: "want to deploy my nextjs app with docker and aws. use github actions to automate. want to use postgres with docker in aws as well"
+
+**Note**: Docker is used only for production deployments. Local development uses `npm run dev` with a local PostgreSQL instance.
 
 ## User Scenarios & Testing *(mandatory)*
 

@@ -7,6 +7,8 @@
 
 **Organization**: Tasks grouped by user story (P1 → P2) for independent implementation and testing.
 
+**Note**: Docker is used only for production deployments. Local development uses `npm run dev` with a local PostgreSQL instance.
+
 ## Format: `[ID] [P?] [Story] Description`
 
 - **[P]**: Can run in parallel (different files, no dependencies)
@@ -39,7 +41,7 @@
 - [x] T011 Make scripts executable at `scripts/migrate-db.sh scripts/deploy-ecs.sh`
 - [x] T012 Configure GitHub repository secrets documentation at `docs/github-secrets.md`
 
-**Checkpoint**: Foundation ready - Docker builds locally, scripts executable, secrets documented
+**Checkpoint**: Foundation ready - Dockerfile builds production image, scripts executable, secrets documented
 
 ---
 
