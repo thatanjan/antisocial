@@ -31,8 +31,8 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T006 Create multi-stage Dockerfile for Next.js app at `Dockerfile`
-- [ ] T007 Create docker-compose.yml for local development (app + postgres) at `docker-compose.yml`
+- [x] T006 Create multi-stage Dockerfile for Next.js app at `Dockerfile`
+- [ ] T007 ~~Create docker-compose.yml for local development~~ (removed - Docker only for production)
 - [ ] T008 Create .env.example with required environment variables at `.env.example`
 - [x] T009 [P] Create scripts/migrate-db.sh for Prisma migrations at `scripts/migrate-db.sh`
 - [x] T010 [P] Create scripts/deploy-ecs.sh for ECS deployment at `scripts/deploy-ecs.sh`
