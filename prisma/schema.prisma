@@ -14,26 +14,28 @@ datasource db {
 }
 
 model User {
-  id             String         @id
-  name           String
-  email          String
-  emailVerified  Boolean
-  image          String?
-  isAnonymous    Boolean        @default(false)
-  createdAt      DateTime
-  updatedAt      DateTime
-  followerCount  Int            @default(0)
-  followingCount Int            @default(0)
-  sessions       Session[]
-  accounts       Account[]
-  posts          Post[]
-  postLikes      PostLikes[]
-  comments       PostComment[]
-  replies        CommentReply[]
-  commentLikes   CommentLike[]
-  replyLikes     ReplyLike[]
-  following      Follow[]       @relation("Follower")
-  followers      Follow[]       @relation("Followee")
+  id                    String         @id
+  name                  String
+  email                 String
+  emailVerified         Boolean
+  image                 String?
+  isAnonymous           Boolean        @default(false)
+  createdAt             DateTime
+  updatedAt             DateTime
+  followerCount         Int            @default(0)
+  followingCount        Int            @default(0)
+  sessions              Session[]
+  accounts              Account[]
+  posts                 Post[]
+  postLikes             PostLikes[]
+  comments              PostComment[]
+  replies               CommentReply[]
+  commentLikes          CommentLike[]
+  replyLikes            ReplyLike[]
+  following             Follow[]       @relation("Follower")
+  followers             Follow[]       @relation("Followee")
+  notificationsSent     Notification[] @relation("NotificationActor")
+  notificationsReceived Notification[] @relation("NotificationRecipient")
 
   @@unique([email])
   @@map("user")
@@ -88,18 +90,19 @@ model Verification {
 }
 
 model Post {
-  id           String        @id @default(cuid())
-  authorId     String
-  author       User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  content      String?       @db.Text
-  aspectRatio  String?
-  images       PostImage[]
-  likeCount    Int           @default(0)
-  postLikes    PostLikes[]
-  commentCount Int           @default(0)
-  comments     PostComment[]
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  id            String         @id @default(cuid())
+  authorId      String
+  author        User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  content       String?        @db.Text
+  aspectRatio   String?
+  images        PostImage[]
+  likeCount     Int            @default(0)
+  postLikes     PostLikes[]
+  commentCount  Int            @default(0)
+  comments      PostComment[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  notifications Notification[]
 
   @@index([authorId])
   @@map("post")
@@ -207,4 +210,23 @@ model Follow {
   @@index([followerId, createdAt(sort: Desc)])
   @@index([followeeId, createdAt(sort: Desc)])
   @@map("follow")
+}
+
+model Notification {
+  id          String   @id @default(cuid())
+  recipientId String
+  postId    String?
+  actorId     String?
+  type        String
+  read        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  recipient User    @relation("NotificationRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
+  actor     User?   @relation("NotificationActor", fields: [actorId], references: [id], onDelete: SetNull)
+  post      Post?   @relation(onDelete: SetNull, fields: [postId], references: [id])
+
+  @@index([recipientId, createdAt(sort: Desc)])
+  @@index([recipientId, read])
+  @@index([createdAt])
+  @@map("notification")
 }
