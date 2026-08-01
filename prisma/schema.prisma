@@ -215,15 +215,15 @@ model Follow {
 model Notification {
   id          String   @id @default(cuid())
   recipientId String
-  postId    String?
+  postId      String?
   actorId     String?
   type        String
   read        Boolean  @default(false)
   createdAt   DateTime @default(now())
 
-  recipient User    @relation("NotificationRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
-  actor     User?   @relation("NotificationActor", fields: [actorId], references: [id], onDelete: SetNull)
-  post      Post?   @relation(onDelete: SetNull, fields: [postId], references: [id])
+  recipient User  @relation("NotificationRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
+  actor     User? @relation("NotificationActor", fields: [actorId], references: [id], onDelete: SetNull)
+    post      Post? @relation(onDelete: SetNull, fields: [postId], references: [id])
 
   @@index([recipientId, createdAt(sort: Desc)])
   @@index([recipientId, read])
