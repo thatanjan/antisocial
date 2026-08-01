@@ -223,7 +223,7 @@ model Notification {
 
   recipient User  @relation("NotificationRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
   actor     User? @relation("NotificationActor", fields: [actorId], references: [id], onDelete: SetNull)
-    post      Post? @relation(onDelete: SetNull, fields: [postId], references: [id])
+            post      Post? @relation(onDelete: SetNull, fields: [postId], references: [id])
 
   @@index([recipientId, createdAt(sort: Desc)])
   @@index([recipientId, read])

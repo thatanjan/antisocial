@@ -1,29 +1,22 @@
 import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
-import { PrismaClient } from "../generated/client/client";
+import { PrismaClient } from "@/generated/client/client";
 
-declare global {
-  // eslint-disable-next-line no-var
-  var prisma: PrismaClient | undefined;
-  // eslint-disable-next-line no-var
-  var pool: Pool | undefined;
-}
+const globalForPrisma = global as unknown as {
+  prisma: PrismaClient;
+};
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL,
+});
+const prisma =
+  globalForPrisma.prisma ||
+  new PrismaClient({
+    adapter,
+  });
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
-const connectionString = process.env.DATABASE_URL;
+const posts = await prisma.post.findMany({
+  orderBy: { createdAt: "desc" },
+  include: { author: { select: { name: true } } },
+});
 
-let db: PrismaClient;
-
-if (process.env.NODE_ENV === "production") {
-  const pool = new Pool({ connectionString });
-  const adapter = new PrismaPg(pool);
-  db = new PrismaClient({ adapter });
-} else {
-  if (!globalThis.prisma) {
-    globalThis.pool = new Pool({ connectionString });
-    const adapter = new PrismaPg(globalThis.pool as Pool);
-    globalThis.prisma = new PrismaClient({ adapter });
-  }
-  db = globalThis.prisma;
-}
-
-export default db;
+export default prisma;
