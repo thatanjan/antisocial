@@ -27,9 +27,9 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [X] T001 Add Notification model to `prisma/schema.prisma` with fields: id, recipientId, actorId (nullable), type, read, targetType, targetId, preview, createdAt. Include relations to User, indexes on (recipientId, createdAt DESC), (recipientId, read), and (createdAt).
-- [ ] T002 [P] Create `src/features/notifications/types/index.ts` with TypeScript types: NotificationType enum ('follow' | 'like' | 'comment'), NotificationData interface matching the Prisma shape, and return types for all server actions (GetNotificationsResult, MarkReadResult, etc.)
-- [ ] T003 Generate and review the Prisma migration: `npx prisma migrate dev --create-only --name add_notification_model`. Present the SQL for user approval before applying.
+- [x] T001 Add Notification model to `prisma/schema.prisma` with fields: id, recipientId, actorId (nullable), type, read, targetType, targetId, preview, createdAt. Include relations to User, indexes on (recipientId, createdAt DESC), (recipientId, read), and (createdAt).
+- [x] T002 [P] Create `src/features/notifications/types/index.ts` with TypeScript types: NotificationType enum ('follow' | 'like' | 'comment'), NotificationData interface matching the Prisma shape, and return types for all server actions (GetNotificationsResult, MarkReadResult, etc.)
+- [x] T003 Generate and review the Prisma migration: `npx prisma migrate dev --create-only --name add_notification_model`. Present the SQL for user approval before applying.
 
 **Checkpoint**: Prisma model exists, types defined, migration ready for approval.
 
@@ -70,6 +70,7 @@
 - [ ] T013 [US1] Integrate NotificationBell into the app layout — locate the main navigation component (likely in `src/features/navigation/`) and add the NotificationBell component in the appropriate position (next to other nav icons).
 
 **Checkpoint**: Log in as any user. Seed 5+ Notification records directly in `psql` for that user with varying `createdAt` timestamps (today, yesterday, last week). Verify:
+
 - Bell icon shows correct unread count
 - Panel opens with date-grouped list
 - Unread items visually distinct

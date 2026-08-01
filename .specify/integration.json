@@ -1,10 +1,7 @@
 {
   "version": "0.14.3.dev0",
   "integration_state_schema": 1,
-  "installed_integrations": [
-    "opencode",
-    "omp"
-  ],
+  "installed_integrations": ["opencode", "omp"],
   "integration_settings": {
     "opencode": {
       "script": "sh",
