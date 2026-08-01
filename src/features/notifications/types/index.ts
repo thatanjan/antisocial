@@ -2,8 +2,16 @@
  * Types and interfaces for the Notification feature.
  */
 
+import type { Notification } from "@prisma-types/models";
+
 /**
- * Type of notification, matching the Notification model's `type` field.
+ * Base notification row shape — re-exported from the generated Prisma client
+ * (`@prisma-types` alias → `src/generated/client/client.ts`).
+ */
+export type NotificationData = Notification;
+
+/**
+ * Type of notification, used to narrow the generated `type: string` field.
  */
 export const NotificationType = {
   follow: "follow",
@@ -13,31 +21,6 @@ export const NotificationType = {
 
 export type NotificationType =
   (typeof NotificationType)[keyof typeof NotificationType];
-
-/**
- * Kind of content a notification links to.
- */
-export const TargetType = {
-  post: "post",
-  user: "user",
-} as const;
-
-export type TargetType = (typeof TargetType)[keyof typeof TargetType];
-
-/**
- * Notification record shape, matching the Prisma Notification model.
- */
-export interface NotificationData {
-  id: string;
-  recipientId: string;
-  actorId: string | null;
-  type: NotificationType;
-  read: boolean;
-  targetType: TargetType | null;
-  targetId: string | null;
-  preview: string | null;
-  createdAt: Date;
-}
 
 /**
  * Actor info included when fetching notifications.
@@ -50,18 +33,13 @@ export interface NotificationActor {
 }
 
 /**
- * Notification returned by the get-notifications action.
+ * Notification returned by the get-notifications action — the generated
+ * `Notification` row with its `actor` relation and a serialized `createdAt`.
  */
-export interface NotificationItem {
-  id: string;
-  type: NotificationType;
-  read: boolean;
-  preview: string | null;
-  createdAt: string;
+export type NotificationItem = Omit<Notification, "createdAt" | "actor"> & {
   actor: NotificationActor | null;
-  targetType: TargetType | null;
-  targetId: string | null;
-}
+  createdAt: string;
+};
 
 /**
  * Input for the create-notification utility.
@@ -70,8 +48,7 @@ export interface CreateNotificationInput {
   recipientId: string;
   actorId: string;
   type: NotificationType;
-  targetType: TargetType;
-  targetId: string;
+  postId?: string;
   preview?: string;
 }
 
