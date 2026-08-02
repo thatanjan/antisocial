@@ -19,8 +19,7 @@ export const NotificationType = {
   comment: "comment",
 } as const;
 
-export type NotificationType =
-  (typeof NotificationType)[keyof typeof NotificationType];
+export type NotificationType = keyof typeof NotificationType;
 
 /**
  * Actor info included when fetching notifications.

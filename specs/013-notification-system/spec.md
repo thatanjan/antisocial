@@ -34,8 +34,7 @@ As an authenticated user, when someone follows me, I want to receive a notificat
 **Acceptance Scenarios**:
 
 1. **Given** User A is not following User B, **When** User A follows User B, **Then** User B receives a notification indicating User A followed them
-2. **Given** User A already follows User B, **When** there is no new follow/unfollow action, **Then** no duplicate follow notification is created
-3. **Given** User A unfollows and refollows User B, **When** the follow action occurs again, **Then** User B receives a new follow notification
+2. **Given** User A unfollows and refollows User B, **When** the follow action occurs again, **Then** User B receives a new follow notification
 
 ---
 
@@ -50,8 +49,7 @@ As an authenticated user, when someone likes my post, I want to receive a notifi
 **Acceptance Scenarios**:
 
 1. **Given** User B has a published post, **When** User A likes that post, **Then** User B receives a notification indicating User A liked their post
-2. **Given** User A has already liked User B's post, **When** User A toggles the like off and on again, **Then** User B receives only one notification for the re-like (no duplicate)
-3. **Given** multiple users like the same post, **When** each like occurs, **Then** the post owner receives a separate notification for each unique liker
+2. **Given** multiple users like the same post, **When** each like occurs, **Then** the post owner receives a separate notification for each unique liker
 
 ---
 
@@ -100,14 +98,13 @@ As a system administrator, I want notifications older than 30 days to be automat
 - **FR-002**: System MUST automatically create a notification when User A likes User B's post
 - **FR-003**: System MUST automatically create a notification when User A comments on User B's post
 - **FR-004**: Notifications MUST NOT be created for self-actions (following oneself, liking/commenting on own post)
-- **FR-005**: Duplicate notifications for the same action MUST NOT be created (e.g., repeated like toggles should not create multiple notifications)
-- **FR-006**: Users MUST be able to view a chronological list of their notifications, sorted newest first
-- **FR-007**: Notifications MUST have a read/unread status that can be toggled by the recipient
-- **FR-008**: Clicking a notification MUST navigate the user to the relevant content (post, user profile)
-- **FR-009**: Notifications older than 30 days MUST be automatically and permanently deleted
-- **FR-010**: The cleanup process MUST run on a recurring schedule automatically
-- **FR-011**: The cleanup process MUST NOT delete notifications that are less than 30 days old
-- **FR-012**: The notification list MUST show the actor's name, the action type, and (for comments) a preview of the comment text
+- **FR-005**: Users MUST be able to view a chronological list of their notifications, sorted newest first
+- **FR-006**: Notifications MUST have a read/unread status that can be toggled by the recipient
+- **FR-007**: Clicking a notification MUST navigate the user to the relevant content (post, user profile)
+- **FR-008**: Notifications older than 30 days MUST be automatically and permanently deleted
+- **FR-009**: The cleanup process MUST run on a recurring schedule automatically
+- **FR-010**: The cleanup process MUST NOT delete notifications that are less than 30 days old
+- **FR-011**: The notification list MUST show the actor's name, the action type, and (for comments) a preview of the comment text
 
 ### Key Entities
 

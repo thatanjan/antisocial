@@ -26,7 +26,7 @@ Add in-app notification system that creates notifications when a user follows, l
 | Principle | Compliance | Notes |
 |-----------|-----------|-------|
 | I. Code Quality & Self-Documentation | ✅ PASS | TSDoc on all exports, clear naming |
-| II. KISS & DRY | ✅ PASS | Simple notification model, no over-engineering. Dedup logic stays simple. |
+| II. KISS & DRY | ✅ PASS | Simple notification model, no over-engineering. |
 | III. Component & Styling | ✅ PASS | Use shadcn Sheet/Dialog for notification panel, design tokens only |
 | IV. Server-First Architecture | ✅ PASS | All mutations via server actions; notification list as server component |
 | V. Feature-Based Structure | ✅ PASS | `src/features/notifications/` — actions, components, types |

@@ -41,8 +41,7 @@
 
 - [ ] T004 [P] Create `src/features/notifications/utils/create-notification.ts` — exported async function that takes CreateNotificationInput (recipientId, actorId, type, targetType, targetId, preview?) and creates a Notification record via Prisma. Must:
   - Skip if actorId === recipientId (self-action guard per FR-004)
-  - Check for duplicate notification with same actorId+type+targetId for the recipient within the last 5 minutes (FR-005 dedup). Use `findFirst` with `createdAt > now - 5min` filter.
-  - Return `{ success: true }` on creation, `{ success: false, skipped: true }` on dedup/self-action
+  - Return `{ success: true }` on creation, `{ success: false, skipped: true }` on self-action
 - [ ] T005 [P] Create `src/features/notifications/utils/notification-lib.ts` with:
   - `formatNotificationText(type, actorName, preview?)` returning display string per research.md templates
   - `groupNotificationsByDate(notifications[])` returning date-bucketed groups: "Today", "Yesterday", "This Week", "This Month", "Older" using date-fns
@@ -89,7 +88,7 @@
 
 - [ ] T014 [US2] Integrate notification creation into `src/features/follow/actions/follow-actions.ts` — after the successful `db.follow.create()` and `incrementFollowCounts` calls, call `createNotification({ recipientId: followeeId, actorId: followerId, type: 'follow', targetType: 'user', targetId: followerId })`. Import from `@/features/notifications/utils/create-notification`.
 
-**Checkpoint**: User A follows User B → User B sees a follow notification in their panel. Unfollowing and re-following creates a new notification (dedup allows it after 5 min). Self-following produces no notification.
+**Checkpoint**: User A follows User B → User B sees a follow notification in their panel. Unfollowing and re-following creates a new notification. Self-following produces no notification.
 
 ---
 
@@ -103,7 +102,7 @@
 
 - [ ] T015 [US3] Integrate notification creation into `src/features/likes/actions/toggle-like.ts` — after the successful like creation (inside the Prisma transaction or immediately after it), call `createNotification({ recipientId: post.authorId, actorId: userId, type: 'like', targetType: 'post', targetId: postId })`. The post object is already fetched at the top of the action. Ensure notification is only created on like (not on unlike). Import from `@/features/notifications/utils/create-notification`.
 
-**Checkpoint**: User A likes User B's post → User B sees a like notification. Toggling like off and on again does NOT create a duplicate (within 5 min window). Self-liking produces no notification (already blocked by toggle-like.ts — verify no extra guard needed).
+**Checkpoint**: User A likes User B's post → User B sees a like notification. Self-liking produces no notification (already blocked by toggle-like.ts — verify no extra guard needed).
 
 ---
 
@@ -243,7 +242,7 @@ With multiple developers:
 - Each user story is independently completable and testable
 - US1 does NOT require US2-4 to function — seed test data in DB
 - US2-4 do NOT require US1 to function — create notifications can be verified via DB query or curl
-- The `createNotification` utility handles dedup (FR-005) and self-action (FR-004) guards — integration hooks just call it
+- The `createNotification` utility handles the self-action (FR-004) guard — integration hooks just call it
 - No test tasks included (not requested in spec)
 - Commit after each task or logical group
 - Stop at any checkpoint to validate story independently

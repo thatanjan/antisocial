@@ -23,7 +23,6 @@ type CreateNotificationResult = { success: true };
 
 **Rules**:
 - MUST skip if `actorId === recipientId` (self-action guard — FR-004)
-- MUST skip if duplicate notification exists for same actor+type+target+recipient within last 5 minutes (FR-005 dedup)
 - MUST be called inside a transaction with the triggering action where possible
 
 ---
