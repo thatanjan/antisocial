@@ -2,7 +2,7 @@
  * Types and interfaces for the Notification feature.
  */
 
-import type { Notification } from "@prisma-types/models";
+import type { Notification,  } from "@/generated/client/client";
 
 /**
  * Base notification row shape — re-exported from the generated Prisma client
@@ -30,6 +30,9 @@ export interface NotificationActor {
   name: string;
   image: string | null;
 }
+const a:  = {
+
+};
 
 /**
  * Notification returned by the get-notifications action — the generated

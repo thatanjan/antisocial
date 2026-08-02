@@ -39,10 +39,10 @@
 
 **Purpose**: Shared utilities required by multiple user stories.
 
-- [ ] T004 [P] Create `src/features/notifications/utils/create-notification.ts` — exported async function that takes CreateNotificationInput (recipientId, actorId, type, targetType, targetId, preview?) and creates a Notification record via Prisma. Must:
+- [x] T004 [P] Create `src/features/notifications/utils/create-notification.ts` — exported async function that takes CreateNotificationInput (recipientId, actorId, type, targetType, targetId, preview?) and creates a Notification record via Prisma. Must:
   - Skip if actorId === recipientId (self-action guard per FR-004)
   - Return `{ success: true }` on creation, `{ success: false, skipped: true }` on self-action
-- [ ] T005 [P] Create `src/features/notifications/utils/notification-lib.ts` with:
+- [x] T005 [P] Create `src/features/notifications/utils/notification-lib.ts` with:
   - `formatNotificationText(type, actorName, preview?)` returning display string per research.md templates
   - `groupNotificationsByDate(notifications[])` returning date-bucketed groups: "Today", "Yesterday", "This Week", "This Month", "Older" using date-fns
   - `formatRelativeTime(date)` returning "2m ago", "1h ago", "3d ago" style strings

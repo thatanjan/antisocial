@@ -1,8 +1,8 @@
-import prisma from "@/lib/prisma";
 import type {
   CreateNotificationInput,
   CreateNotificationResult,
 } from "@/features/notifications/types";
+import prisma from "@/lib/prisma";
 
 /**
  * Create a notification for a recipient user.
