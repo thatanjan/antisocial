@@ -27,8 +27,8 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [x] T001 Add Notification model to `prisma/schema.prisma` with fields: id, recipientId, actorId (nullable), type, read, targetType, targetId, preview, createdAt. Include relations to User, indexes on (recipientId, createdAt DESC), (recipientId, read), and (createdAt).
-- [x] T002 [P] Create `src/features/notifications/types/index.ts` with TypeScript types: NotificationType enum ('follow' | 'like' | 'comment'), NotificationData interface matching the Prisma shape, and return types for all server actions (GetNotificationsResult, MarkReadResult, etc.)
+- [x] T001 Add Notification model to `prisma/schema.prisma` with fields: id, recipientId, postId (nullable), actorId (nullable), type, read, createdAt. Relations to User (recipient, actor) and Post. Indexes on (recipientId, createdAt DESC), (recipientId, read), and (createdAt). Add `unreadNotifications Int @default(0)` counter to `User`. Denormalized unread count lives on top-level user, not a separate Notification storage.
+- [x] T002 [P] Create `src/features/notifications/types/index.ts` with TypeScript types: NotificationType enum ('follow' | 'like' | 'comment'), NotificationData interface matching the Prisma shape (recipientId, postId?, actorId?, type, read, createdAt), and return types for all server actions (GetNotificationsResult, MarkReadResult, etc.)
 - [x] T003 Generate and review the Prisma migration: `npx prisma migrate dev --create-only --name add_notification_model`. Present the SQL for user approval before applying.
 
 **Checkpoint**: Prisma model exists, types defined, migration ready for approval.
@@ -39,11 +39,12 @@
 
 **Purpose**: Shared utilities required by multiple user stories.
 
-- [x] T004 [P] Create `src/features/notifications/utils/create-notification.ts` — exported async function that takes CreateNotificationInput (recipientId, actorId, type, targetType, targetId, preview?) and creates a Notification record via Prisma. Must:
+- [x] T004 [P] Create `src/features/notifications/utils/create-notification.ts` — exported async function that takes CreateNotificationInput (recipientId, actorId, type, postId?) and creates a Notification record via Prisma. Must:
   - Skip if actorId === recipientId (self-action guard per FR-004)
+  - Increment `User.unreadNotifications` counter on recipient by 1 (atomic, inside a transaction with the Notification create — rely on DB counter, not a recount)
   - Return `{ success: true }` on creation, `{ success: false, skipped: true }` on self-action
 - [x] T005 [P] Create `src/features/notifications/utils/notification-lib.ts` with:
-  - `formatNotificationText(type, actorName, preview?)` returning display string per research.md templates
+  - `formatNotificationText(type, actorName)` returning display string per research.md templates
   - `groupNotificationsByDate(notifications[])` returning date-bucketed groups: "Today", "Yesterday", "This Week", "This Month", "Older" using date-fns
   - `formatRelativeTime(date)` returning "2m ago", "1h ago", "3d ago" style strings
 
@@ -59,22 +60,22 @@
 
 ### Implementation for User Story 1
 
-- [ ] T006 [P] [US1] Create `src/features/notifications/actions/get-notifications.ts` — server action that fetches the current user's notifications ordered by createdAt DESC, includes actor relation (id, name, image), and returns the data shape defined in contracts/server-actions.md. Also returns unreadCount.
-- [ ] T007 [P] [US1] Create `src/features/notifications/actions/mark-read.ts` — server action that accepts `notificationId`, validates ownership (recipientId === session.user.id), and sets `read: true`.
-- [ ] T008 [P] [US1] Create `src/features/notifications/actions/mark-all-read.ts` — server action that runs `updateMany` where recipientId === session.user.id AND read === false, returns count of updated rows.
-- [ ] T009 [P] [US1] Create `src/features/notifications/actions/get-unread-count.ts` — server action that returns the count of unread notifications for the current user.
-- [ ] T010 [US1] Create `src/features/notifications/components/notification-item.tsx` — renders a single notification row: actor avatar (or fallback), formatted text ("{name} started following you"/"liked your post"/"commented: {preview}"), relative timestamp, read/unread visual distinction (bold + background for unread). Click handler navigates to target (router.push) and calls mark-read.
+- [ ] T006 [P] [US1] Create `src/features/notifications/actions/get-notifications.ts` — server action that fetches the current user's notifications ordered by createdAt DESC, includes actor relation (id, name, image), and returns the data shape defined in contracts/server-actions.md.
+- [ ] T007 [P] [US1] Create `src/features/notifications/actions/mark-read.ts` — server action that accepts `notificationId`, validates ownership (recipientId === session.user.id), sets `read: true`, and decrements `unreadNotifications` by 1 on the recipient User (only if the notification was previously unread).
+- [ ] T008 [P] [US1] Create `src/features/notifications/actions/mark-all-read.ts` — server action that runs `updateMany` where recipientId === session.user.id AND read === false, returns count of updated rows, and resets the recipient's `unreadNotifications` to 0.
+- [ ] T009 [P] [US1] Create `src/features/notifications/actions/get-unread-count.ts` — server action that returns the current user's `unreadNotifications` counter directly (read top-level User field, no DB count query).
+- [ ] T010 [US1] Create `src/features/notifications/components/notification-item.tsx` — renders a single notification row: actor avatar (or "Deleted User" fallback), formatted text ("{name} started following you"/"liked your post"/"commented on your post"), relative timestamp, read/unread visual distinction (bold + background for unread). Click handler navigates to post detail (via postId) or actor profile (follow type) and calls mark-read.
 - [ ] T011 [US1] Create `src/features/notifications/components/notification-panel.tsx` — "use client" component: fetches notifications via get-notifications action, groups by date using notification-lib, renders date group headers + notification-item rows. Includes "Mark all as read" button at top. Uses shadcn Sheet or DropdownMenu for the panel container.
 - [ ] T012 [US1] Create `src/features/notifications/components/notification-bell.tsx` — "use client" component: renders a Bell icon from lucide-react with a badge showing unread count (fetched via get-unread-count). Click opens the notification-panel. Polls unread count every 30s via setInterval + router.refresh or re-fetch.
 - [ ] T013 [US1] Integrate NotificationBell into the app layout — locate the main navigation component (likely in `src/features/navigation/`) and add the NotificationBell component in the appropriate position (next to other nav icons).
 
 **Checkpoint**: Log in as any user. Seed 5+ Notification records directly in `psql` for that user with varying `createdAt` timestamps (today, yesterday, last week). Verify:
 
-- Bell icon shows correct unread count
+- Bell icon shows correct unread count (from `User.unreadNotifications`)
 - Panel opens with date-grouped list
 - Unread items visually distinct
-- Clicking a notification navigates to the correct URL
-- "Mark all as read" clears the badge
+- Clicking a notification navigates to the correct URL (or shows "content no longer available" toast)
+- "Mark all as read" clears the badge and resets the counter to 0
 
 ---
 
@@ -86,7 +87,7 @@
 
 ### Implementation for User Story 2
 
-- [ ] T014 [US2] Integrate notification creation into `src/features/follow/actions/follow-actions.ts` — after the successful `db.follow.create()` and `incrementFollowCounts` calls, call `createNotification({ recipientId: followeeId, actorId: followerId, type: 'follow', targetType: 'user', targetId: followerId })`. Import from `@/features/notifications/utils/create-notification`.
+- [ ] T014 [US2] Integrate notification creation into `src/features/follow/actions/follow-actions.ts` — after the successful `db.follow.create()` and `incrementFollowCounts` calls, call `createNotification({ recipientUserId: followeeId, actorId: followerId, type: 'follow' })` (no postId for follow type). Import from `@/features/notifications/utils/create-notification`.
 
 **Checkpoint**: User A follows User B → User B sees a follow notification in their panel. Unfollowing and re-following creates a new notification. Self-following produces no notification.
 
@@ -100,7 +101,7 @@
 
 ### Implementation for User Story 3
 
-- [ ] T015 [US3] Integrate notification creation into `src/features/likes/actions/toggle-like.ts` — after the successful like creation (inside the Prisma transaction or immediately after it), call `createNotification({ recipientId: post.authorId, actorId: userId, type: 'like', targetType: 'post', targetId: postId })`. The post object is already fetched at the top of the action. Ensure notification is only created on like (not on unlike). Import from `@/features/notifications/utils/create-notification`.
+- [ ] T015 [US3] Integrate notification creation into `src/features/likes/actions/toggle-like.ts` — after the successful like creation (inside the Prisma transaction or immediately after it), call `createNotification({ recipientId: post.authorId, actorId: userId, type: 'like', postId })`. The post object is already fetched at the top of the action. Ensure notification is only created on like (not on unlike). Import from `@/features/notifications/utils/create-notification`.
 
 **Checkpoint**: User A likes User B's post → User B sees a like notification. Self-liking produces no notification (already blocked by toggle-like.ts — verify no extra guard needed).
 
@@ -114,7 +115,7 @@
 
 ### Implementation for User Story 4
 
-- [ ] T016 [US4] Integrate notification creation into `src/features/post-comments/actions/comments.ts` — after successful comment creation in `addCommentAction`, look up the post's authorId (post is accessible via `newComment.postId`), then call `createNotification({ recipientId: postAuthorId, actorId: session.user.id, type: 'comment', targetType: 'post', targetId: postId, preview: content.slice(0, 200) })`. Must fetch the post to get authorId if not already available. Self-comment prevention is handled by `createNotification`'s self-action guard.
+- [ ] T016 [US4] Integrate notification creation into `src/features/post-comments/actions/comments.ts` — after successful comment creation in `addCommentAction`, call `createNotification({ recipientId: postAuthorId, actorId: session.user.id, type: 'comment', postId })`. Must fetch the post to get authorId if not already available. Self-comment prevention is handled by `createNotification`'s self-action guard.
 
 **Checkpoint**: User A comments on User B's post → User B sees a comment notification with the comment preview. Commenting on own post produces no notification.
 
@@ -143,8 +144,8 @@
 - [ ] T020 Run the Prisma migration: apply the generated migration with `npx prisma migrate dev` (after user approval obtained in T003), then run `npx prisma generate`.
 - [ ] T021 [P] Run quickstart validation guide (specs/013-notification-system/quickstart.md) — execute all 7 scenarios and verify expected outcomes.
 - [ ] T022 [P] Add TSDoc comments to all exported functions in the notifications feature — create-notification.ts, all actions, all components.
-- [ ] T023 Handle edge case: deleted actor display. In `notification-item.tsx`, when `actor` is null, display "Deleted User" as the actor name (per spec edge case).
-- [ ] T024 Handle edge case: deleted target content. In notification click handler, wrap navigation in try/catch and show a sonner toast "This content is no longer available" if the target page returns 404.
+- [ ] T023 Handle edge case: deleted actor. In `notification-item.tsx`, when `actor` is null, display "Deleted User" as the actor name (per spec edge case). For notifications with `postId == null` (deleted post/follow), handle navigation gracefully.
+- [ ] T024 Handle edge case: deleted target content (null postId). In notification click handler, if postId is null, show a sonner toast "This content is no longer available" and skip navigation. Otherwise wrap navigation in try/catch and show the same toast if target page returns 404.
 
 ---
 
