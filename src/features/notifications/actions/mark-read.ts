@@ -1,6 +1,6 @@
 "use server";
 
-import type { MarkReadInput, MarkReadResult } from "@/features/notifications/types";
+import type { MarkAllReadResult, MarkReadInput, MarkReadResult } from "@/features/notifications/types";
 import db from "@/lib/prisma";
 import { getSession } from "@/lib/session";
 
@@ -57,3 +57,39 @@ export const markNotificationRead = async (
     return { success: false, error: "Failed to mark notification as read" };
   }
 };
+
+/**
+ * Mark all unread notifications as read for the current user.
+ *
+ * Runs `updateMany` where recipientId === session.user.id AND read === false,
+ * returns count of updated rows, and resets `unreadNotifications` to 0.
+ */
+export const markAllNotificationsRead =
+  async (): Promise<MarkAllReadResult> => {
+    const session = await getSession();
+    if (!session?.user) {
+      return { success: false, error: "Unauthorized" };
+    }
+
+    const userId = session.user.id;
+
+    try {
+      const result = await db.notification.updateMany({
+        where: { recipientId: userId, read: false },
+        data: { read: true },
+      });
+
+      await db.user.update({
+        where: { id: userId },
+        data: { unreadNotifications: 0 },
+      });
+
+      return { success: true, count: result.count };
+    } catch (error) {
+      console.error("Failed to mark all notifications as read:", error);
+      return {
+        success: false,
+        error: "Failed to mark all notifications as read",
+      };
+    }
+  };
