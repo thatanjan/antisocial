@@ -1,6 +1,10 @@
 "use server";
 
-import type { MarkAllReadResult, MarkReadInput, MarkReadResult } from "@/features/notifications/types";
+import type {
+  MarkAllReadResult,
+  MarkReadInput,
+  MarkReadResult,
+} from "@/features/notifications/types";
 import db from "@/lib/prisma";
 import { getSession } from "@/lib/session";
 
