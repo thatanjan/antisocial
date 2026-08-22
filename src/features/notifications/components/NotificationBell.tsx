@@ -38,7 +38,7 @@ export const NotificationBell = () => {
         <Button
           aria-label="Notifications"
           className="relative"
-          size="icon-sm"
+          size="lg"
           type="button"
           variant="ghost"
         >

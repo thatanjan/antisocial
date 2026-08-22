@@ -1,3 +1,4 @@
+import PageHeader from "@/components/PageHeader";
 import type { UserProfile } from "../types";
 import { ProfileHeader } from "./ProfileHeader";
 import { ProfileTabContent } from "./ProfileTabContent";
@@ -31,6 +32,7 @@ export const ProfilePage = ({
 }: ProfilePageProps) => {
   return (
     <div className="flex flex-col gap-4 sm:gap-6">
+      <PageHeader title={profile.name} />
       <div className="relative flex h-56 items-end sm:h-72">
         {/* TODO: Add cover image upload and display functionality */}
         <div className="absolute top-0 h-44 w-full rounded-lg bg-red-900 sm:h-60" />
