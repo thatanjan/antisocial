@@ -87,7 +87,7 @@
 
 ### Implementation for User Story 2
 
-- [ ] T014 [US2] Integrate notification creation into `src/features/follow/actions/follow-actions.ts` — after the successful `db.follow.create()` and `incrementFollowCounts` calls, call `createNotification({ recipientUserId: followeeId, actorId: followerId, type: 'follow' })` (no postId for follow type). Import from `@/features/notifications/utils/create-notification`.
+- [x] T014 [US2] Integrate notification creation into `src/features/follow/actions/follow-actions.ts` — after the successful `db.follow.create()` and `incrementFollowCounts` calls, call `createNotification({ recipientUserId: followeeId, actorId: followerId, type: 'follow' })` (no postId for follow type). Import from `@/features/notifications/utils/create-notification`.
 
 **Checkpoint**: User A follows User B → User B sees a follow notification in their panel. Unfollowing and re-following creates a new notification. Self-following produces no notification.
 
