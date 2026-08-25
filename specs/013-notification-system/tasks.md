@@ -67,7 +67,7 @@
 - [x] T010 [US1] Create `src/features/notifications/components/notification-item.tsx` — renders a single notification row: actor avatar (or "Deleted User" fallback), formatted text ("{name} started following you"/"liked your post"/"commented on your post"), relative timestamp, read/unread visual distinction (bold + background for unread). Click handler navigates to post detail (via postId) or actor profile (follow type) and calls mark-read.
 - [x] T011 [US1] Create `src/features/notifications/components/notification-panel.tsx` — "use client" component: fetches notifications via get-notifications action, groups by date using notification-lib, renders date group headers + notification-item rows. Includes "Mark all as read" button at top. Uses shadcn Sheet or DropdownMenu for the panel container.
 - [x] T012 [US1] Create `src/features/notifications/components/notification-bell.tsx` — "use client" component: renders a Bell icon from lucide-react with a badge showing unread count (fetched via get-unread-count). Click opens the notification-panel. Polls unread count every 30s via setInterval + router.refresh or re-fetch.
-- [ ] T013 [US1] Integrate NotificationBell into the app layout — locate the main navigation component (likely in `src/features/navigation/`) and add the NotificationBell component in the appropriate position (next to other nav icons).
+- [x] T013 [US1] Integrate NotificationBell into the app layout (done manually by developer)
 
 **Checkpoint**: Log in as any user. Seed 5+ Notification records directly in `psql` for that user with varying `createdAt` timestamps (today, yesterday, last week). Verify:
 

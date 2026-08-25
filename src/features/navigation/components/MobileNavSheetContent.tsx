@@ -9,6 +9,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { PostCreationModal } from "@/features/create-post/components/PostCreationModal";
+import { NotificationPanel } from "@/features/notifications/components/NotificationPanel";
 import { navItems, userSuggestions } from "../utils/mock-data";
 import { NavLinkItem } from "./NavLinkItem";
 import { SearchBar } from "./SearchBar";
@@ -60,6 +61,19 @@ const MobileNavSheetContent = ({
             {navItems.map((item) => (
               <NavLinkItem item={item} key={item.href} />
             ))}
+
+            <NotificationPanel
+              trigger={
+                <NavLinkItem
+                  item={{
+                    label: "Notifications",
+                    href: "",
+                    icon: "Bell",
+                    badgeCount: 1,
+                  }}
+                />
+              }
+            />
           </nav>
 
           <div className="px-4">
