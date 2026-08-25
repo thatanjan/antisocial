@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { createNotification } from "@/features/notifications/utils/create-notification";
 import prisma from "@/lib/prisma";
 import { getSession } from "@/lib/session";
 import { commentSchema } from "../schemas";
@@ -123,6 +124,21 @@ export const addCommentAction = async (
 
       return comment;
     });
+
+    // Notify post author on new comment (self-comments skipped by guard)
+    const post = await prisma.post.findUnique({
+      where: { id: postId },
+      select: { authorId: true },
+    });
+
+    if (post) {
+      await createNotification({
+        recipientId: post.authorId,
+        actorId: session.user.id,
+        type: "comment",
+        postId,
+      });
+    }
 
     revalidatePath(`/post/${postId}`);
     revalidatePath("/feed");

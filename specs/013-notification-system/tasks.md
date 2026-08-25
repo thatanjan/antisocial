@@ -101,7 +101,7 @@
 
 ### Implementation for User Story 3
 
-- [ ] T015 [US3] Integrate notification creation into `src/features/likes/actions/toggle-like.ts` — after the successful like creation (inside the Prisma transaction or immediately after it), call `createNotification({ recipientId: post.authorId, actorId: userId, type: 'like', postId })`. The post object is already fetched at the top of the action. Ensure notification is only created on like (not on unlike). Import from `@/features/notifications/utils/create-notification`.
+- [x] T015 [US3] Integrate notification creation into `src/features/likes/actions/toggle-like.ts` — after the successful like creation (inside the Prisma transaction or immediately after it), call `createNotification({ recipientId: post.authorId, actorId: userId, type: 'like', postId })`. The post object is already fetched at the top of the action. Ensure notification is only created on like (not on unlike). Import from `@/features/notifications/utils/create-notification`.
 
 **Checkpoint**: User A likes User B's post → User B sees a like notification. Self-liking produces no notification (already blocked by toggle-like.ts — verify no extra guard needed).
 
@@ -115,7 +115,7 @@
 
 ### Implementation for User Story 4
 
-- [ ] T016 [US4] Integrate notification creation into `src/features/post-comments/actions/comments.ts` — after successful comment creation in `addCommentAction`, call `createNotification({ recipientId: postAuthorId, actorId: session.user.id, type: 'comment', postId })`. Must fetch the post to get authorId if not already available. Self-comment prevention is handled by `createNotification`'s self-action guard.
+- [x] T016 [US4] Integrate notification creation into `src/features/post-comments/actions/comments.ts` — after successful comment creation in `addCommentAction`, call `createNotification({ recipientId: postAuthorId, actorId: session.user.id, type: 'comment', postId })`. Must fetch the post to get authorId if not already available. Self-comment prevention is handled by `createNotification`'s self-action guard.
 
 **Checkpoint**: User A comments on User B's post → User B sees a comment notification with the comment preview. Commenting on own post produces no notification.
 
