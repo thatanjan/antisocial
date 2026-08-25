@@ -129,9 +129,9 @@
 
 ### Implementation for User Story 5
 
-- [ ] T017 [P] [US5] Create `src/features/notifications/actions/cleanup-notifications.ts` — server action that accepts `cronSecret: string`, validates against `process.env.CRON_SECRET`, and runs `prisma.notification.deleteMany({ where: { createdAt: { lt: subDays(new Date(), 30) } } })`. Returns `{ success: true, deletedCount: number }`.
-- [ ] T018 [P] [US5] Create `src/app/api/cron/cleanup-notifications/route.ts` — Next.js API route handling GET requests. Extracts `secret` from query params, calls cleanup-notifications action, returns JSON response with success/deletedCount/error. Add CORS or allow all origins for cron service.
-- [ ] T019 [US5] Create `.github/workflows/cleanup-notifications.yml` — GitHub Actions workflow with `schedule: cron('0 3 * * *')` (daily 03:00 UTC) and `workflow_dispatch` trigger. Makes curl GET to `${{ secrets.APP_URL }}/api/cron/cleanup-notifications?secret=${{ secrets.CRON_SECRET }}`.
+- [x] T017 [P] [US5] Create `src/features/notifications/actions/cleanup-notifications.ts` — server action that accepts `cronSecret: string`, validates against `process.env.CRON_SECRET`, and runs `prisma.notification.deleteMany({ where: { createdAt: { lt: subDays(new Date(), 30) } } })`. Returns `{ success: true, deletedCount: number }`.
+- [x] T018 [P] [US5] Create `src/app/api/cron/cleanup-notifications/route.ts` — Next.js API route handling GET requests. Extracts `secret` from query params, calls cleanup-notifications action, returns JSON response with success/deletedCount/error. Auth via `Authorization: Bearer <secret>` header (Vercel cron) or `?secret=` query.
+- [x] T019 [US5] Schedule notification cleanup daily at 03:00 UTC via **Vercel cron** (not GitHub Actions) — add `{ "path": "/api/cron/cleanup-notifications", "schedule": "0 3 * * *" }` to `vercel.json`. Vercel sends `Authorization: Bearer <CRON_SECRET>` (configure `CRON_SECRET` env in Vercel).
 
 **Checkpoint**: Run `curl "http://localhost:3000/api/cron/cleanup-notifications?secret=test"` — returns JSON. Seed an old notification via psql, run again, verify it's deleted. Younger notifications are preserved.
 
