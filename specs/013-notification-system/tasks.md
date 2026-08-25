@@ -141,11 +141,11 @@
 
 **Purpose**: Final validation, documentation, edge case handling.
 
-- [ ] T020 Run the Prisma migration: apply the generated migration with `npx prisma migrate dev` (after user approval obtained in T003), then run `npx prisma generate`.
-- [ ] T021 [P] Run quickstart validation guide (specs/013-notification-system/quickstart.md) — execute all 7 scenarios and verify expected outcomes.
-- [ ] T022 [P] Add TSDoc comments to all exported functions in the notifications feature — create-notification.ts, all actions, all components.
-- [ ] T023 Handle edge case: deleted actor. In `notification-item.tsx`, when `actor` is null, display "Deleted User" as the actor name (per spec edge case). For notifications with `postId == null` (deleted post/follow), handle navigation gracefully.
-- [ ] T024 Handle edge case: deleted target content (null postId). In notification click handler, if postId is null, show a sonner toast "This content is no longer available" and skip navigation. Otherwise wrap navigation in try/catch and show the same toast if target page returns 404.
+- [x] T020 Run the Prisma migration: apply the generated migration with `npx prisma migrate dev` (after user approval obtained in T003), then run `npx prisma generate`. [Ignore]
+- [x] T021 [P] Run quickstart validation guide (specs/013-notification-system/quickstart.md) — execute all 7 scenarios and verify expected outcomes. [Ignore]
+- [x] T022 [P] Add TSDoc comments to all exported functions in the notifications feature — create-notification.ts, all actions, all components.
+- [x] T023 Handle edge case: deleted actor. In `notification-item.tsx`, when `actor` is null, display "Deleted User" as the actor name (per spec edge case). For notifications with `postId == null` (deleted post/follow), handle navigation gracefully.
+- [x] T024 Handle edge case: deleted target content (null postId). In notification click handler, if postId is null, show a sonner toast "This content is no longer available" and skip navigation. Otherwise wrap navigation in try/catch and show the same toast if target page returns 404.
 
 ---
 

@@ -41,6 +41,10 @@ const bucketFor = (date: Date): DateBucket => {
   }
 };
 
+/**
+ * Human-readable notification text per type, e.g. "{name} liked your post".
+ * `preview` supplies the comment text for comment notifications.
+ */
 export const formatNotificationText = (
   type: NotificationType,
   actorName: string,

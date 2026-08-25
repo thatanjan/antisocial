@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { markNotificationRead } from "@/features/notifications/actions/mark-read";
 import type {
@@ -36,15 +37,27 @@ export const NotificationItem = ({ notification }: NotificationItemProps) => {
       await markNotificationRead({ notificationId: notification.id });
     }
 
+    const navigate = (path: string) => {
+      try {
+        router.push(path);
+      } catch {
+        toast.error("This content is no longer available");
+      }
+    };
+
     if (notification.type === "follow") {
       if (notification.actor) {
-        router.push(`/profile/${notification.actor.id}`);
+        navigate(`/profile/${notification.actor.id}`);
+      } else {
+        toast.error("This content is no longer available");
       }
       return;
     }
 
     if (notification.postId) {
-      router.push(`/post/${notification.postId}`);
+      navigate(`/post/${notification.postId}`);
+    } else {
+      toast.error("This content is no longer available");
     }
   };
 
