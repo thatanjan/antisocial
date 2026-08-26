@@ -20,7 +20,7 @@ export const toggleLikeAction = async (
   try {
     const session = await getSession();
 
-    if (!session || !session.user) {
+    if (!session?.user) {
       return {
         success: false,
         error: "Unauthorized. Please log in to like posts.",

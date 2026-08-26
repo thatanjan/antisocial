@@ -84,7 +84,7 @@ export const addCommentAction = async (
   try {
     const session = await getSession();
 
-    if (!session || !session.user) {
+    if (!session?.user) {
       return {
         success: false,
         error: "Unauthorized. Please log in to comment.",
@@ -173,7 +173,7 @@ export const updateCommentAction = async (
   try {
     const session = await getSession();
 
-    if (!session || !session.user) {
+    if (!session?.user) {
       return {
         success: false,
         error: "Unauthorized. Please log in to edit your comment.",
@@ -251,7 +251,7 @@ export const deleteCommentAction = async (
   try {
     const session = await getSession();
 
-    if (!session || !session.user) {
+    if (!session?.user) {
       return {
         success: false,
         error: "Unauthorized. Please log in to delete your comment.",

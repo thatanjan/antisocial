@@ -1,7 +1,6 @@
 import PageHeader from "@/components/PageHeader";
 import { PostList } from "@/features/create-post/components/PostList";
 import { getFeedAction } from "@/features/feed/actions/get-feed";
-import { NotificationBell } from "@/features/notifications/components/NotificationBell";
 import { getSession } from "@/lib/session";
 
 /**

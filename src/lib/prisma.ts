@@ -14,9 +14,4 @@ const prisma =
   });
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
-const posts = await prisma.post.findMany({
-  orderBy: { createdAt: "desc" },
-  include: { author: { select: { name: true } } },
-});
-
 export default prisma;
