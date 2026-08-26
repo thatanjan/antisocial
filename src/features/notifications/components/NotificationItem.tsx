@@ -18,8 +18,8 @@ import { cn } from "@/lib/utils";
  * Props for the NotificationItem component.
  */
 interface NotificationItemProps {
-  /** The notification to render. */
   notification: NotificationItemType;
+  closePanel: () => void;
 }
 
 /**
@@ -28,7 +28,10 @@ interface NotificationItemProps {
  * distinction. Clicking navigates to the target content and marks the
  * notification as read.
  */
-export const NotificationItem = ({ notification }: NotificationItemProps) => {
+export const NotificationItem = ({
+  notification,
+  closePanel,
+}: NotificationItemProps) => {
   const router = useRouter();
   const actorName = notification.actor?.name ?? "Deleted User";
 
@@ -36,6 +39,8 @@ export const NotificationItem = ({ notification }: NotificationItemProps) => {
     if (!notification.read) {
       await markNotificationRead({ notificationId: notification.id });
     }
+
+    closePanel();
 
     const navigate = (path: string) => {
       try {

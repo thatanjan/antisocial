@@ -41,7 +41,9 @@ export const NotificationPanel = ({ trigger }: NotificationPanelProps) => {
 
   const load = useCallback(async (signal?: { cancelled: boolean }) => {
     const result = await getNotifications();
+
     if (signal?.cancelled) return;
+
     if (result.success) {
       setItems(result.data.notifications);
       setUnreadCount(result.data.unreadCount);
@@ -72,8 +74,10 @@ export const NotificationPanel = ({ trigger }: NotificationPanelProps) => {
     state.status === "success" ? groupNotificationsByDate(items) : [];
   const hasUnread = state.status === "success" && unreadCount > 0;
 
+  const [open, setOpen] = useState(false);
+
   return (
-    <Sheet>
+    <Sheet onOpenChange={setOpen} open={open}>
       <SheetTrigger asChild>{trigger}</SheetTrigger>
       <SheetContent
         className="flex w-full flex-col gap-0 p-0 sm:max-w-md"
@@ -131,6 +135,7 @@ export const NotificationPanel = ({ trigger }: NotificationPanelProps) => {
                     <NotificationItem
                       key={notification.id}
                       notification={notification}
+                      closePanel={() => setOpen(false)}
                     />
                   ))}
                 </div>
