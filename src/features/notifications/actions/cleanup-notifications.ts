@@ -11,7 +11,9 @@ import db from "@/lib/prisma";
  */
 export const cleanupNotifications = async (
   cronSecret: string,
-): Promise<{ success: true; deletedCount: number } | { success: false; error: string }> => {
+): Promise<
+  { success: true; deletedCount: number } | { success: false; error: string }
+> => {
   if (cronSecret !== process.env.CRON_SECRET) {
     return { success: false, error: "Unauthorized" };
   }

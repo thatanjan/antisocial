@@ -133,9 +133,9 @@ export const NotificationPanel = ({ trigger }: NotificationPanelProps) => {
                 <div className="divide-y">
                   {group.items.map((notification) => (
                     <NotificationItem
+                      closePanel={() => setOpen(false)}
                       key={notification.id}
                       notification={notification}
-                      closePanel={() => setOpen(false)}
                     />
                   ))}
                 </div>
