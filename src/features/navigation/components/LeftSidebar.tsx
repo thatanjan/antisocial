@@ -1,5 +1,6 @@
 import { LogoutButton } from "@/features/auth/components/LogoutButton";
 import { PostCreationModal } from "@/features/create-post/components/PostCreationModal";
+import { NotificationPanel } from "@/features/notifications/components/NotificationPanel";
 import { navItems } from "../utils/mock-data";
 import { NavLinkItem } from "./NavLinkItem";
 import { ProfileSummary } from "./ProfileSummary";
@@ -8,6 +9,7 @@ import { ProfileSummary } from "./ProfileSummary";
  * The Left Sidebar component which contains the user profile summary
  * and the main navigation links.
  */
+
 export const LeftSidebar = () => {
   return (
     <aside className="fixed top-0 z-30 hidden h-screen min-w-col flex-col overflow-hidden border-border border-r bg-card/30 backdrop-blur-md md:flex lg:w-col-side lg:max-w-col-side">
@@ -30,6 +32,19 @@ export const LeftSidebar = () => {
           {navItems.map((item) => (
             <NavLinkItem item={item} key={item.href} />
           ))}
+
+          <NotificationPanel
+            trigger={
+              <NavLinkItem
+                item={{
+                  label: "Notifications",
+                  href: "",
+                  icon: "Bell",
+                  badgeCount: 1,
+                }}
+              />
+            }
+          />
         </nav>
 
         {/* Create Post Button Section */}

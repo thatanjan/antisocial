@@ -25,7 +25,7 @@ export const toggleCommentLikeAction = async (
   try {
     const session = await getSession();
 
-    if (!session || !session.user) {
+    if (!session?.user) {
       return {
         success: false,
         error: "Unauthorized. Please log in to like this comment.",
@@ -120,7 +120,7 @@ export const toggleReplyLikeAction = async (
   try {
     const session = await getSession();
 
-    if (!session || !session.user) {
+    if (!session?.user) {
       return {
         success: false,
         error: "Unauthorized. Please log in to like this reply.",

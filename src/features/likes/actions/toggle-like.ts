@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { createNotification } from "@/features/notifications/utils/create-notification";
 import prisma from "@/lib/prisma";
 import { getSession } from "@/lib/session";
 import type { ToggleLikeResult } from "../types";
@@ -19,7 +20,7 @@ export const toggleLikeAction = async (
   try {
     const session = await getSession();
 
-    if (!session || !session.user) {
+    if (!session?.user) {
       return {
         success: false,
         error: "Unauthorized. Please log in to like posts.",
@@ -96,7 +97,17 @@ export const toggleLikeAction = async (
       }
     });
 
-    // 4. Revalidate paths to sync UI across the application
+    // 4. Notify post author on like (not unlike)
+    if (result.isLiked) {
+      await createNotification({
+        recipientId: post.authorId,
+        actorId: userId,
+        type: "like",
+        postId,
+      });
+    }
+
+    // 5. Revalidate paths to sync UI across the application
     revalidatePath("/feed");
     revalidatePath(`/post/${postId}`);
 

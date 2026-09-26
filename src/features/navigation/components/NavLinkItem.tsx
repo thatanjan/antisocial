@@ -2,6 +2,7 @@
 
 import {
   BarChart2,
+  Bell,
   Bookmark,
   Compass,
   HelpCircle,
@@ -12,6 +13,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { NavItem } from "../types";
@@ -27,6 +29,7 @@ const iconMap: Record<string, LucideIcon> = {
   Send,
   BarChart2,
   Settings,
+  Bell,
 };
 
 /**
@@ -42,11 +45,19 @@ interface NavLinkItemProps {
  * A single navigation link for the sidebar.
  * Highlights automatically when the current path matches the destination.
  */
-export const NavLinkItem = ({ item }: NavLinkItemProps) => {
+export const NavLinkItem = ({ item, ...rest }: NavLinkItemProps) => {
   const pathname = usePathname();
   const isActive = pathname === item.href;
 
   const Icon = iconMap[item.icon] || HelpCircle;
+
+  const ParentLink = ({ children, ...rest }: { children: ReactNode }) => (
+    <Link href={item.href} {...rest}>
+      {children}
+    </Link>
+  );
+
+  const Parent = item.href ? ParentLink : "span";
 
   return (
     <Button
@@ -58,8 +69,9 @@ export const NavLinkItem = ({ item }: NavLinkItemProps) => {
           : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
       )}
       variant="ghost"
+      {...rest}
     >
-      <Link href={item.href}>
+      <Parent>
         <Icon
           className={cn(
             "h-5 w-5 transition-transform duration-200 group-hover:scale-110",
@@ -82,7 +94,7 @@ export const NavLinkItem = ({ item }: NavLinkItemProps) => {
             {item.badgeCount}
           </span>
         )}
-      </Link>
+      </Parent>
     </Button>
   );
 };

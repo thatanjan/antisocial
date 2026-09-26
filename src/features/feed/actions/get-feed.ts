@@ -11,7 +11,7 @@ export const getFeedAction = async (
   try {
     const session = await getSession();
 
-    if (!session || !session.user) {
+    if (!session?.user) {
       return { success: false, error: "NOT_AUTHENTICATED" };
     }
 
