@@ -1,51 +1,36 @@
 # Antisocial
 A modern social media application foundation.
 
-## 🚀 Quickstart (Docker)
-
-The easiest way to run the application and all dependencies (Postgres, etc.) is via Docker Compose.
+## 🚀 Quickstart
 
 ### Prerequisites
-- Docker & Docker Compose
-- Node.js (for local tooling/commands)
+- Node.js 20+
+- PostgreSQL (local or remote)
 
 ### Running the App
 
 1. **Setup Environment**:
    ```bash
    cp .env.example .env
-   # Update .env with your secrets if needed (defaults work for dev)
+   # Update DATABASE_URL in .env with your PostgreSQL connection
    ```
 
-2. **Start Services**:
+2. **Install Dependencies**:
    ```bash
-   docker-compose up --build
+   npm install
    ```
-   This will start:
-   - **App**: http://localhost:3000
-   - **Database**: localhost:5432 (Postgres)
 
 3. **Database Setup**:
-   Open a new terminal and run:
    ```bash
    npx prisma db push
    ```
 
-### Development Mode
-
-For faster development with hot-reloading:
-
-1. **Start only the database**:
-   ```bash
-   docker-compose up -d db
-   ```
-
-2. **Run the app locally**:
+4. **Start Development Server**:
    ```bash
    npm run dev
    ```
 
-3. **Access**: http://localhost:3000
+5. **Access**: http://localhost:3000
 
 ## 🛠 Tech Stack
 
