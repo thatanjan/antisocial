@@ -1,6 +1,7 @@
 "use server";
 
 import { invalidateFeedAction } from "@/features/feed/actions/invalidate-feed";
+import { createNotification } from "@/features/notifications/utils/create-notification";
 import { PrismaClientKnownRequestError } from "@/generated/client/internal/prismaNamespace";
 import db from "@/lib/prisma";
 import { getSession } from "@/lib/session";
@@ -57,6 +58,12 @@ export const followUser = async (input: {
   });
 
   await incrementFollowCounts(followerId, followeeId);
+
+  await createNotification({
+    recipientId: followeeId,
+    actorId: followerId,
+    type: "follow",
+  });
 
   invalidateFeedAction().catch((err) => {
     console.error("Cache invalidation after follow failed:", err);

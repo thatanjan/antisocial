@@ -31,7 +31,7 @@ export const addReplyAction = async (
   try {
     const session = await getSession();
 
-    if (!session || !session.user) {
+    if (!session?.user) {
       return {
         success: false,
         error: "Unauthorized. Please log in to reply.",
@@ -117,7 +117,7 @@ export const updateReplyAction = async (
   try {
     const session = await getSession();
 
-    if (!session || !session.user) {
+    if (!session?.user) {
       return {
         success: false,
         error: "Unauthorized. Please log in to edit your reply.",
@@ -198,7 +198,7 @@ export const deleteReplyAction = async (
   try {
     const session = await getSession();
 
-    if (!session || !session.user) {
+    if (!session?.user) {
       return {
         success: false,
         error: "Unauthorized. Please log in to delete your reply.",

@@ -1,3 +1,4 @@
+import PageHeader from "@/components/PageHeader";
 import { PostList } from "@/features/create-post/components/PostList";
 import { getFeedAction } from "@/features/feed/actions/get-feed";
 import { getSession } from "@/lib/session";
@@ -31,9 +32,7 @@ export default async function FeedPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <h2 className="font-bold text-xl tracking-tight">Your Feed</h2>
-      </div>
+      <PageHeader title="Feed" />
 
       <PostList
         currentUserId={currentUserId}

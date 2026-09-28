@@ -28,7 +28,7 @@ export const createPostAction = async (
     // 1. Authenticate user
     const session = await getSession();
 
-    if (!session || !session.user) {
+    if (!session?.user) {
       return {
         success: false,
         error: "Unauthorized. Please log in to create a post.",
@@ -91,7 +91,7 @@ export const updatePostAction = async (
   try {
     const session = await getSession();
 
-    if (!session || !session.user) {
+    if (!session?.user) {
       return { success: false, error: "Unauthorized" };
     }
 
@@ -152,7 +152,7 @@ export const deletePostAction = async (
   try {
     const session = await getSession();
 
-    if (!session || !session.user) {
+    if (!session?.user) {
       return { success: false, error: "Unauthorized" };
     }
 
