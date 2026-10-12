@@ -12,7 +12,8 @@
     "postinstall": "prisma generate",
     "typecheck": "tsc --noEmit",
     "migrate:apply": "prisma migrate dev",
-    "migrate:create": "prisma migrate dev --create-only"
+    "migrate:create": "prisma migrate dev --create-only",
+    "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -65,6 +66,17 @@
     "postcss": "^8.5.6",
     "prisma": "^7.9.1",
     "tailwindcss": "^4.1.18",
+    "turbo": "^2.11.7",
     "typescript": "^5"
-  }
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "npm",
+      "version": "11.11.0"
+    }
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
 }
