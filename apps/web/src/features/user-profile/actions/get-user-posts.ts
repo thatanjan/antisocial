@@ -1,7 +1,7 @@
 "use server";
 
 import type { Post } from "@/features/create-post/types";
-import prisma from "@/lib/prisma";
+import { prisma } from "@antisocial/prisma";
 import { getSession } from "@/lib/session";
 
 const PAGE_SIZE = 20;

@@ -2,7 +2,7 @@ import type {
   CreateNotificationInput,
   CreateNotificationResult,
 } from "@/features/notifications/types";
-import prisma from "@/lib/prisma";
+import { prisma as db } from "@antisocial/prisma";
 
 /**
  * Create a notification for a recipient user.
@@ -20,7 +20,7 @@ export const createNotification = async (
     return { success: false, skipped: true };
   }
 
-  await prisma.notification.create({
+  await db.notification.create({
     data: { recipientId, actorId, type, postId },
   });
 

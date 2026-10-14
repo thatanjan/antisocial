@@ -13,9 +13,13 @@ Guidelines for agents on antisocial codebase. Covers build commands, linting, co
 
 ### Database
 
-- `npm run postinstall` - Auto-runs after `npm install` to generate Prisma client
-- `npx prisma migrate dev --create-only` - Generate migration file **without applying**
-- `npx prisma migrate dev` - Apply pending migrations (only after user approval)
+**Migration Workflow (MUST follow):**
+
+1. After any `schema.prisma` change, run `npm -w @antisocial/prisma run migrate:create` to generate migration file **without applying**.
+2. **Do NOT run `npm -w @antisocial/prisma run migrate:apply`** until user explicitly approves.
+3. Present migration SQL to user for review.
+4. Only after user approval, run `npm -w @antisocial/prisma run migrate:apply` to apply migration.
+5. Run `npm -w @antisocial/prisma run db:generate` to regenerate Prisma Client after migration.
 
 ### Note on Testing
 
@@ -125,17 +129,10 @@ export const myAction = async (data: z.infer<typeof Schema>) => {
 
 ### Database (Prisma)
 
-- Prisma Client via `import { prisma } from "@/lib/prisma"`
+- Prisma Client via `import { prisma } from "@antisocial/prisma"`
 - Follow Prisma naming conventions (singular model names)
 - Handle DB errors properly
 
-**Migration Workflow (MUST follow):**
-
-1. After any `schema.prisma` change, run `npx prisma migrate dev --create-only` to generate migration file **without applying**.
-2. **Do NOT run `npx prisma migrate dev`** until user explicitly approves.
-3. Present migration SQL to user for review.
-4. Only after user approval, run `npx prisma migrate dev` to apply migration.
-5. Run `npx prisma generate` to regenerate Prisma Client after migration.
 
 ### Authentication
 
@@ -201,3 +198,14 @@ shell commands, other important info - read current plan:
   - Remove Requests section from right sidebar
   - Disable Explore/My Favorites/Direct/Stats with "coming soon" tooltip
   <!-- SPECKIT END -->
+
+<!-- BEGIN:turborepo-agent-rules -->
+
+# This is NOT the Turborepo you know
+
+Turborepo configuration, task behavior, and CLI commands can vary between installed versions and may differ from your training data. Resolve the `turbo` package from this file's directory or relevant workspace; in monorepos, it may not be visible from the repository root. For example, run `node -p "require.resolve('turbo/package.json')"` from a workspace that depends on `turbo`.
+
+Read `docs/README.md` inside that installed package first, then read the relevant pages from its `docs/` directory before changing Turborepo configuration or commands. Heed deprecation notices. These bundled docs match the installed package version and are available without network access.
+
+This block is written and re-added by `turbo` before repository-scoped commands when an AI agent is detected. In the Turborepo source repository, its template is defined in `crates/turborepo-cli/src/cli/agent_guidance.rs`. Removing the managed block while updates are enabled means a later qualifying invocation will add it again. Set `"agentGuidance": false` in the root `turbo.json` or `turbo.jsonc` to opt out; this does not remove an existing block. Keep the block committed with your work to avoid an uncommitted change on the next agent invocation.
+<!-- END:turborepo-agent-rules -->

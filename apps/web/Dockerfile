@@ -7,7 +7,9 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
+COPY package.json package-lock.json ./
+COPY apps/web/package.json ./apps/web/package.json
+COPY packages/prisma/package.json ./packages/prisma/package.json
 RUN npm ci
 
 # Stage 2: Builder
@@ -25,8 +27,6 @@ ARG GIT_HASH
 ENV NEXT_SERVER_ACTIONS_ENCRYPTION_KEY=${NEXT_SERVER_ACTIONS_ENCRYPTION_KEY}
 ENV GIT_HASH=${GIT_HASH}
 
-# Generate Prisma Client
-RUN npx prisma generate
 
 # Build the Next.js application
 RUN npm run build

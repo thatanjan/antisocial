@@ -1,6 +1,6 @@
 "use server";
 
-import db from "@/lib/prisma";
+import { prisma as db } from "@antisocial/prisma";
 import { getSession } from "@/lib/session";
 import { GetFollowingSchema } from "../schemas";
 import type { GetFollowingResult } from "../types";

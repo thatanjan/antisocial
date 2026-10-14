@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { fanOutPostToFollowers } from "@/features/feed/lib/feed-service";
 import { imagekit } from "@/lib/imagekit";
-import prisma from "@/lib/prisma";
+import { prisma } from "@antisocial/prisma";
 import { getSession } from "@/lib/session";
 import { createPostSchema, updatePostSchema } from "../schemas";
 import type {

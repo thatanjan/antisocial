@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import prisma from "@/lib/prisma";
+import { prisma } from "@antisocial/prisma";
 import { getSession } from "@/lib/session";
 import type { ToggleLikeResult } from "../types";
 import {

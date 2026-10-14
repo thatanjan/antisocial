@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createNotification } from "@/features/notifications/utils/create-notification";
-import prisma from "@/lib/prisma";
+import { prisma } from "@antisocial/prisma";
 import { getSession } from "@/lib/session";
 import type { ToggleLikeResult } from "../types";
 

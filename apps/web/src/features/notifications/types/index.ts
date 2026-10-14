@@ -2,13 +2,11 @@
  * Types and interfaces for the Notification feature.
  */
 
-import type { Notification } from "@/generated/client/client";
+import type { Notification } from "@antisocial/prisma/client";
 
 /**
- * Base notification row shape — re-exported from the generated Prisma client
- * (`@prisma-types` alias → `src/generated/client/client.ts`).
+ * Base notification row shape — re-exported from the generated Prisma client.
  */
-export type NotificationData = Notification;
 
 /**
  * Type of notification, used to narrow the generated `type: string` field.

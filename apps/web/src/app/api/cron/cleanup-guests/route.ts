@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import db from "@/lib/prisma";
+import { prisma as db } from "@antisocial/prisma";
 
 export const dynamic = "force-dynamic";
 

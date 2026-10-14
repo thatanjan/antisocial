@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { ProfilePage } from "@/features/user-profile/components/ProfilePage";
-import prisma from "@/lib/prisma";
+import { prisma } from "@antisocial/prisma";
 import { getSession } from "@/lib/session";
 
 interface ProfilePageProps {

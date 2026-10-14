@@ -1,4 +1,4 @@
-import db from "@/lib/prisma";
+import { prisma as db } from "@antisocial/prisma";
 
 /**
  * Increment follower/following counts atomically.

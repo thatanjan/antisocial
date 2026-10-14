@@ -3,7 +3,7 @@ import { PostCard } from "@/features/create-post/components/PostCard";
 import type { Post } from "@/features/create-post/types";
 import { getCommentsAction } from "@/features/post-comments/actions/comments";
 import { CommentList } from "@/features/post-comments/components/CommentList";
-import prisma from "@/lib/prisma";
+import { prisma } from "@antisocial/prisma";
 import { getSession } from "@/lib/session";
 
 interface PostDetailPageProps {

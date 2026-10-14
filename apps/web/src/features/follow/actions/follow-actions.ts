@@ -2,8 +2,8 @@
 
 import { invalidateFeedAction } from "@/features/feed/actions/invalidate-feed";
 import { createNotification } from "@/features/notifications/utils/create-notification";
-import { PrismaClientKnownRequestError } from "@/generated/client/internal/prismaNamespace";
-import db from "@/lib/prisma";
+import { PrismaClientKnownRequestError } from "@antisocial/prisma";
+import { prisma as db } from "@antisocial/prisma";
 import { getSession } from "@/lib/session";
 import {
   CheckFollowStatusSchema,

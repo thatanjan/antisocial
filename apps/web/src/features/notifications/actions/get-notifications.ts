@@ -4,7 +4,7 @@ import type {
   GetNotificationsResult,
   NotificationItem,
 } from "@/features/notifications/types";
-import db from "@/lib/prisma";
+import { prisma as db } from "@antisocial/prisma";
 import { getSession } from "@/lib/session";
 
 /**

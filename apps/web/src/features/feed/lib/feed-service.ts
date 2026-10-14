@@ -5,7 +5,7 @@
 
 "use server";
 
-import prisma from "@/lib/prisma";
+import { prisma } from "@antisocial/prisma";
 import {
   FEED_CACHE_MAX_SIZE,
   FEED_CACHE_TTL,

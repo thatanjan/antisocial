@@ -1,7 +1,7 @@
 "use server";
 
 import { subDays } from "date-fns";
-import db from "@/lib/prisma";
+import { prisma as db } from "@antisocial/prisma";
 
 /**
  * Delete notifications older than 30 days.

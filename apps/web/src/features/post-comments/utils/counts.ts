@@ -1,4 +1,4 @@
-import type { Prisma } from "@/generated/client/client";
+import type { Prisma } from "@antisocial/prisma/client";
 
 /**
  * Increments the comment count for a post.
