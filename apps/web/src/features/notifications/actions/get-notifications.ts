@@ -1,10 +1,10 @@
 "use server";
 
+import { prisma as db } from "@antisocial/prisma";
 import type {
   GetNotificationsResult,
   NotificationItem,
 } from "@/features/notifications/types";
-import { prisma as db } from "@antisocial/prisma";
 import { getSession } from "@/lib/session";
 
 /**

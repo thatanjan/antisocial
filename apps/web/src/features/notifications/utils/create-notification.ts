@@ -1,8 +1,8 @@
+import { prisma as db } from "@antisocial/prisma";
 import type {
   CreateNotificationInput,
   CreateNotificationResult,
 } from "@/features/notifications/types";
-import { prisma as db } from "@antisocial/prisma";
 
 /**
  * Create a notification for a recipient user.

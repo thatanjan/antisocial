@@ -1,5 +1,5 @@
+import { auth } from "@antisocial/auth";
 import { headers } from "next/headers";
-import { auth } from "./auth";
 
 /**
  * Gets the current session from the request headers.

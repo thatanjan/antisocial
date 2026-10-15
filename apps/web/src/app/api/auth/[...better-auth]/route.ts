@@ -1,7 +1,6 @@
-import { toNextJsHandler } from "better-auth/next-js";
-import { auth } from "@/lib/auth";
+import { authHandlers } from "@antisocial/auth/next";
 
 /**
  * Better Auth catch-all API route handler for Next.js.
  */
-export const { GET, POST } = toNextJsHandler(auth);
+export const { GET, POST } = authHandlers;

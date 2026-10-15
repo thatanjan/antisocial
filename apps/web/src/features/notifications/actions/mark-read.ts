@@ -1,11 +1,11 @@
 "use server";
 
+import { prisma as db } from "@antisocial/prisma";
 import type {
   MarkAllReadResult,
   MarkReadInput,
   MarkReadResult,
 } from "@/features/notifications/types";
-import { prisma as db } from "@antisocial/prisma";
 import { getSession } from "@/lib/session";
 
 /**

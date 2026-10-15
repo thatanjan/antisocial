@@ -1,8 +1,8 @@
 "use server";
 
+import { auth } from "@antisocial/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth";
 
 /**
  * Server action to sign in as a guest user.

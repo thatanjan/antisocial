@@ -1,4 +1,4 @@
-import { getSessionCookie } from "better-auth/cookies";
+import { getSessionCookie } from "@antisocial/auth/next";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 

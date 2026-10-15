@@ -1,8 +1,8 @@
 "use server";
 
+import { prisma } from "@antisocial/prisma";
 import { revalidatePath } from "next/cache";
 import { createNotification } from "@/features/notifications/utils/create-notification";
-import { prisma } from "@antisocial/prisma";
 import { getSession } from "@/lib/session";
 import type { ToggleLikeResult } from "../types";
 

@@ -1,9 +1,11 @@
 "use server";
 
+import {
+  prisma as db,
+  PrismaClientKnownRequestError,
+} from "@antisocial/prisma";
 import { invalidateFeedAction } from "@/features/feed/actions/invalidate-feed";
 import { createNotification } from "@/features/notifications/utils/create-notification";
-import { PrismaClientKnownRequestError } from "@antisocial/prisma";
-import { prisma as db } from "@antisocial/prisma";
 import { getSession } from "@/lib/session";
 import {
   CheckFollowStatusSchema,

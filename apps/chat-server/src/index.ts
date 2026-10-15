@@ -1,7 +1,7 @@
 import express from "express";
-import { Server } from "socket.io";
-import type { Socket } from "socket.io";
 import mongoose from "mongoose";
+import type { Socket } from "socket.io";
+import { Server } from "socket.io";
 
 const PORT = parseInt(process.env.PORT || "4000", 10);
 const MONGO_URL = process.env.MONGO_URL || "";
@@ -20,7 +20,7 @@ const io = new Server(server, {
 });
 
 app.get("/health", (_req: express.Request, res: express.Response) =>
-  res.json({ ok: true })
+  res.json({ ok: true }),
 );
 
 io.on("connection", (socket: Socket) => {
@@ -41,6 +41,6 @@ mongoose
   .catch((err: unknown) =>
     console.error(
       "mongo connect failed (server still running):",
-      err instanceof Error ? err.message : String(err)
-    )
+      err instanceof Error ? err.message : String(err),
+    ),
   );

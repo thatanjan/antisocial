@@ -1,8 +1,8 @@
 "use server";
 
+import { auth } from "@antisocial/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth";
 import { getSession as getSessionUtil } from "@/lib/session";
 
 /**

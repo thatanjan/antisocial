@@ -1,11 +1,7 @@
-import { anonymousClient } from "better-auth/client/plugins";
-import { createAuthClient } from "better-auth/react";
+import { createAppAuthClient } from "@antisocial/auth/client";
 
 /**
  * Better Auth client instance for client-side authentication.
  * Initialized with the application base URL from environment variables.
  */
-export const authClient = createAuthClient({
-  baseURL: process.env.BETTER_AUTH_URL,
-  plugins: [anonymousClient()],
-});
+export const authClient = createAppAuthClient(process.env.BETTER_AUTH_URL);

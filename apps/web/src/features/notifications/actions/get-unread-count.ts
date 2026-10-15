@@ -1,7 +1,7 @@
 "use server";
 
-import type { GetUnreadCountResult } from "@/features/notifications/types";
 import { prisma as db } from "@antisocial/prisma";
+import type { GetUnreadCountResult } from "@/features/notifications/types";
 import { getSession } from "@/lib/session";
 
 /**
