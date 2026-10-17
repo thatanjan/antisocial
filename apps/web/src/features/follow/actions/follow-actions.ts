@@ -1,9 +1,6 @@
 "use server";
-
-import {
-  prisma as db,
-  PrismaClientKnownRequestError,
-} from "@antisocial/prisma";
+import { prisma as db } from "@antisocial/prisma";
+import { Prisma } from "@antisocial/prisma/client";
 import { invalidateFeedAction } from "@/features/feed/actions/invalidate-feed";
 import { createNotification } from "@/features/notifications/utils/create-notification";
 import { getSession } from "@/lib/session";
@@ -110,7 +107,7 @@ export const unfollowUser = async (input: {
     });
   } catch (error: unknown) {
     if (
-      error instanceof PrismaClientKnownRequestError &&
+      error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === "P2025"
     ) {
       return { success: false, error: "Not following this user" };
