@@ -15,6 +15,7 @@
 
 # next.js
 /.next/
+/apps/*/.next/
 /out/
 
 # production
@@ -40,6 +41,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 ignore-prompts.md
-src/generated
+packages/*/src/generated
 
 __pycache__/
+
+.turbo
+dist/

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.8/schema.json",
+  "root": false,
+  "extends": "//",
+  "assist": {
+    "actions": {
+      "source": {
+        "noDuplicateClasses": "on"
+      }
+    }
+  },
+  "css": {
+    "assist": {
+      "enabled": true
+    },
+    "formatter": {
+      "enabled": true
+    },
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
+  "files": {
+    "includes": ["**", "!src/components/ui", "!src/generated"]
+  },
+  "linter": {
+    "domains": {
+      "next": "recommended",
+      "react": "recommended"
+    },
+    "rules": {
+      "a11y": {
+        "noSvgWithoutTitle": "off"
+      },
+      "nursery": {
+        "useSortedClasses": {
+          "fix": "safe",
+          "level": "error"
+        },
+        "noTailwindArbitraryValue": {
+          "level": "error",
+          "options": {
+            "attributes": ["className", "class"]
+          }
+        }
+      }
+    }
+  }
+}

@@ -22,7 +22,7 @@ A modern social media application foundation.
 
 3. **Database Setup**:
    ```bash
-   npx prisma db push
+   npm -w @antisocial/prisma run migrate:apply
    ```
 
 4. **Start Development Server**:
