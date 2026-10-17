@@ -1,9 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "target": "es2025",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "strict": true,
     "skipLibCheck": true,
     "rootDir": "src",
