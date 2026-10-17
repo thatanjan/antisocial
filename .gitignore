@@ -46,3 +46,4 @@ packages/*/src/generated
 __pycache__/
 
 .turbo
+dist/
