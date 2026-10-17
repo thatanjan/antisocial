@@ -1,0 +1,36 @@
+{
+  "name": "@antisocial/prisma",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
+    },
+    "./client": {
+      "types": "./src/generated/client/client.ts",
+      "import": "./src/generated/client/client.ts"
+    }
+  },
+  "scripts": {
+    "db:generate": "prisma generate",
+    "build": "npm run db:generate && tsc",
+    "migrate:apply": "prisma migrate dev",
+    "migrate:create": "prisma migrate dev --create-only",
+    "check-types": "tsc --noEmit",
+    "lint": "biome check",
+    "format": "biome format --write"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.4.2",
+    "@prisma/client": "^7.4.2",
+    "dotenv": "^17.4.2",
+    "pg": "^8.19.0"
+  },
+  "devDependencies": {
+    "prisma": "^7.9.1",
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "chat-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "node --watch --experimental-strip-types src/index.ts",
+    "lint": "biome check",
+    "format": "biome format --write"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@antisocial/auth": "*",
+    "express": "^5.2.1",
+    "mongoose": "^9.11.1",
+    "socket.io": "^4.8.4"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.4",
+    "typescript": "^7.0.2"
+  }
+}
