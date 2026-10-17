@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "types": "./dist/index.d.ts",
+  "types": "./src/index.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
     },
     "./client": {
-      "types": "./dist/generated/client/client.d.ts",
-      "import": "./dist/generated/client/client.js"
+      "types": "./src/generated/client/client.ts",
+      "import": "./src/generated/client/client.ts"
     }
   },
   "scripts": {
