@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
-import type { Socket } from "socket.io";
 import { Server } from "socket.io";
+import { authenticateSocket, requireAuth } from "./auth.js";
 
 const PORT = parseInt(process.env.PORT || "4000", 10);
 const MONGO_URL = process.env.MONGO_URL || "";
@@ -16,18 +16,24 @@ const server = app.listen(PORT, () => {
 });
 
 const io = new Server(server, {
-  cors: { origin: process.env.CORS_ORIGIN || "*" },
+  cors: { origin: process.env.CORS_ORIGIN || "*", credentials: true },
 });
 
 app.get("/health", (_req: express.Request, res: express.Response) =>
   res.json({ ok: true }),
 );
+app.use(requireAuth);
 
-io.on("connection", (socket: Socket) => {
+io.use(authenticateSocket);
+
+io.on("connection", (socket) => {
   console.log(`client connected: ${socket.id}`);
 
   socket.on("message", (payload: MessagePayload) => {
-    io.emit("message", { ...payload, sender: socket.id });
+    io.emit("message", {
+      ...payload,
+      sender: socket.data.session.user.id,
+    });
   });
 
   socket.on("disconnect", () => {

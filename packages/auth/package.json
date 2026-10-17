@@ -3,25 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "types": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./src/index.ts",
-      "import": "./src/index.ts",
-      "default": "./src/index.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     },
     "./client": {
-      "types": "./src/client.ts",
-      "import": "./src/client.ts",
-      "default": "./src/client.ts"
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.js"
     },
     "./next": {
-      "types": "./src/next.ts",
-      "import": "./src/next.ts",
-      "default": "./src/next.ts"
+      "types": "./dist/next.d.ts",
+      "import": "./dist/next.js"
     }
   },
   "scripts": {
+    "build": "tsc",
     "check-types": "tsc --noEmit",
     "lint": "biome check",
     "format": "biome format --write"

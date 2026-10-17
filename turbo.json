@@ -3,16 +3,16 @@
   "tasks": {
     "build": {
       "dependsOn": ["^db:generate", "^build"],
-      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "!.next/dev/**"]
     },
     "check-types": {
-      "dependsOn": ["^db:generate", "^check-types"]
+      "dependsOn": ["^db:generate", "^build", "^check-types"]
     },
     "db:generate": {
       "cache": false
     },
     "dev": {
-      "dependsOn": ["^db:generate"],
+      "dependsOn": ["^db:generate", "^build"],
       "persistent": true,
       "cache": false
     },

@@ -1,3 +1,3 @@
-export { default as prisma } from "./client.ts";
-export * from "./generated/client/client.ts";
-export { PrismaClientKnownRequestError } from "./generated/client/internal/prismaNamespace.ts";
+export { default as prisma } from "./client.js";
+export * from "./generated/client/client.js";
+export { PrismaClientKnownRequestError } from "./generated/client/internal/prismaNamespace.js";

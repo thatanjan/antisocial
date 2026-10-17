@@ -3,6 +3,6 @@ import { createAuthClient } from "better-auth/react";
 
 export const createAppAuthClient = (baseURL?: string) =>
   createAuthClient({
-    baseURL,
+    baseURL: baseURL || process.env.BETTER_AUTH_URL,
     plugins: [anonymousClient()],
   });

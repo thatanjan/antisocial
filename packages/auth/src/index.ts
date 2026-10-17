@@ -1,2 +1,2 @@
-export type { Auth } from "./auth.ts";
-export { auth } from "./auth.ts";
+export type { Auth } from "./auth.js";
+export { auth } from "./auth.js";

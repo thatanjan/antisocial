@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@antisocial/prisma", "@antisocial/auth"],
   output: "standalone",
   poweredByHeader: false,
   compress: true,
