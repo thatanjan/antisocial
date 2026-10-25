@@ -220,7 +220,7 @@ export const ReplyList = ({
   };
 
   return (
-    <div className="mt-2 flex flex-col gap-1 border-border/50 border-l-2 pl-4 transition-all duration-300">
+    <div className="border-border/50 mt-2 flex flex-col gap-1 border-l-2 pl-4 transition-all duration-300">
       {/* Show skeleton while the first fetch is in flight */}
       {isInitialFetch && isLoading ? (
         <ReplyListSkeleton count={3} />
@@ -238,12 +238,12 @@ export const ReplyList = ({
               key={reply.id}
             >
               {/* Author Avatar */}
-              <Avatar className="mt-0.5 h-6 w-6 rounded-full border border-border/50 shadow-xs">
+              <Avatar className="border-border/50 mt-0.5 h-6 w-6 rounded-full border shadow-xs">
                 <AvatarImage
                   alt={reply.author.name}
                   src={reply.author.image ?? undefined}
                 />
-                <AvatarFallback className="bg-secondary font-semibold text-[8px] text-secondary-foreground">
+                <AvatarFallback className="bg-secondary text-secondary-foreground text-[8px] font-semibold">
                   {reply.author.name?.charAt(0).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
@@ -251,10 +251,10 @@ export const ReplyList = ({
               <div className="flex min-w-0 flex-1 flex-col">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="truncate font-semibold text-foreground text-xs">
+                    <span className="text-foreground truncate text-xs font-semibold">
                       {reply.author.name}
                     </span>
-                    <span className="whitespace-nowrap text-[10px] text-muted-foreground">
+                    <span className="text-muted-foreground text-[10px] whitespace-nowrap">
                       {timeAgo}
                     </span>
                   </div>
@@ -280,7 +280,7 @@ export const ReplyList = ({
                           Edit
                         </DropdownMenuItem>
                         <DropdownMenuItem
-                          className="cursor-pointer py-1 text-destructive text-xs focus:bg-destructive/10 focus:text-destructive"
+                          className="text-destructive focus:bg-destructive/10 focus:text-destructive cursor-pointer py-1 text-xs"
                           onClick={() => handleDeleteReply(reply.id)}
                         >
                           Delete
@@ -304,7 +304,7 @@ export const ReplyList = ({
                     />
                   </div>
                 ) : (
-                  <p className="wrap-break-word mt-0.5 whitespace-pre-wrap font-normal text-foreground/90 text-xs leading-relaxed">
+                  <p className="text-foreground/90 mt-0.5 text-xs leading-relaxed font-normal wrap-break-word whitespace-pre-wrap">
                     {reply.content}
                   </p>
                 )}
@@ -329,7 +329,7 @@ export const ReplyList = ({
       {/* Pagination: Load More */}
       {hasMore && (
         <Button
-          className="h-7 w-fit text-[10px] text-muted-foreground hover:text-primary"
+          className="text-muted-foreground hover:text-primary h-7 w-fit text-[10px]"
           disabled={isLoading}
           onClick={loadMore}
           variant="ghost"
@@ -352,7 +352,7 @@ export const ReplyList = ({
           />
         ) : (
           <Button
-            className="h-7 px-0 text-[11px] text-muted-foreground transition-colors hover:bg-transparent hover:text-primary"
+            className="text-muted-foreground hover:text-primary h-7 px-0 text-[11px] transition-colors hover:bg-transparent"
             onClick={() => setIsAddingReply(true)}
             variant="ghost"
           >

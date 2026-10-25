@@ -103,7 +103,7 @@ export function EditPostDialog({
             {post.images.length > 0 && (
               <div className="flex flex-col gap-2">
                 <Label>Images</Label>
-                <ScrollArea className="w-full whitespace-nowrap rounded-md border p-2">
+                <ScrollArea className="w-full rounded-md border p-2 whitespace-nowrap">
                   <div className="flex w-max space-x-2">
                     {post.images.map((image) => (
                       <div
@@ -134,13 +134,13 @@ export function EditPostDialog({
                 placeholder="What's on your mind?"
                 {...register("content")}
               />
-              <div className="flex items-center justify-between text-muted-foreground text-xs">
+              <div className="text-muted-foreground flex items-center justify-between text-xs">
                 <span className={errors.content ? "text-destructive" : ""}>
                   {errors.content?.message || ""}
                 </span>
                 <span
                   className={
-                    charCount > 1000 ? "font-bold text-destructive" : ""
+                    charCount > 1000 ? "text-destructive font-bold" : ""
                   }
                 >
                   {charCount}/1000

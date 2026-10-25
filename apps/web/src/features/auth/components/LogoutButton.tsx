@@ -15,16 +15,16 @@ export const LogoutButton = ({ className }: LogoutButtonProps) => {
     <form action={signOutAction} className="w-full">
       <Button
         className={cn(
-          "group flex w-full items-center justify-start gap-4 rounded-xl px-4 py-6 transition-all duration-300 hover:bg-destructive/10 hover:text-destructive active:scale-95",
+          "group hover:bg-destructive/10 hover:text-destructive flex w-full items-center justify-start gap-4 rounded-xl px-4 py-6 transition-all duration-300 active:scale-95",
           className,
         )}
         type="submit"
         variant="ghost"
       >
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-secondary/50 transition-colors group-hover:bg-destructive/20">
+        <div className="bg-secondary/50 group-hover:bg-destructive/20 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors">
           <LogOut className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
         </div>
-        <span className="font-semibold text-sm tracking-tight">Logout</span>
+        <span className="text-sm font-semibold tracking-tight">Logout</span>
       </Button>
     </form>
   );

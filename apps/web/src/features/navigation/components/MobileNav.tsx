@@ -17,7 +17,7 @@ type MobileNavProps = {
  */
 export const MobileNav = ({ profileSummary }: MobileNavProps) => {
   return (
-    <div className="sticky top-0 z-50 flex items-center justify-between border-border border-b bg-background/80 px-4 py-3 backdrop-blur-md md:hidden">
+    <div className="border-border bg-background/80 sticky top-0 z-50 flex items-center justify-between border-b px-4 py-3 backdrop-blur-md md:hidden">
       <div className="flex items-center gap-2">
         <Sheet>
           <SheetTrigger asChild>
@@ -28,7 +28,7 @@ export const MobileNav = ({ profileSummary }: MobileNavProps) => {
           </SheetTrigger>
           <MobileNavSheetContent profileSummary={profileSummary} />
         </Sheet>
-        <span className="font-bold text-lg tracking-tight">Antisocial</span>
+        <span className="text-lg font-bold tracking-tight">Antisocial</span>
       </div>
     </div>
   );

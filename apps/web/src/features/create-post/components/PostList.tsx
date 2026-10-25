@@ -67,8 +67,8 @@ export function PostList({
   if (posts.length === 0) {
     if (emptyReason === "NO_FOLLOWEES") {
       return (
-        <div className="flex flex-col items-center justify-center rounded-lg border-2 border-border border-dashed py-12 text-center">
-          <h3 className="font-semibold text-lg">Follow some people</h3>
+        <div className="border-border flex flex-col items-center justify-center rounded-lg border-2 border-dashed py-12 text-center">
+          <h3 className="text-lg font-semibold">Follow some people</h3>
           <p className="text-muted-foreground text-sm">
             Your feed is empty because you are not following anyone yet. Find
             people to follow and their posts will show up here.
@@ -78,8 +78,8 @@ export function PostList({
     }
 
     return (
-      <div className="flex flex-col items-center justify-center rounded-lg border-2 border-border border-dashed py-12 text-center">
-        <h3 className="font-semibold text-lg">No posts yet</h3>
+      <div className="border-border flex flex-col items-center justify-center rounded-lg border-2 border-dashed py-12 text-center">
+        <h3 className="text-lg font-semibold">No posts yet</h3>
         <p className="text-muted-foreground text-sm">
           {emptyReason === "NO_POSTS"
             ? "People you follow have not posted anything yet."
@@ -104,7 +104,7 @@ export function PostList({
       )}
 
       {!hasMore && (
-        <p className="pt-4 text-center text-muted-foreground text-sm">
+        <p className="text-muted-foreground pt-4 text-center text-sm">
           No more posts to show
         </p>
       )}

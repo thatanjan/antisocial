@@ -64,7 +64,7 @@ export function LikeButton({
     <Button
       aria-label={isLiked ? "Unlike post" : "Like post"}
       className={cn(
-        "gap-2 text-muted-foreground transition-colors",
+        "text-muted-foreground gap-2 transition-colors",
         isLiked && "text-red-500 hover:text-red-600",
       )}
       onClick={handleLike}

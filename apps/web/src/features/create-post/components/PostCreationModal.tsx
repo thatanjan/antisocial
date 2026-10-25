@@ -199,10 +199,10 @@ export function PostCreationModal({ className }: { className?: string }) {
           })}
         >
           {isPending && (
-            <div className="absolute inset-0 z-50 flex items-center justify-center bg-background/50 backdrop-blur-[1px]">
+            <div className="bg-background/50 absolute inset-0 z-50 flex items-center justify-center backdrop-blur-[1px]">
               <div className="flex flex-col items-center gap-2">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                <span className="font-medium text-xs">
+                <Loader2 className="text-primary h-8 w-8 animate-spin" />
+                <span className="text-xs font-medium">
                   Processing your post...
                 </span>
               </div>
@@ -225,13 +225,13 @@ export function PostCreationModal({ className }: { className?: string }) {
                 placeholder="What's on your mind?"
                 {...register("content")}
               />
-              <div className="flex items-center justify-between text-muted-foreground text-xs">
+              <div className="text-muted-foreground flex items-center justify-between text-xs">
                 <span className={errors.content ? "text-destructive" : ""}>
                   {errors.content?.message || ""}
                 </span>
                 <span
                   className={
-                    charCount > 1000 ? "font-bold text-destructive" : ""
+                    charCount > 1000 ? "text-destructive font-bold" : ""
                   }
                 >
                   {charCount}/1000

@@ -56,7 +56,7 @@ export function CarouselDisplay({ images, aspectRatio }: CarouselDisplayProps) {
   const ikAspectRatio = aspectRatio.replace(":", "-");
 
   return (
-    <div className="relative w-full overflow-hidden rounded-md border border-border">
+    <div className="border-border relative w-full overflow-hidden rounded-md border">
       <Carousel className="w-full" setApi={setApi}>
         <CarouselContent>
           {images.map((image, index) => {
@@ -83,8 +83,8 @@ export function CarouselDisplay({ images, aspectRatio }: CarouselDisplayProps) {
         </CarouselContent>
         {images.length > 1 && (
           <>
-            <CarouselPrevious className="left-2 h-8 w-8 bg-background/50 backdrop-blur-sm hover:bg-background/80" />
-            <CarouselNext className="right-2 h-8 w-8 bg-background/50 backdrop-blur-sm hover:bg-background/80" />
+            <CarouselPrevious className="bg-background/50 hover:bg-background/80 left-2 h-8 w-8 backdrop-blur-sm" />
+            <CarouselNext className="bg-background/50 hover:bg-background/80 right-2 h-8 w-8 backdrop-blur-sm" />
             <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
               {images.map((_, i) => (
                 <div

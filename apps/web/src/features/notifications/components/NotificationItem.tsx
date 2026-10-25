@@ -69,18 +69,18 @@ export const NotificationItem = ({
   return (
     <button
       className={cn(
-        "flex w-full cursor-pointer items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-accent/50",
+        "hover:bg-accent/50 flex w-full cursor-pointer items-start gap-3 px-4 py-3 text-left transition-colors",
         !notification.read && "bg-primary/5",
       )}
       onClick={handleClick}
       type="button"
     >
-      <Avatar className="mt-0.5 h-8 w-8 rounded-full border border-border/50 shadow-sm">
+      <Avatar className="border-border/50 mt-0.5 h-8 w-8 rounded-full border shadow-sm">
         <AvatarImage
           alt={actorName}
           src={notification.actor?.image ?? undefined}
         />
-        <AvatarFallback className="bg-secondary font-semibold text-2xs text-secondary-foreground">
+        <AvatarFallback className="bg-secondary text-2xs text-secondary-foreground font-semibold">
           {actorName.charAt(0).toUpperCase()}
         </AvatarFallback>
       </Avatar>
@@ -89,7 +89,7 @@ export const NotificationItem = ({
         <p
           className={cn(
             "text-foreground/90 text-sm leading-snug",
-            !notification.read && "font-semibold text-foreground",
+            !notification.read && "text-foreground font-semibold",
           )}
         >
           {formatNotificationText(
@@ -97,7 +97,7 @@ export const NotificationItem = ({
             actorName,
           )}
         </p>
-        <span className="mt-0.5 text-muted-foreground text-xs">
+        <span className="text-muted-foreground mt-0.5 text-xs">
           {formatRelativeTime(notification.createdAt)}
         </span>
       </div>
@@ -105,7 +105,7 @@ export const NotificationItem = ({
       {!notification.read && (
         <span
           aria-hidden
-          className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-primary"
+          className="bg-primary mt-1.5 h-2 w-2 shrink-0 rounded-full"
           role="presentation"
         >
           <span className="sr-only">Unread</span>
