@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.5.8/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.6.3/schema.json",
   "root": false,
   "extends": "//",
   "assist": {
@@ -33,15 +33,13 @@
         "noSvgWithoutTitle": "off"
       },
       "nursery": {
-        "useSortedClasses": {
-          "fix": "safe",
-          "level": "error"
-        },
         "noTailwindArbitraryValue": {
           "level": "error",
-          "options": {
-            "attributes": ["className", "class"]
-          }
+          "options": {}
+        },
+        "useTailwindSortedClasses": {
+          "fix": "safe",
+          "level": "error"
         }
       }
     }
