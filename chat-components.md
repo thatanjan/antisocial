@@ -420,3 +420,22 @@ These patterns repeat across components and files; extract once and reuse:
 - The three mocks are internally consistent about content: the same 5 conversations, the same 7-message thread with Emily Carter, the same recipient. The React app needs exactly one data model (conversation, message with variants) serving all layouts.
 - `chat-page-mobile-chatlist.html`'s device frame, iOS status bar, and home indicator are mock chrome, not app UI. `chat-page-mobile.html`'s safe-area utilities (`pt-safe`, `pb-safe`, line 2 style block) are the real mobile-platform pattern to adopt.
 - No source HTML files were modified during this analysis.
+
+## Component names
+
+- LeftIconRail
+- BottomTabBar
+- ChatsListHeader
+- SearchInput
+- FilterPills
+- RecentChatsStrip
+- ConversationListItem
+- ConversationsSidebar
+- MobileChatListScreen
+- ChatHeader
+- MessageComposer
+- MessageStream
+- MessageBubble
+- DateSeparator
+- CallLogCard
+- ChatScreen
