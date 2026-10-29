@@ -1,6 +1,6 @@
 # Chat UI Data Model
 
-All data in this feature is demonstration data in memory. No database records or server-side mutations are created.
+All data in this feature is bundled demonstration data from `apps/web/src/features/chat/data/sample-conversations.ts` plus page-session state. No database records or server-side mutations are created. Shared TypeScript types live in `apps/web/src/features/chat/types.ts`.
 
 ## Conversation
 
@@ -49,7 +49,7 @@ A participant available in the local new-conversation picker.
 - One conversation has one or more sample contacts and zero or more messages.
 - Each message belongs to exactly one conversation.
 - A contact can appear in multiple groups, but a newly requested one-to-one conversation must reuse the existing direct conversation for that contact when present.
-- Selecting a conversation sets it as active; on narrow screens the view changes from list to conversation. Returning clears the active conversation and shows the list.
+- Selecting a conversation navigates to `/chat/[id]`; the conversation id is carried by the URL param. On narrow screens the conversation view replaces the list; Back returns to `/chat`.
 - Sending trimmed non-empty text appends an outgoing message, updates the preview, and keeps both in memory until the page is reloaded or closed.
 - Search and category filter are view state only; they never mutate the underlying conversations.
 - Reload discards page-session changes and reseeds the static sample data.

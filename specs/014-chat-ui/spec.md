@@ -69,7 +69,9 @@ As a user, I want to start a conversation with a sample contact so I can explore
 ### Functional Requirements
 
 - **FR-001**: The chat page MUST match the supplied desktop chat design and the supplied mobile conversation-list and active-conversation designs.
-- **FR-002**: When no conversation is selected, the page MUST show the conversation list without an active message pane; on narrow screens it MUST show the list as the primary view.
+- **FR-002**: The `/chat` route MUST show the conversation list on the left and leave the right pane empty; `/chat/[id]` MUST show the conversation list on the left with the selected conversation on the right.
+- **FR-002a**: The left rail, mobile bottom tab bar, and conversation list MUST render from the shared `(chat)` layout; individual pages MUST render only the right pane content.
+- **FR-002b**: On narrow screens, `/chat` shows the conversation list full-screen; `/chat/[id]` shows only the selected conversation with a back control, per the supplied mobile designs.
 - **FR-003**: The user MUST be able to select a conversation and view its participant details and sample messages.
 - **FR-004**: The user MUST be able to search conversations by visible participant or conversation name and combine the search with the All, Unread, Favourites, and Groups categories.
 - **FR-005**: The user MUST be able to compose and locally send non-empty text messages in the selected conversation using the send control or Enter key.
@@ -78,6 +80,32 @@ As a user, I want to start a conversation with a sample contact so I can explore
 - **FR-008**: On narrow screens, selecting a conversation MUST display the conversation and hide the list; a back control MUST return to the list. On wider screens, the list and selected conversation MUST appear together.
 - **FR-009**: The page MUST expose accessible names for interactive controls and provide visible empty states when search or category filters produce no conversations.
 - **FR-010**: Calls, voice recording, file attachments, delivery/read status, presence, and other backend-dependent actions MUST NOT be represented as successfully performed; these controls are outside this frontend-only scope.
+
+### UI Components
+
+Components live in `apps/web/src/features/chat/components/` (PascalCase filenames) and mirror the three `stitch-screen/` HTML references. Responsibilities and responsive behavior per component are in `chat-components.md` (repo root).
+
+| Component | Source mock | Role in routes |
+|---|---|---|
+| `LeftIconRail` | `chat-page.html` | `(chat)/layout.tsx`, desktop left rail |
+| `BottomTabBar` | `chat-page-mobile-chatlist.html` | `(chat)/layout.tsx`, mobile bottom tabs |
+| `ChatsListHeader` | `chat-page.html`, `chat-page-mobile-chatlist.html` | conversation list header (layout) |
+| `SearchInput` | same | list search (layout) |
+| `FilterPills` | same | list category filters (layout) |
+| `RecentChatsStrip` | same | recent chats strip (layout) |
+| `ConversationListItem` | same | one row in All Chats list (layout) |
+| `ConversationsSidebar` | `chat-page.html` | desktop list pane composition (layout) |
+| `MobileChatListScreen` | `chat-page-mobile-chatlist.html` | narrow-screen list view (layout) |
+| `ChatHeader` | `chat-page.html`, `chat-page-mobile.html` | selected conversation header (`[id]` page) |
+| `MessageStream` | same | message timeline (`[id]` page) |
+| `MessageBubble` | same | one message row (`[id]` page) |
+| `DateSeparator` | same | date divider (`[id]` page) |
+| `CallLogCard` | same | call event card (`[id]` page) |
+| `MessageComposer` | same | message input dock (`[id]` page) |
+| `ChatScreen` | `chat-page.html`, `chat-page-mobile.html` | conversation pane composition (`[id]` page) |
+
+Layout (`apps/web/src/app/(chat)/layout.tsx`): `LeftIconRail` + `ConversationsSidebar` at desktop widths; `MobileChatListScreen` + `BottomTabBar` at narrow widths. Pages: `(chat)/page.tsx` renders an empty right pane; `(chat)/[id]/page.tsx` renders `ChatScreen` for the selected conversation with sample data from `apps/web/src/features/chat/data/sample-conversations.ts` (bundled mock data).
+
 
 ### Key Entities
 

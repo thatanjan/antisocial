@@ -6,11 +6,12 @@ The authenticated chat page is a user-facing frontend surface backed only by bun
 
 ## Route and rendering
 
-- The chat surface is hosted at `/chat` in the dedicated `(chat)` App Router layout group, outside `(authenticated)`.
-- The route page and static shell render as server components. Only the interactive workspace requiring browser events and ephemeral state is client-rendered.
-- At wider widths, the conversation list and selected conversation appear side by side.
-- On narrow screens, the list is shown when no conversation is selected; choosing a conversation shows the active chat; Back returns to the list.
-- The active page begins with no selected conversation.
+- The chat surface lives in the dedicated `(chat)` App Router layout group in `apps/web/src/app/(chat)/`, outside `(authenticated)`:
+  - `layout.tsx` permanently renders the shared chrome: `LeftIconRail` + `ConversationsSidebar` at desktop widths; `MobileChatListScreen` + `BottomTabBar` at narrow widths.
+  - `page.tsx` at `/chat` renders an empty right pane; on narrow screens it renders the list full-screen.
+  - `[id]/page.tsx` at `/chat/[id]` renders the selected conversation (`ChatScreen`) beside the permanent list; on narrow screens it renders only the conversation with a Back control returning to `/chat`.
+- The route pages and static shell render as server components. Interactive parts (composer, send state) are client-rendered.
+- Conversation selection is URL-driven: list items link to `/chat/[id]`; the active conversation id comes from the route param.
 
 ## Conversation list behavior
 

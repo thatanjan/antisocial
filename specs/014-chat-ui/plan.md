@@ -5,19 +5,61 @@
 
 ## Summary
 
-Build the authenticated chat page from the supplied desktop and mobile references. Keep the route and static shell server-rendered, and use one focused client workspace for the interactions that require browser state: conversation selection, search and category filters, in-session message sending, sample-contact conversation creation, and mobile list/chat navigation. Seed all UI data locally; do not add persistence, backend services, or real calls/attachments.
+Build the authenticated chat feature from the supplied desktop and mobile references using the 16 components already implemented in `apps/web/src/features/chat/components/`. The `(chat)` route group owns the shared chrome: layout renders the left rail + conversation list (desktop) or mobile list + bottom tabs (narrow), per route. `/chat` shows an empty right pane; `/chat/[id]` renders the selected conversation. Sample data is bundled locally; no persistence, backend services, or real calls/attachments.
 
 ## Technical Context
 
 **Language/Version**: TypeScript (strict), Next.js 16.1, React 19.2  
 **Primary Dependencies**: Existing Next.js/React, installed shadcn UI primitives, `lucide-react`, Tailwind CSS 4 design tokens  
-**Storage**: In-memory client state only; seeded sample data resets on page reload. No database or browser storage.  
+**Storage**: Bundled sample data module; in-memory client state for page-session changes; nothing persists across reload. No database.  
 **Testing**: User-led manual UI testing only; no automated test commands or suites are planned for this feature.  
 **Target Platform**: Authenticated web application, desktop and narrow mobile browsers  
-**Project Type**: Next.js App Router web application with a separate `(chat)` route group  
-**Performance Goals**: Initial chat shell and seeded list render in the normal page load; local selection, filtering, and send interactions update immediately without a network request.  
-**Constraints**: Server components by default; client boundary only for interactions needing browser state/events. Use existing shadcn components, Lucide, Tailwind utilities and tokens from `apps/web/src/app/globals.css`, or standard Tailwind colors where needed. No arbitrary Tailwind classes, new color tokens, inline styles, CDN assets/scripts, backend, or schema changes.  
-**Scale/Scope**: One authenticated chat route, bundled sample conversations and contacts, text-only local sending, four list filters, desktop two-pane and narrow-screen list/chat navigation.
+**Project Type**: Next.js App Router `(chat)` route group with permanent list-side layout and per-id chat pages
+
+## Route Structure
+
+```text
+apps/web/src/app/(chat)/
+├── layout.tsx      # Server component. Desktop: LeftIconRail + ConversationsSidebar.
+│                   # Narrow: MobileChatListScreen + BottomTabBar.
+├── page.tsx        # /chat — empty right pane (desktop); list full-screen (mobile).
+└── [id]/
+    └── page.tsx    # /chat/[id] — ChatScreen for selected conversation id.
+```
+
+- The layout owns `LeftIconRail`, `BottomTabBar`, and the conversation list permanently; pages render only the right pane.
+- Selection is URL-driven: conversation items link to `/chat/[id]`.
+- Narrow screens: `/chat` renders the list full-screen and `/chat/[id]` renders only the conversation with Back (`/chat`), matching `chat-page-mobile.html` / `chat-page-mobile-chatlist.html`.
+- Sample conversations/contacts/messages come from `apps/web/src/features/chat/data/sample-conversations.ts` (bundled mock data).
+
+## Component Structure
+
+Feature components in `apps/web/src/features/chat/components/` (PascalCase), mapped from `stitch-screen/` HTML (details in repo-root `chat-components.md`):
+
+```text
+apps/web/src/features/chat/
+├── types.ts
+├── data/sample-conversations.ts     # bundled mock conversations, contacts, messages
+└── components/
+    ├── LeftIconRail.tsx             # chat-page.html
+    ├── BottomTabBar.tsx             # chat-page-mobile-chatlist.html
+    ├── ChatsListHeader.tsx          # both list mocks
+    ├── SearchInput.tsx              # both list mocks
+    ├── FilterPills.tsx              # both list mocks
+    ├── RecentChatsStrip.tsx         # both list mocks
+    ├── ConversationListItem.tsx     # both list mocks
+    ├── ConversationsSidebar.tsx     # chat-page.html (list pane composition)
+    ├── MobileChatListScreen.tsx     # chat-page-mobile-chatlist.html
+    ├── ChatHeader.tsx               # chat-page.html + chat-page-mobile.html
+    ├── MessageStream.tsx            # both conversation mocks
+    ├── MessageBubble.tsx            # both conversation mocks
+    ├── DateSeparator.tsx            # both conversation mocks
+    ├── CallLogCard.tsx              # both conversation mocks
+    ├── MessageComposer.tsx          # both conversation mocks
+    └── ChatScreen.tsx               # conversation pane composition
+```
+
+Layout composition (server): `(chat)/layout.tsx` → `LeftIconRail` + `ConversationsSidebar`/`MobileChatListScreen` + `BottomTabBar`. `[id]/page.tsx` → `ChatScreen` (client) for selection-local send/filter state; `page.tsx` renders the empty right pane placeholder.
 
 ## Constitution Check
 
@@ -56,19 +98,18 @@ specs/014-chat-ui/
 apps/web/src/
 ├── app/
 │   └── (chat)/
-│       ├── layout.tsx                    # Dedicated chat layout group
-│       └── chat/
-│           └── page.tsx                  # Server route page at /chat
+│       ├── layout.tsx                    # Shared chrome: rail + list (desktop), mobile list + tabs
+│       ├── page.tsx                      # /chat — empty right pane
+│       └── [id]/
+│           └── page.tsx                  # /chat/[id] — selected conversation
 └── features/
     └── chat/
-        ├── components/
-        │   └── ChatWorkspace.tsx        # Client boundary for list and chat interactions
+        ├── types.ts                      # shared chat types
         ├── data/
-        │   └── sample-conversations.ts  # Bundled contacts, conversations, and sample messages
-        └── types/
-            └── index.ts                # Conversation, Message, and Contact types
+        │   └── sample-conversations.ts   # Bundled contacts, conversations, and sample messages
+        └── components/                   # 16 PascalCase components (see Component Structure)
 
-**Structure Decision**: The `/chat` page lives in its own `(chat)` App Router layout group, separate from the existing `(authenticated)` route group. Chat-specific components, data, and types remain under `apps/web/src/features/chat/`. The route page and shared/static shell are server components; one focused workspace handles browser-only interaction state. Use existing shadcn components (Button, Input, Dialog, Avatar) and Lucide icons; add no dependencies or shared/global components.
+**Structure Decision**: The chat surface lives in its own `(chat)` App Router layout group, separate from the existing `(authenticated)` route group. The layout permanently hosts `LeftIconRail`, `BottomTabBar`, and the conversation list; pages own only the right pane (`/chat` empty, `/chat/[id]` `ChatScreen` fed by id from `features/chat/data/sample-conversations.ts`). Shared chat types, mock data, and components remain under `apps/web/src/features/chat/`. Use existing shadcn components (Button, Input, Dialog, Avatar) and Lucide icons; add no dependencies or shared/global components.
 
 ## Complexity Tracking
 
