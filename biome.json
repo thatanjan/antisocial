@@ -1,6 +1,5 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.6.3/schema.json",
-
   "assist": {
     "actions": {
       "source": {
@@ -22,7 +21,30 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "correctness": {
+        "noUnusedVariables": {
+          "fix": "none",
+          "level": "error"
+        }
+      },
+      "nursery": {
+        "useConsistentFunctionStyle": {
+          "level": "on",
+          "options": {
+            "style": "expression"
+          }
+        }
+      },
       "preset": "recommended",
+      "style": {
+        "useConst": "error",
+        "useNamingConvention": {
+          "level": "error",
+          "options": {
+            "strictCase": false
+          }
+        }
+      },
       "suspicious": {
         "noDuplicateClassMembers": "error"
       }
@@ -30,8 +52,8 @@
   },
   "vcs": {
     "clientKind": "git",
+    "defaultBranch": "main",
     "enabled": true,
-    "useIgnoreFile": true,
-    "defaultBranch": "main"
+    "useIgnoreFile": true
   }
 }
