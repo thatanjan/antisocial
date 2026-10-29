@@ -99,7 +99,7 @@ a {
   --tracking-super-wide: 0.2em;
 
   /* Typography Scale */
-  --font-size-2xs: 0.625rem;
+  --text-2xs: 0.625rem;
 
   /* Layout Spacing */
   --width-sidebar-left: var(--spacing-72);
@@ -239,6 +239,21 @@ a {
     0rem 0.3rem 0.6rem 0rem hsl(218.1818 21.5686% 10% / 0.6),
     0rem 8px 10px -1px hsl(218.1818 21.5686% 10% / 0.6);
   --shadow-2xl: 0rem 0.3rem 0.6rem 0rem hsl(218.1818 21.5686% 10% / 1.5);
+}
+
+/* Dotted chat canvas motif (one implementation for desktop + mobile). */
+@utility chat-canvas {
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* iOS safe-area padding for mobile-only docks/headers. */
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 @layer base {

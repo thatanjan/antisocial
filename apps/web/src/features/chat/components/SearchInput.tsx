@@ -9,12 +9,12 @@ interface SearchInputProps {
   className?: string;
 }
 
-export function SearchInput({
+export const SearchInput = ({
   value,
   onChange,
   placeholder = "Search or start a new chat",
   className,
-}: SearchInputProps) {
+}: SearchInputProps) => {
   return (
     <div className={cn("relative", className)} data-purpose="search-bar">
       <Input
@@ -31,4 +31,4 @@ export function SearchInput({
       />
     </div>
   );
-}
+};

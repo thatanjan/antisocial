@@ -22,7 +22,7 @@ interface LeftIconRailProps {
   onToggleTheme: () => void;
 }
 
-export function LeftIconRail({
+export const LeftIconRail = ({
   brandHref,
   items,
   profileHref,
@@ -30,7 +30,7 @@ export function LeftIconRail({
   displayName,
   isDarkMode,
   onToggleTheme,
-}: LeftIconRailProps) {
+}: LeftIconRailProps) => {
   return (
     <nav
       aria-label="Primary navigation"
@@ -92,4 +92,4 @@ export function LeftIconRail({
       </div>
     </nav>
   );
-}
+};

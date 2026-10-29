@@ -15,12 +15,12 @@ interface FilterPillsProps {
   onMoreFilters: () => void;
 }
 
-export function FilterPills({
+export const FilterPills = ({
   options,
   value,
   onChange,
   onMoreFilters,
-}: FilterPillsProps) {
+}: FilterPillsProps) => {
   const name = useId();
   return (
     <div className="flex min-w-0 items-center justify-between gap-2">
@@ -62,4 +62,4 @@ export function FilterPills({
       </Button>
     </div>
   );
-}
+};

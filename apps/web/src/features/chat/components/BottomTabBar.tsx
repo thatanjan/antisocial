@@ -18,12 +18,12 @@ interface BottomTabBarProps {
   displayName: string;
 }
 
-export function BottomTabBar({
+export const BottomTabBar = ({
   items,
   profileHref,
   avatarUrl,
   displayName,
-}: BottomTabBarProps) {
+}: BottomTabBarProps) => {
   return (
     <nav
       aria-label="Primary navigation"
@@ -58,4 +58,4 @@ export function BottomTabBar({
       </Link>
     </nav>
   );
-}
+};

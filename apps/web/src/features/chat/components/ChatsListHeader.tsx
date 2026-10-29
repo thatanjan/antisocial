@@ -7,11 +7,11 @@ interface ChatsListHeaderProps {
   onMore: () => void;
 }
 
-export function ChatsListHeader({
+export const ChatsListHeader = ({
   title,
   onNewChat,
   onMore,
-}: ChatsListHeaderProps) {
+}: ChatsListHeaderProps) => {
   return (
     <header className="flex items-center justify-between gap-3">
       <h1 className="text-2xl font-bold md:text-xl">{title}</h1>
@@ -37,4 +37,4 @@ export function ChatsListHeader({
       </div>
     </header>
   );
-}
+};
