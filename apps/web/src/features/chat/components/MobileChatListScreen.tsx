@@ -1,29 +1,29 @@
 import { cn } from "@/lib/utils";
 import { BottomTabBar, type BottomTabItem } from "./BottomTabBar";
+import { ChatListQuerySync } from "./ChatListQuerySync";
 import { ChatsListHeader } from "./ChatsListHeader";
 import {
   type ConversationItem,
   ConversationListItem,
 } from "./ConversationListItem";
-import { type ChatFilterOption, FilterPills } from "./FilterPills";
+import type { ChatFilterOption } from "./FilterPills";
 import { type RecentChatItem, RecentChatsStrip } from "./RecentChatsStrip";
-import { SearchInput } from "./SearchInput";
 
+/**
+ * Props for the mobile chat-list screen (permanent chat chrome).
+ */
 interface MobileChatListScreenProps {
   title: string;
   onNewChat: () => void;
   onMore: () => void;
-  searchValue: string;
-  onSearchChange: (value: string) => void;
   filterOptions: ChatFilterOption[];
-  filterValue: string;
-  onFilterChange: (value: string) => void;
-  onMoreFilters: () => void;
   recentChats: RecentChatItem[];
-  onSelectRecent: (id: string) => void;
+  /** Builds the qualified href for a recent-chat item. */
+  buildRecentHref: (id: string) => string;
   onMoreRecent: () => void;
   conversations: ConversationItem[];
-  onSelectConversation: (id: string) => void;
+  /** Builds the qualified href for a conversation row. */
+  buildConversationHref: (id: string) => string;
   tabItems: BottomTabItem[];
   profileHref: string;
   avatarUrl: string;
@@ -31,21 +31,20 @@ interface MobileChatListScreenProps {
   className?: string;
 }
 
+/**
+ * Narrow-screen list view composing the header, URL-synced search/filter
+ * bridge, recent chats strip, All Chats list, and the bottom tab bar.
+ */
 export const MobileChatListScreen = ({
   title,
   onNewChat,
   onMore,
-  searchValue,
-  onSearchChange,
   filterOptions,
-  filterValue,
-  onFilterChange,
-  onMoreFilters,
   recentChats,
-  onSelectRecent,
+  buildRecentHref,
   onMoreRecent,
   conversations,
-  onSelectConversation,
+  buildConversationHref,
   tabItems,
   profileHref,
   avatarUrl,
@@ -59,21 +58,13 @@ export const MobileChatListScreen = ({
       </div>
       <main className="no-scrollbar flex-1 overflow-y-auto pb-20">
         <section className="mb-3 px-5">
-          <SearchInput onChange={onSearchChange} value={searchValue} />
-        </section>
-        <section className="mb-5 px-5" data-purpose="filter-pills">
-          <FilterPills
-            onChange={onFilterChange}
-            onMoreFilters={onMoreFilters}
-            options={filterOptions}
-            value={filterValue}
-          />
+          <ChatListQuerySync filterOptions={filterOptions} />
         </section>
         <RecentChatsStrip
+          buildHref={buildRecentHref}
           className="mb-4 px-5"
           items={recentChats}
           onMore={onMoreRecent}
-          onSelect={onSelectRecent}
         />
         <section className="px-3" data-purpose="all-chats-list">
           <h2 className="text-2xs text-muted-foreground mb-2 px-2 font-bold tracking-wider uppercase">
@@ -84,7 +75,7 @@ export const MobileChatListScreen = ({
               <li key={conversation.id}>
                 <ConversationListItem
                   conversation={conversation}
-                  onSelect={onSelectConversation}
+                  href={buildConversationHref(conversation.id)}
                 />
               </li>
             ))}

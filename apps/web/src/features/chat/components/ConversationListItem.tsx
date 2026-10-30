@@ -9,6 +9,8 @@ export type ConversationPreview =
   | { kind: "text"; text: string }
   | { kind: "call"; call: ConversationCallKind };
 
+import Link from "next/link";
+
 const CALL_PRESENTATION = {
   video: { icon: Video, label: "Video Call" },
   voice: { icon: Phone, label: "Voice Call" },
@@ -29,17 +31,17 @@ export interface ConversationItem {
 
 interface ConversationListItemProps {
   conversation: ConversationItem;
-  onSelect: (id: string) => void;
+  /** Qualified href for this conversation (e.g. from buildChatHref). */
+  href: string;
   className?: string;
 }
 
 export const ConversationListItem = ({
   conversation,
-  onSelect,
+  href,
   className,
 }: ConversationListItemProps) => {
   const {
-    id,
     name,
     timestamp,
     avatarUrl,
@@ -56,7 +58,7 @@ export const ConversationListItem = ({
   const CallIcon = call?.icon;
 
   return (
-    <button
+    <Link
       aria-current={active ? "true" : undefined}
       className={cn(
         "flex w-full items-center gap-3 rounded-2xl px-2 py-2.5 text-left transition-colors md:rounded-xl md:p-2.5",
@@ -65,8 +67,7 @@ export const ConversationListItem = ({
           : "hover:bg-muted",
         className,
       )}
-      onClick={() => onSelect(id)}
-      type="button"
+      href={href}
     >
       <Avatar className="size-11 shrink-0">
         <AvatarImage alt="" src={avatarUrl} />
@@ -133,6 +134,6 @@ export const ConversationListItem = ({
           </>
         ) : null}
       </span>
-    </button>
+    </Link>
   );
 };

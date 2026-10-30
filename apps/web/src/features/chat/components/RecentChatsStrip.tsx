@@ -1,4 +1,5 @@
 import { MoreHorizontal } from "lucide-react";
+import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -15,7 +16,8 @@ export interface RecentChatItem {
 
 interface RecentChatsStripProps {
   items: RecentChatItem[];
-  onSelect: (id: string) => void;
+  /** Builds the qualified href for one item (e.g. from buildChatHref). */
+  buildHref: (id: string) => string;
   onMore: () => void;
   label?: string;
   className?: string;
@@ -23,7 +25,7 @@ interface RecentChatsStripProps {
 
 export const RecentChatsStrip = ({
   items,
-  onSelect,
+  buildHref,
   onMore,
   label = "Recent Chats",
   className,
@@ -48,11 +50,10 @@ export const RecentChatsStrip = ({
       <ul className="no-scrollbar flex items-center gap-3.5 overflow-x-auto py-1">
         {items.map(({ id, name, avatarUrl, presence, active }) => (
           <li key={id}>
-            <button
+            <Link
               aria-current={active ? "true" : undefined}
               className="group flex flex-col items-center gap-1"
-              onClick={() => onSelect(id)}
-              type="button"
+              href={buildHref(id)}
             >
               <Avatar
                 className={cn(
@@ -76,7 +77,7 @@ export const RecentChatsStrip = ({
                 ) : null}
               </Avatar>
               <span className="text-2xs font-medium">{name}</span>
-            </button>
+            </Link>
           </li>
         ))}
       </ul>

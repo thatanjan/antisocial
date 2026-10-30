@@ -1,46 +1,45 @@
 import { cn } from "@/lib/utils";
+import { ChatListQuerySync } from "./ChatListQuerySync";
 import { ChatsListHeader } from "./ChatsListHeader";
 import {
   type ConversationItem,
   ConversationListItem,
 } from "./ConversationListItem";
-import { type ChatFilterOption, FilterPills } from "./FilterPills";
+import type { ChatFilterOption } from "./FilterPills";
 import { type RecentChatItem, RecentChatsStrip } from "./RecentChatsStrip";
-import { SearchInput } from "./SearchInput";
 
+/**
+ * Props for the desktop conversation sidebar (permanent chat chrome).
+ */
 interface ConversationsSidebarProps {
   title: string;
   onNewChat: () => void;
   onMore: () => void;
-  searchValue: string;
-  onSearchChange: (value: string) => void;
   filterOptions: ChatFilterOption[];
-  filterValue: string;
-  onFilterChange: (value: string) => void;
-  onMoreFilters: () => void;
   recentChats: RecentChatItem[];
-  onSelectRecent: (id: string) => void;
+  /** Builds the qualified href for a recent-chat item. */
+  buildRecentHref: (id: string) => string;
   onMoreRecent: () => void;
   conversations: ConversationItem[];
-  onSelectConversation: (id: string) => void;
+  /** Builds the qualified href for a conversation row. */
+  buildConversationHref: (id: string) => string;
   className?: string;
 }
 
+/**
+ * Desktop-only list pane composing the header, URL-synced search/filter
+ * bridge, recent chats strip, and the All Chats conversation list.
+ */
 export const ConversationsSidebar = ({
   title,
   onNewChat,
   onMore,
-  searchValue,
-  onSearchChange,
   filterOptions,
-  filterValue,
-  onFilterChange,
-  onMoreFilters,
   recentChats,
-  onSelectRecent,
+  buildRecentHref,
   onMoreRecent,
   conversations,
-  onSelectConversation,
+  buildConversationHref,
   className,
 }: ConversationsSidebarProps) => {
   return (
@@ -53,22 +52,14 @@ export const ConversationsSidebar = ({
     >
       <div className="space-y-3 p-4 pb-2">
         <ChatsListHeader onMore={onMore} onNewChat={onNewChat} title={title} />
-        <SearchInput onChange={onSearchChange} value={searchValue} />
-        <div data-purpose="filter-pills">
-          <FilterPills
-            onChange={onFilterChange}
-            onMoreFilters={onMoreFilters}
-            options={filterOptions}
-            value={filterValue}
-          />
-        </div>
+        <ChatListQuerySync filterOptions={filterOptions} />
       </div>
       <div className="flex-1 overflow-y-auto">
         <RecentChatsStrip
+          buildHref={buildRecentHref}
           className="border-border border-b"
           items={recentChats}
           onMore={onMoreRecent}
-          onSelect={onSelectRecent}
         />
         <section className="px-2 py-3" data-purpose="all-chats-list">
           <h2 className="text-2xs text-muted-foreground mb-2 px-2 font-bold tracking-wider uppercase">
@@ -79,7 +70,7 @@ export const ConversationsSidebar = ({
               <li key={conversation.id}>
                 <ConversationListItem
                   conversation={conversation}
-                  onSelect={onSelectConversation}
+                  href={buildConversationHref(conversation.id)}
                 />
               </li>
             ))}
