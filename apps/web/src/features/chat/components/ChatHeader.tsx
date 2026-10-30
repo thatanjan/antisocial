@@ -20,13 +20,13 @@ interface ChatHeaderProps {
   avatarUrl?: string;
   online?: boolean;
   /** Mobile-only back affordance that returns to the chat list. */
-  onBack?: () => void;
-  onSearch?: () => void;
-  onVideoCall?: () => void;
-  onVoiceCall?: () => void;
+  onBack: () => void;
+  onSearch: () => void;
+  onVideoCall: () => void;
+  onVoiceCall: () => void;
   /** Hidden below `md`, where the header only carries its four primary actions. */
-  onInfo?: () => void;
-  onMore?: () => void;
+  onInfo: () => void;
+  onMore: () => void;
   className?: string;
 }
 
@@ -53,7 +53,7 @@ export const ChatHeader = ({
       className: "hidden md:inline-flex",
     },
     { label: "More options", icon: MoreVertical, onClick: onMore },
-  ].filter((action) => action.onClick);
+  ];
 
   return (
     <header
@@ -64,18 +64,16 @@ export const ChatHeader = ({
       data-purpose="chat-header"
     >
       <div className="flex min-w-0 items-center gap-3">
-        {onBack ? (
-          <Button
-            aria-label="Back to chats"
-            className="-ml-1 rounded-full md:hidden"
-            onClick={onBack}
-            size="icon"
-            type="button"
-            variant="ghost"
-          >
-            <ArrowLeft aria-hidden="true" />
-          </Button>
-        ) : null}
+        <Button
+          aria-label="Back to chats"
+          className="-ml-1 rounded-full md:hidden"
+          onClick={onBack}
+          size="icon"
+          type="button"
+          variant="ghost"
+        >
+          <ArrowLeft aria-hidden="true" />
+        </Button>
         <Avatar className="size-10">
           <AvatarImage alt="" src={avatarUrl} />
           <AvatarFallback>{name.slice(0, 2).toUpperCase()}</AvatarFallback>

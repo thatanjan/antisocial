@@ -73,10 +73,10 @@ This is a turborepo web app. Web source lives in `apps/web/src/`. Chat feature c
 
 ### Implementation for User Story 2
 
-- [ ] T012 [US2] Add in-session message state at apps/web/src/app/(chat)/[id]/page.tsx (or client wrapper of ChatScreen): local useState keyed by conversation id; MessageComposer onSubmit trims, rejects whitespace-only, appends outgoing message, updates preview
-- [ ] T013 [US2] Handle enter-to-send in MessageComposer usage (already supported by component): verify Enter submits and Shift+Enter does not per contract
-- [ ] T014 [US2] Ensure switching to another conversation and back (via list) retains unsent-session messages from client state while session lives; reload resets to T003 sample data
-- [ ] T015 [US2] Manual verification per specs/014-chat-ui/quickstart.md steps 4-5: send/update preview; empty/whitespace rejected; switch-and-return keeps message; reload resets
+- [x] T012 [US2] Add in-session message state at apps/web/src/app/(chat)/[id]/page.tsx (or client wrapper of ChatScreen): local useState keyed by conversation id; MessageComposer onSubmit trims, rejects whitespace-only, appends outgoing message, updates preview
+- [x] T013 [US2] Handle enter-to-send in MessageComposer usage (already supported by component): verify Enter submits and Shift+Enter does not per contract
+- [x] T014 [US2] Ensure switching to another conversation and back (via list) retains unsent-session messages from client state while session lives; reload resets to T003 sample data
+- [x] T015 [US2] Manual verification per specs/014-chat-ui/quickstart.md steps 4-5: send/update preview; empty/whitespace rejected; switch-and-return keeps message; reload resets
 
 **Checkpoint**: US1 + US2 both work; local send flow complete.
 

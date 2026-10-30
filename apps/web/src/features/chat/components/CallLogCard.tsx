@@ -7,8 +7,8 @@ import type { ChatMessage } from "../types";
 interface CallLogCardProps {
   message: ChatMessage;
   avatarUrl?: string;
-  /** Invoked by the call-back button; omit to render the card without one. */
-  onCallBack?: () => void;
+  /** Invoked by the call-back button. */
+  onCallBack: () => void;
   className?: string;
 }
 
@@ -64,22 +64,21 @@ export const CallLogCard = ({
               ) : null}
             </div>
           </div>
-          {onCallBack ? (
-            <Button
-              aria-label="Call back"
-              className="shrink-0 rounded-full"
-              onClick={onCallBack}
-              size="icon-sm"
-              type="button"
-              variant="secondary"
-            >
-              {cancelled ? (
-                <PhoneOff aria-hidden="true" />
-              ) : (
-                <Phone aria-hidden="true" />
-              )}
-            </Button>
-          ) : null}
+          <Button
+            aria-label="Call back"
+            className="shrink-0 rounded-full"
+            onClick={onCallBack}
+            size="icon-sm"
+            type="button"
+            variant="secondary"
+          >
+            {cancelled ? (
+              <PhoneOff aria-hidden="true" />
+            ) : (
+              <Phone aria-hidden="true" />
+            )}
+          </Button>
+          PUT 15-17? nope
         </div>
       </div>
     </div>

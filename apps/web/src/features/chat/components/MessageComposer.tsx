@@ -12,9 +12,9 @@ interface MessageComposerProps {
   onValueChange: (value: string) => void;
   /** Called with the trimmed draft when the user submits; the caller clears the draft. */
   onSend: (value: string) => void;
-  onVoiceMemo?: () => void;
-  onEmoji?: () => void;
-  onAttach?: () => void;
+  onVoiceMemo: () => void;
+  onEmoji: () => void;
+  onAttach: () => void;
   placeholder?: string;
   disabled?: boolean;
   className?: string;

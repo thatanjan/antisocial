@@ -12,7 +12,7 @@ interface MessageStreamProps {
   /** Avatar shown on the viewer's own outgoing messages. */
   selfAvatarUrl?: string;
   /** Invoked by the call card's call-back button. */
-  onCallBack?: (message: ChatMessage) => void;
+  onCallBack: (message: ChatMessage) => void;
   className?: string;
 }
 
@@ -44,7 +44,7 @@ export const MessageStream = ({
             <CallLogCard
               avatarUrl={avatarUrl}
               message={message}
-              onCallBack={onCallBack ? () => onCallBack(message) : undefined}
+              onCallBack={() => onCallBack(message)}
             />
           ) : (
             <MessageBubble avatarUrl={avatarUrl} message={message} />

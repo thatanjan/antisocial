@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { ChatListQuerySync } from "./ChatListQuerySync";
 import { ChatsListHeader } from "./ChatsListHeader";
@@ -10,6 +12,7 @@ import { type RecentChatItem, RecentChatsStrip } from "./RecentChatsStrip";
 
 /**
  * Props for the desktop conversation sidebar (permanent chat chrome).
+ * Handlers are optional; callers only pass what they own.
  */
 interface ConversationsSidebarProps {
   title: string;
@@ -17,18 +20,15 @@ interface ConversationsSidebarProps {
   onMore: () => void;
   filterOptions: ChatFilterOption[];
   recentChats: RecentChatItem[];
-  /** Builds the qualified href for a recent-chat item. */
-  buildRecentHref: (id: string) => string;
   onMoreRecent: () => void;
   conversations: ConversationItem[];
-  /** Builds the qualified href for a conversation row. */
-  buildConversationHref: (id: string) => string;
   className?: string;
 }
 
 /**
  * Desktop-only list pane composing the header, URL-synced search/filter
- * bridge, recent chats strip, and the All Chats conversation list.
+ * bridge, recent chats strip, and the All Chats conversation list. Rows link
+ * internally to /chat/[id]; list state rides the URL (?q=, ?filter=).
  */
 export const ConversationsSidebar = ({
   title,
@@ -36,10 +36,8 @@ export const ConversationsSidebar = ({
   onMore,
   filterOptions,
   recentChats,
-  buildRecentHref,
   onMoreRecent,
   conversations,
-  buildConversationHref,
   className,
 }: ConversationsSidebarProps) => {
   return (
@@ -56,7 +54,6 @@ export const ConversationsSidebar = ({
       </div>
       <div className="flex-1 overflow-y-auto">
         <RecentChatsStrip
-          buildHref={buildRecentHref}
           className="border-border border-b"
           items={recentChats}
           onMore={onMoreRecent}
@@ -70,7 +67,7 @@ export const ConversationsSidebar = ({
               <li key={conversation.id}>
                 <ConversationListItem
                   conversation={conversation}
-                  href={buildConversationHref(conversation.id)}
+                  href={`/chat/${conversation.id}`}
                 />
               </li>
             ))}

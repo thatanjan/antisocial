@@ -1,3 +1,5 @@
+"use client";
+
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -16,8 +18,6 @@ export interface RecentChatItem {
 
 interface RecentChatsStripProps {
   items: RecentChatItem[];
-  /** Builds the qualified href for one item (e.g. from buildChatHref). */
-  buildHref: (id: string) => string;
   onMore: () => void;
   label?: string;
   className?: string;
@@ -25,7 +25,6 @@ interface RecentChatsStripProps {
 
 export const RecentChatsStrip = ({
   items,
-  buildHref,
   onMore,
   label = "Recent Chats",
   className,
@@ -53,7 +52,7 @@ export const RecentChatsStrip = ({
             <Link
               aria-current={active ? "true" : undefined}
               className="group flex flex-col items-center gap-1"
-              href={buildHref(id)}
+              href={`/chat/${id}`}
             >
               <Avatar
                 className={cn(

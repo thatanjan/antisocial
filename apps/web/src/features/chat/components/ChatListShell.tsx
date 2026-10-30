@@ -1,9 +1,5 @@
-import { Contact, Home, Users } from "lucide-react";
-import type { BottomTabItem } from "@/features/chat/components/BottomTabBar";
-import { ConversationsSidebar } from "@/features/chat/components/ConversationsSidebar";
+import { ChatListChrome } from "@/features/chat/components/ChatListChrome";
 import type { ChatNavigationItem } from "@/features/chat/components/LeftIconRail";
-import { LeftIconRail } from "@/features/chat/components/LeftIconRail";
-import { MobileChatListScreen } from "@/features/chat/components/MobileChatListScreen";
 import {
   recentChats,
   sampleConversations,
@@ -11,22 +7,33 @@ import {
   sampleFilterOptions,
 } from "@/features/chat/data/sample-conversations";
 import type { ChatListQuery } from "@/features/chat/hooks/useChatListState";
-import { buildChatHref } from "@/features/chat/utils/chatLinks";
+import type { BottomTabItem } from "./BottomTabBar";
+import { LeftIconRail } from "./LeftIconRail";
 
 const PROFILE_HREF = "/profile";
 
 /** Rail menu for the chat surface. Contacts/Groups go to their list filters/routes. */
 const railNavItems: ChatNavigationItem[] = [
-  { label: "Chats", href: "/chat", icon: Home, active: true },
-  { label: "Contacts", href: "/contacts", icon: Contact, active: false },
-  { label: "Groups", href: "/chat?filter=groups", icon: Users, active: false },
+  { label: "Chats", href: "/chat", icon: "home", active: true },
+  { label: "Contacts", href: "/contacts", icon: "contact", active: false },
+  {
+    label: "Groups",
+    href: "/chat?filter=groups",
+    icon: "users",
+    active: false,
+  },
 ];
 
 /** Mobile bottom tab menu mirroring the rail destinations. */
 const tabNavItems: BottomTabItem[] = [
-  { label: "Chats", href: "/chat", icon: Home, active: true },
-  { label: "Contacts", href: "/contacts", icon: Contact, active: false },
-  { label: "Groups", href: "/chat?filter=groups", icon: Users, active: false },
+  { label: "Chats", href: "/chat", icon: "home", active: true },
+  { label: "Contacts", href: "/contacts", icon: "contact", active: false },
+  {
+    label: "Groups",
+    href: "/chat?filter=groups",
+    icon: "users",
+    active: false,
+  },
 ];
 
 /**
@@ -68,8 +75,7 @@ export const ChatListShell = ({
     active: recentChat.id === activeId,
   }));
 
-  /** Rows link to /chat/[id]; list state travels via the row hrefs. */
-  const buildConversationHref = (id: string) => buildChatHref(id, {});
+  /** Items render internal Links to /chat/[id]; list state rides the URL. */
 
   return (
     <div className="bg-background flex h-dvh overflow-hidden">
@@ -77,27 +83,11 @@ export const ChatListShell = ({
         avatarUrl={sampleCurrentUser.avatarUrl}
         brandHref="/"
         displayName={sampleCurrentUser.displayName}
-        isDarkMode={false}
         items={railNavItems}
-        onToggleTheme={() => {}}
         profileHref={PROFILE_HREF}
       />
-      <ConversationsSidebar
-        buildConversationHref={buildConversationHref}
-        buildRecentHref={buildConversationHref}
-        conversations={conversations}
-        filterOptions={sampleFilterOptions}
-        onMore={() => {}}
-        onMoreRecent={() => {}}
-        onNewChat={() => {}}
-        recentChats={recentItems}
-        title="Antisocial"
-      />
-      <div className="min-w-0 flex-1">{children}</div>
-      <MobileChatListScreen
+      <ChatListChrome
         avatarUrl={sampleCurrentUser.avatarUrl}
-        buildConversationHref={buildConversationHref}
-        buildRecentHref={buildConversationHref}
         conversations={conversations}
         displayName={sampleCurrentUser.displayName}
         filterOptions={sampleFilterOptions}
@@ -107,8 +97,9 @@ export const ChatListShell = ({
         profileHref={PROFILE_HREF}
         recentChats={recentItems}
         tabItems={tabNavItems}
-        title="Chats"
+        title="Antisocial"
       />
+      <div className="min-w-0 flex-1">{children}</div>
     </div>
   );
 };

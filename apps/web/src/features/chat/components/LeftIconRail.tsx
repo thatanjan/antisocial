@@ -1,14 +1,15 @@
-import type { LucideIcon } from "lucide-react";
-import { MessageCircle, Moon } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { NAV_ICONS, type NavIconName } from "./BottomTabBar";
+import { RailThemeToggle } from "./RailThemeToggle";
 
 export interface ChatNavigationItem {
   label: string;
   href: string;
-  icon: LucideIcon;
+  icon: NavIconName;
   active: boolean;
 }
 
@@ -18,18 +19,18 @@ interface LeftIconRailProps {
   profileHref: string;
   avatarUrl: string;
   displayName: string;
-  isDarkMode: boolean;
-  onToggleTheme: () => void;
 }
 
+/**
+ * Desktop navigation rail. Server component; the theme toggle is a client
+ * island (`RailThemeToggle`) because it must read/write next-themes state.
+ */
 export const LeftIconRail = ({
   brandHref,
   items,
   profileHref,
   avatarUrl,
   displayName,
-  isDarkMode,
-  onToggleTheme,
 }: LeftIconRailProps) => {
   return (
     <nav
@@ -49,40 +50,34 @@ export const LeftIconRail = ({
           </Link>
         </Button>
         <div className="flex flex-col items-center gap-2">
-          {items.map(({ label, href, icon: Icon, active }) => (
-            <Button
-              asChild
-              className={cn(
-                active
-                  ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground shadow-sm"
-                  : "text-muted-foreground",
-              )}
-              key={label}
-              size="icon"
-              variant="ghost"
-            >
-              <Link
-                aria-current={active ? "page" : undefined}
-                aria-label={label}
-                href={href}
+          {items.map(({ label, href, icon, active }) => {
+            const Icon = NAV_ICONS[icon];
+            return (
+              <Button
+                asChild
+                className={cn(
+                  active
+                    ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground shadow-sm"
+                    : "text-muted-foreground",
+                )}
+                key={label}
+                size="icon"
+                variant="ghost"
               >
-                <Icon aria-hidden="true" />
-              </Link>
-            </Button>
-          ))}
+                <Link
+                  aria-current={active ? "page" : undefined}
+                  aria-label={label}
+                  href={href}
+                >
+                  <Icon aria-hidden="true" />
+                </Link>
+              </Button>
+            );
+          })}
         </div>
       </div>
       <div className="flex flex-col items-center gap-3">
-        <Button
-          aria-label="Toggle dark mode"
-          aria-pressed={isDarkMode}
-          onClick={onToggleTheme}
-          size="icon"
-          type="button"
-          variant="ghost"
-        >
-          <Moon aria-hidden="true" />
-        </Button>
+        <RailThemeToggle />
         <Link aria-label={`${displayName} profile`} href={profileHref}>
           <Avatar className="size-10">
             <AvatarImage alt="" src={avatarUrl} />

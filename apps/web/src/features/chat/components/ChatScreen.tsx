@@ -25,15 +25,15 @@ interface ChatScreenProps {
   /** Empty-state copy for the desktop pane when nothing is selected. */
   emptyLabel?: string;
   selfAvatarUrl?: string;
-  onSearch?: () => void;
-  onVideoCall?: () => void;
-  onVoiceCall?: () => void;
-  onInfo?: () => void;
-  onMore?: () => void;
-  onCallBack?: (message: ChatMessage) => void;
-  onVoiceMemo?: () => void;
-  onEmoji?: () => void;
-  onAttach?: () => void;
+  onSearch: () => void;
+  onVideoCall: () => void;
+  onVoiceCall: () => void;
+  onInfo: () => void;
+  onMore: () => void;
+  onCallBack: (message: ChatMessage) => void;
+  onVoiceMemo: () => void;
+  onEmoji: () => void;
+  onAttach: () => void;
   className?: string;
 }
 

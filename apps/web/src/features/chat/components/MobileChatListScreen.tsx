@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { BottomTabBar, type BottomTabItem } from "./BottomTabBar";
 import { ChatListQuerySync } from "./ChatListQuerySync";
@@ -11,6 +13,7 @@ import { type RecentChatItem, RecentChatsStrip } from "./RecentChatsStrip";
 
 /**
  * Props for the mobile chat-list screen (permanent chat chrome).
+ * Handlers are optional; callers only pass what they own.
  */
 interface MobileChatListScreenProps {
   title: string;
@@ -18,12 +21,8 @@ interface MobileChatListScreenProps {
   onMore: () => void;
   filterOptions: ChatFilterOption[];
   recentChats: RecentChatItem[];
-  /** Builds the qualified href for a recent-chat item. */
-  buildRecentHref: (id: string) => string;
   onMoreRecent: () => void;
   conversations: ConversationItem[];
-  /** Builds the qualified href for a conversation row. */
-  buildConversationHref: (id: string) => string;
   tabItems: BottomTabItem[];
   profileHref: string;
   avatarUrl: string;
@@ -33,7 +32,8 @@ interface MobileChatListScreenProps {
 
 /**
  * Narrow-screen list view composing the header, URL-synced search/filter
- * bridge, recent chats strip, All Chats list, and the bottom tab bar.
+ * bridge, recent chats strip, All Chats list, and bottom tab bar. Rows link
+ * internally to /chat/[id]; list state rides the URL (?q=, ?filter=).
  */
 export const MobileChatListScreen = ({
   title,
@@ -41,10 +41,8 @@ export const MobileChatListScreen = ({
   onMore,
   filterOptions,
   recentChats,
-  buildRecentHref,
   onMoreRecent,
   conversations,
-  buildConversationHref,
   tabItems,
   profileHref,
   avatarUrl,
@@ -61,7 +59,6 @@ export const MobileChatListScreen = ({
           <ChatListQuerySync filterOptions={filterOptions} />
         </section>
         <RecentChatsStrip
-          buildHref={buildRecentHref}
           className="mb-4 px-5"
           items={recentChats}
           onMore={onMoreRecent}
@@ -75,7 +72,7 @@ export const MobileChatListScreen = ({
               <li key={conversation.id}>
                 <ConversationListItem
                   conversation={conversation}
-                  href={buildConversationHref(conversation.id)}
+                  href={`/chat/${conversation.id}`}
                 />
               </li>
             ))}

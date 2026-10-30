@@ -24,10 +24,6 @@ const ChatDetailPage = async ({ params }: ChatDetailPageProps) => {
   return (
     <RoutedChatScreen
       conversation={conversation}
-      draft=""
-      messages={conversation.messages}
-      onDraftChange={() => {}}
-      onSend={() => {}}
       selfAvatarUrl={sampleCurrentUser.avatarUrl}
     />
   );
