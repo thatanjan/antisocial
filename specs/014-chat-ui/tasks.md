@@ -25,8 +25,8 @@ This is a turborepo web app. Web source lives in `apps/web/src/`. Chat feature c
 
 **Purpose**: Route-group scaffold needed by all stories
 
-- [ ] T001 Add safe-area and dotted-canvas utilities (`pt-safe`, `pb-safe`, `chat-canvas`) to apps/web/src/app/globals.css `@layer utilities` if not already present
-- [ ] T002 [P] Verify chat feature components typecheck with `npm -w web run typecheck` and lint with `npx biome check apps/web/src/features/chat` as baseline before route work
+- [x] T001 Add safe-area and dotted-canvas utilities (`pt-safe`, `pb-safe`, `chat-canvas`) to apps/web/src/app/globals.css `@layer utilities` if not already present
+- [x] T002 [P] Verify chat feature components typecheck with `npm -w web run typecheck` and lint with `npx biome check apps/web/src/features/chat` as baseline before route work
 
 **Checkpoint**: Feature components clean; ready to build routes.
 
@@ -38,8 +38,8 @@ This is a turborepo web app. Web source lives in `apps/web/src/`. Chat feature c
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T003 Create sample data module in apps/web/src/features/chat/data/sample-conversations.ts with typed exports matching `apps/web/src/features/chat/types.ts`: 5 conversations replicating the stitch-screen mocks (Mark, Emily Carter [unread thread with 7 messages + one call event], Clyde, AM Technology group [no avatar, initials tile], Design), sample contacts for the picker, and the sample current-user identity (avatarUrl + displayName) used by rail/tabs/header/composer
-- [ ] T004 Write TSDoc on sample module exports describing bundled-data reset-on-reload semantics per specs/014-chat-ui/data-model.md
+- [x] T003 Create sample data module in apps/web/src/features/chat/data/sample-conversations.ts with typed exports matching `apps/web/src/features/chat/types.ts`: 5 conversations replicating the stitch-screen mocks (Mark, Emily Carter [unread thread with 7 messages + one call event], Clyde, AM Technology group [no avatar, initials tile], Design), sample contacts for the picker, and the sample current-user identity (avatarUrl + displayName) used by rail/tabs/header/composer
+- [x] T004 Write TSDoc on sample module exports describing bundled-data reset-on-reload semantics per specs/014-chat-ui/data-model.md
 
 **Checkpoint**: Stories 1-3 can all import one data source.
 
@@ -53,13 +53,13 @@ This is a turborepo web app. Web source lives in `apps/web/src/`. Chat feature c
 
 ### Implementation for User Story 1
 
-- [ ] T005 [US1] Create server layout at apps/web/src/app/(chat)/layout.tsx: below md render MobileChatListScreen + BottomTabBar; at md+ render LeftIconRail + ConversationsSidebar; pass nav items with caller-supplied hrefs (Chats → /chat; others placeholder) and current-user sample identity from T003; right pane renders `children`
-- [ ] T006 [P] [US1] Create empty-right-pane page at apps/web/src/app/(chat)/page.tsx (desktop placeholder area; on narrow screens layout's MobileChatListScreen is the list view)
-- [ ] T007 [US1] Wire ConversationsSidebar + MobileChatListScreen list data in apps/web/src/app/(chat)/layout.tsx from sample-conversations.ts: search/filter state client-side via existing components; ConversationListItem links to `/chat/${id}` and highlights the active id from route param when on a conversation page
-- [ ] T008 [US1] Create server page at apps/web/src/app/(chat)/[id]/page.tsx that loads the conversation by `params.id` from sample data and renders ChatScreen (ChatHeader + MessageStream + MessageComposer) in the right pane; the layout's list stays visible beside it at desktop and is hidden on narrow screens per FR-002b; invalid id shows not-found message
-- [ ] T009 [US1] Render conversation messages in apps/web/src/features/chat/components/ChatScreen.tsx via MessageStream/MessageBubble/DateSeparator/CallLogCard variants from types.ts flags (deleted/starred/read/type:call); add peer/self avatar + composer wiring with caller-supplied callbacks per existing component props
-- [ ] T010 [US1] Add mobile Back control behavior in apps/web/src/features/chat/components/ChatHeader.tsx usage: Back on mobile navigates to /chat (matches stitch-screen mobile mocks)
-- [ ] T011 [US1] Manual verification per specs/014-chat-ui/quickstart.md steps 1-2: /chat list left + empty right at desktop; /chat/[id] shows selected chat beside list; layout-owned nav renders on both routes; mobile shows list full-screen then conversation-only with Back
+- [x] T005 [US1] Create server layout at apps/web/src/app/(chat)/layout.tsx: below md render MobileChatListScreen + BottomTabBar; at md+ render LeftIconRail + ConversationsSidebar; pass nav items with caller-supplied hrefs (Chats → /chat; others placeholder) and current-user sample identity from T003; right pane renders `children`
+- [x] T006 [P] [US1] Create empty-right-pane page at apps/web/src/app/(chat)/page.tsx (desktop placeholder area; on narrow screens layout's MobileChatListScreen is the list view)
+- [x] T007 [US1] Wire ConversationsSidebar + MobileChatListScreen list data in apps/web/src/app/(chat)/layout.tsx from sample-conversations.ts: search/filter state client-side via existing components; ConversationListItem links to `/chat/${id}` and highlights the active id from route param when on a conversation page
+- [x] T008 [US1] Create server page at apps/web/src/app/(chat)/[id]/page.tsx that loads the conversation by `params.id` from sample data and renders ChatScreen (ChatHeader + MessageStream + MessageComposer) in the right pane; the layout's list stays visible beside it at desktop and is hidden on narrow screens per FR-002b; invalid id shows not-found message
+- [x] T009 [US1] Render conversation messages in apps/web/src/features/chat/components/ChatScreen.tsx via MessageStream/MessageBubble/DateSeparator/CallLogCard variants from types.ts flags (deleted/starred/read/type:call); add peer/self avatar + composer wiring with caller-supplied callbacks per existing component props
+- [x] T010 [US1] Add mobile Back control behavior in apps/web/src/features/chat/components/ChatHeader.tsx usage: Back on mobile navigates to /chat (matches stitch-screen mobile mocks)
+- [x] T011 [US1] Manual verification per specs/014-chat-ui/quickstart.md steps 1-2: /chat list left + empty right at desktop; /chat/[id] shows selected chat beside list; layout-owned nav renders on both routes; mobile shows list full-screen then conversation-only with Back (user-led manual check, per tasking)
 
 **Checkpoint**: US1 independently functional: browse, filter, select from URL routes.
 
