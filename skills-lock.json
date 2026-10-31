@@ -46,6 +46,12 @@
       "skillPath": "plugins/developer-kit-typescript/skills/nextjs-deployment/SKILL.md",
       "computedHash": "f4a4b490893df14bc34b890f6c57c0b932a4b25efb10c5b1da1ae5c57a789890"
     },
+    "nextjs-developer": {
+      "source": "jeffallan/claude-skills",
+      "sourceType": "github",
+      "skillPath": "skills/nextjs-developer/SKILL.md",
+      "computedHash": "1765efb60a9079455de5f04f8c6a30865dcbc1b50506af883e8bcda23afc56f2"
+    },
     "prisma-client-api": {
       "source": "prisma/skills",
       "sourceType": "github",
