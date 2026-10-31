@@ -1,4 +1,4 @@
-import { ChatListChrome } from "@/features/chat/components/ChatListChrome";
+import { ChatListActions } from "@/features/chat/components/ChatListActions";
 import type { ChatNavigationItem } from "@/features/chat/components/LeftIconRail";
 import {
   recentChats,
@@ -86,14 +86,11 @@ export const ChatListShell = ({
         items={railNavItems}
         profileHref={PROFILE_HREF}
       />
-      <ChatListChrome
+      <ChatListActions
         avatarUrl={sampleCurrentUser.avatarUrl}
         conversations={conversations}
         displayName={sampleCurrentUser.displayName}
         filterOptions={sampleFilterOptions}
-        onMore={() => {}}
-        onMoreRecent={() => {}}
-        onNewChat={() => {}}
         profileHref={PROFILE_HREF}
         recentChats={recentItems}
         tabItems={tabNavItems}

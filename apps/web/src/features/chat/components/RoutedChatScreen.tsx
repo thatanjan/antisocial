@@ -71,20 +71,20 @@ export const RoutedChatScreen = ({
       conversation={conversation}
       draft={draft}
       messages={messages}
-      onAttach={() => { }}
+      onAttach={() => {}}
       onBack={() => {
         window.history.back();
       }}
-      onCallBack={() => { }}
+      onCallBack={() => {}}
       onDraftChange={setDraft}
-      onEmoji={() => { }}
-      onInfo={() => { }}
-      onMore={() => { }}
-      onSearch={() => { }}
+      onEmoji={() => {}}
+      onInfo={() => {}}
+      onMore={() => {}}
+      onSearch={() => {}}
       onSend={handleSend}
-      onVideoCall={() => { }}
-      onVoiceCall={() => { }}
-      onVoiceMemo={() => { }}
+      onVideoCall={() => {}}
+      onVoiceCall={() => {}}
+      onVoiceMemo={() => {}}
       selfAvatarUrl={selfAvatarUrl}
     />
   );

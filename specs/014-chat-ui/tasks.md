@@ -90,8 +90,8 @@ This is a turborepo web app. Web source lives in `apps/web/src/`. Chat feature c
 
 ### Implementation for User Story 3
 
-- [ ] T016 [P] [US3] Create new-chat chooser client component in apps/web/src/features/chat/components/ using existing shadcn Dialog + sample contacts from the data module
-- [ ] T017 [US3] Wire ChatsListHeader onNewChat in apps/web/src/app/(chat)/layout.tsx to open chooser; on select, reuse existing direct conversation by contact or append a new page-session conversation and navigate to its /chat/[id]
+- [x] T016 [P] [US3] Create new-chat chooser client component in apps/web/src/features/chat/components/ using existing shadcn Dialog + sample contacts from the data module
+- [x] T017 [US3] Wire ChatsListHeader onNewChat in apps/web/src/app/(chat)/layout.tsx to open chooser; on select, reuse existing direct conversation by contact or append a new page-session conversation and navigate to its /chat/[id]
 - [ ] T018 [US3] Manual verification per specs/014-chat-ui/quickstart.md step 6: picker opens, contact reuse dedupes, cancel no-ops
 
 **Checkpoint**: All three user stories functional independently.
