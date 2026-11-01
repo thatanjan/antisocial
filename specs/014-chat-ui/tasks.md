@@ -92,7 +92,7 @@ This is a turborepo web app. Web source lives in `apps/web/src/`. Chat feature c
 
 - [x] T016 [P] [US3] Create new-chat chooser client component in apps/web/src/features/chat/components/ using existing shadcn Dialog + sample contacts from the data module
 - [x] T017 [US3] Wire ChatsListHeader onNewChat in apps/web/src/app/(chat)/layout.tsx to open chooser; on select, reuse existing direct conversation by contact or append a new page-session conversation and navigate to its /chat/[id]
-- [ ] T018 [US3] Manual verification per specs/014-chat-ui/quickstart.md step 6: picker opens, contact reuse dedupes, cancel no-ops
+- [x] T018 [US3] Manual verification per specs/014-chat-ui/quickstart.md step 6: picker opens, contact reuse dedupes, cancel no-ops
 
 **Checkpoint**: All three user stories functional independently.
 
@@ -102,11 +102,11 @@ This is a turborepo web app. Web source lives in `apps/web/src/`. Chat feature c
 
 **Purpose**: Final quality gates across all stories
 
-- [ ] T019 [P] Mark call, voice-memo, attachment controls inert-but-functional-looking documenting non-claims per FR-010 in apps/web/src/features/chat/components/MessageComposer.tsx caller wiring (no toasts/success reporting)
-- [ ] T020 [P] A11y pass: verify accessible names and focus on rail/tabs/list/search/filter per FR-009 using components' existing aria-labels (spot-check in running app)
+- [x] T019 [P] Mark call, voice-memo, attachment controls inert-but-functional-looking documenting non-claims per FR-010 in apps/web/src/features/chat/components/MessageComposer.tsx caller wiring (no toasts/success reporting)
+- [x] T020 [P] A11y pass: verify accessible names and focus on rail/tabs/list/search/filter per FR-009 using components' existing aria-labels (spot-check in running app)
 - [ ] T021 Manual end-to-end validation per specs/014-chat-ui/quickstart.md steps 1-8 including narrow-screen overflow and safe-area padding
-- [ ] T022 [P] Verify permissions: confirm (chat) route group does NOT conflict with (authenticated) group's existing routes; adjust layout/paths if conflict appears
-- [ ] T023 Format + lint sweep: `npx biome check apps/web/src/features/chat "apps/web/src/app/(chat)" && npm -w web run typecheck`
+- [x] T022 [P] Verify permissions: confirm (chat) route group does NOT conflict with (authenticated) group's existing routes; adjust layout/paths if conflict appears
+- [x] T023 Format + lint sweep: `npx biome check apps/web/src/features/chat "apps/web/src/app/(chat)" && npm -w web run typecheck`
 
 **Checkpoint**: Feature ready for user walkthrough.
 

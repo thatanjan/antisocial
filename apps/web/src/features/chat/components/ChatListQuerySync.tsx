@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   useChatListNavigation,
   useChatListQuery,
@@ -16,20 +17,31 @@ interface ChatListQuerySyncProps {
 
 /**
  * Client bridge for the conversation-list search box and filter pills.
- * Values read from and written to `?q=` / `?filter=` URL state; server
- * components re-filter the conversation list from those params.
+ * Values read from and written to `?q=` / `?filter=` URL state; ChatListActions
+ * filters bundled and page-session conversations from that state.
  */
 export const ChatListQuerySync = ({
   filterOptions,
 }: ChatListQuerySyncProps) => {
   const { q, filter } = useChatListQuery();
   const { applyQuery } = useChatListNavigation();
+  const [searchValue, setSearchValue] = useState(q);
+
+  useEffect(() => {
+    setSearchValue(q);
+  }, [q]);
 
   return (
     <>
-      <SearchInput onChange={(value) => applyQuery({ q: value })} value={q} />
+      <SearchInput
+        onChange={(value) => {
+          setSearchValue(value);
+          applyQuery({ filter, q: value });
+        }}
+        value={searchValue}
+      />
       <FilterPills
-        onChange={(value) => applyQuery({ filter: value })}
+        onChange={(value) => applyQuery({ filter: value, q: searchValue })}
         onMoreFilters={() => {}}
         options={filterOptions}
         value={filter}

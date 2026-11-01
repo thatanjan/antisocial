@@ -61,7 +61,7 @@ export const ConversationListItem = ({
     <Link
       aria-current={active ? "true" : undefined}
       className={cn(
-        "flex w-full items-center gap-3 rounded-2xl px-2 py-2.5 text-left transition-colors md:rounded-xl md:p-2.5",
+        "focus-visible:ring-ring/50 flex w-full items-center gap-3 rounded-2xl px-2 py-2.5 text-left transition-colors focus-visible:ring-3 focus-visible:outline-none md:rounded-xl md:p-2.5",
         active
           ? "bg-primary/10 border-primary/20 border shadow-xs"
           : "hover:bg-muted",

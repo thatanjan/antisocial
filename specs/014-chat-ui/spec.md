@@ -80,6 +80,7 @@ As a user, I want to start a conversation with a sample contact so I can explore
 - **FR-008**: On narrow screens, selecting a conversation MUST display the conversation and hide the list; a back control MUST return to the list. On wider screens, the list and selected conversation MUST appear together.
 - **FR-009**: The page MUST expose accessible names for interactive controls and provide visible empty states when search or category filters produce no conversations.
 - **FR-010**: Calls, voice recording, file attachments, delivery/read status, presence, and other backend-dependent actions MUST NOT be represented as successfully performed; these controls are outside this frontend-only scope.
+- **FR-011**: Newly rendered message bubbles SHOULD slide up into the message history; the animation MUST be disabled when the user's system preference requests reduced motion.
 
 ### UI Components
 

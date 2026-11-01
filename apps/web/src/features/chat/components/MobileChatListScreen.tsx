@@ -77,6 +77,15 @@ export const MobileChatListScreen = ({
               </li>
             ))}
           </ul>
+          {conversations.length === 0 ? (
+            <p
+              aria-live="polite"
+              className="text-muted-foreground px-2 py-6 text-center text-sm"
+              role="status"
+            >
+              No conversations match. Clear search or choose All.
+            </p>
+          ) : null}
         </section>
       </main>
       <BottomTabBar

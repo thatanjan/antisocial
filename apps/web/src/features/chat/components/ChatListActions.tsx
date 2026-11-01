@@ -1,17 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import type { SampleConversation } from "../data/sample-conversations";
+import { useChatListQuery } from "../hooks/useChatListState";
 import type { BottomTabItem } from "./BottomTabBar";
 import { useChatComposer } from "./ChatComposerProvider";
 import { ChatContactChooser } from "./ChatContactChooser";
-import type { ConversationItem } from "./ConversationListItem";
 import { ConversationsSidebar } from "./ConversationsSidebar";
 import type { ChatFilterOption } from "./FilterPills";
 import { MobileChatListScreen } from "./MobileChatListScreen";
 import type { RecentChatItem } from "./RecentChatsStrip";
 
 interface ChatListActionsProps {
-  conversations: ConversationItem[];
+  conversations: SampleConversation[];
   filterOptions: ChatFilterOption[];
   recentChats: RecentChatItem[];
   tabItems: BottomTabItem[];
@@ -38,6 +39,8 @@ export const ChatListActions = ({
 }: ChatListActionsProps) => {
   const { sessionConversations, startConversation } = useChatComposer();
   const [chooserOpen, setChooserOpen] = useState(false);
+  const { q, filter } = useChatListQuery();
+  const queryText = q.trim().toLowerCase();
 
   // Placeholder handlers until their flows exist (FR-010: no-op, no claim).
   const onMore = () => {};
@@ -52,7 +55,16 @@ export const ChatListActions = ({
         ),
     ),
     ...sessionConversations,
-  ];
+  ].filter((conversation) => {
+    const matchesQuery =
+      queryText === "" || conversation.name.toLowerCase().includes(queryText);
+    const matchesFilter =
+      filter === "all" ||
+      (filter === "unread" && conversation.unread) ||
+      (filter === "favourites" && conversation.favourite) ||
+      (filter === "groups" && conversation.kind === "group");
+    return matchesQuery && matchesFilter;
+  });
 
   return (
     <>

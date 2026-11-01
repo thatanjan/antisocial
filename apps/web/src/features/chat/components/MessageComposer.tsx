@@ -100,6 +100,9 @@ export const MessageComposer = ({
           <Send aria-hidden="true" />
         </Button>
       </form>
+      <p className="text-muted-foreground mt-2 text-center text-xs">
+        Calls, voice notes, and attachments are unavailable in this demo.
+      </p>
     </footer>
   );
 };

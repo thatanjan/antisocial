@@ -6,7 +6,6 @@ import {
   sampleCurrentUser,
   sampleFilterOptions,
 } from "@/features/chat/data/sample-conversations";
-import type { ChatListQuery } from "@/features/chat/hooks/useChatListState";
 import type { BottomTabItem } from "./BottomTabBar";
 import { LeftIconRail } from "./LeftIconRail";
 
@@ -37,35 +36,19 @@ const tabNavItems: BottomTabItem[] = [
 ];
 
 /**
- * Server component owning the permanent chat chrome: icon rail + conversation
- * sidebar at desktop widths, full-screen list + bottom tabs on narrow screens.
- * Search/filter state arrives as URL params (read in the layout); conversation
- * rows and recent-chat avatars open chats via hrefs preserving that state.
+ * Server component for permanent chat chrome: icon rail + sidebar at desktop,
+ * full-screen list + tabs on narrow screens. Client list actions read the
+ * search/filter URL state and filter bundled and page-session conversations.
  */
 export const ChatListShell = ({
   children,
   activeId,
-  query,
 }: {
   children: React.ReactNode;
   /** Route conversation id; highlights the row and recent strip entry. */
   activeId?: string;
-  /** Conversation-list URL state (?q=, ?filter=). */
-  query: ChatListQuery;
 }) => {
-  const queryText = query.q.trim().toLowerCase();
-  const filtered = sampleConversations.filter((conversation) => {
-    const matchesQuery =
-      queryText === "" || conversation.name.toLowerCase().includes(queryText);
-    const matchesFilter =
-      query.filter === "all" ||
-      (query.filter === "unread" && conversation.unread) ||
-      (query.filter === "favourites" && conversation.favourite) ||
-      (query.filter === "groups" && conversation.kind === "group");
-    return matchesQuery && matchesFilter;
-  });
-
-  const conversations = filtered.map((conversation) => ({
+  const conversations = sampleConversations.map((conversation) => ({
     ...conversation,
     active: conversation.id === activeId,
   }));

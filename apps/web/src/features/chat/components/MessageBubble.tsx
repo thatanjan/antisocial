@@ -33,6 +33,7 @@ export const MessageBubble = ({
   return (
     <div
       className={cn(
+        "motion-safe:animate-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-200",
         outgoing
           ? "flex flex-row-reverse items-start gap-3 self-end"
           : "flex items-start gap-3 self-start",

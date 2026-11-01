@@ -4,8 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 /**
  * Shared client plumbing for the chat feature: reads and writes the
- * conversation-list URL state (`?q=`, `?filter=`) so server components
- * (the `(chat)` layout and its list children) can render from the URL.
+ * conversation-list URL state (`?q=`, `?filter=`) used by list actions.
  */
 
 /** Query-string state of the conversation list view. */
@@ -40,21 +39,21 @@ export const useChatListQuery = (): ChatListQuery => {
 
 /**
  * Returns navigation helpers for applying list state to the URL.
- * `applyQuery` merges the given partial state over the current URL params
- * and pushes the result; server components re-filter the list from it.
+ * `applyQuery` merges partial state over current URL params and replaces the
+ * URL; client list actions filter from the updated state.
  */
 export const useChatListNavigation = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  /** Push the current pathname with `state` merged over the URL params. */
+  /** Replace the pathname with `state` merged over the current URL params. */
   const applyQuery = (state: Partial<ChatListQuery>) => {
     const merged: ChatListQuery = {
       q: state.q ?? searchParams.get("q") ?? "",
       filter: state.filter ?? searchParams.get("filter") ?? "all",
     };
-    router.push(`${pathname}${serialize(merged)}`);
+    router.replace(`${pathname}${serialize(merged)}`);
   };
 
   return { applyQuery };

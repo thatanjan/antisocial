@@ -25,6 +25,7 @@ export const FilterPills = ({
   return (
     <div className="flex min-w-0 items-center justify-between gap-2">
       <fieldset className="no-scrollbar flex min-w-0 gap-2 overflow-x-auto">
+        <legend className="sr-only">Filter conversations</legend>
         {options.map((option) => {
           const selected = option.value === value;
           return (

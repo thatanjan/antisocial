@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 interface ChatLayoutProps {
   children: React.ReactNode;
   params?: Promise<{ id?: string }>;
-  searchParams?: Promise<{ q?: string; filter?: string }>;
 }
 
 /**
@@ -18,19 +17,12 @@ interface ChatLayoutProps {
  * (mobile). Wraps pages in the page-session composer store so locally sent
  * messages survive in-tab navigation between /chat/[id] pages.
  */
-const ChatLayout = async ({
-  children,
-  params,
-  searchParams,
-}: ChatLayoutProps) => {
+const ChatLayout = async ({ children, params }: ChatLayoutProps) => {
   const { id } = (await params) ?? {};
-  const { q = "", filter = "all" } = (await searchParams) ?? {};
 
   return (
     <ChatComposerProvider>
-      <ChatListShell activeId={id} query={{ q, filter }}>
-        {children}
-      </ChatListShell>
+      <ChatListShell activeId={id}>{children}</ChatListShell>
     </ChatComposerProvider>
   );
 };
