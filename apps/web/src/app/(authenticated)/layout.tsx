@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { LeftSidebar } from "@/features/navigation/components/LeftSidebar";
 import { MobileNav } from "@/features/navigation/components/MobileNav";
 import { ProfileSummary } from "@/features/navigation/components/ProfileSummary";
@@ -16,6 +17,9 @@ export default function AuthenticatedLayout({
 }) {
   return (
     <div className="bg-background min-h-screen font-sans">
+      <div className="fixed top-4 right-4 z-50">
+        <ThemeToggle />
+      </div>
       {/* Mobile Navigation Header */}
       <MobileNav profileSummary={<ProfileSummary />} />
 

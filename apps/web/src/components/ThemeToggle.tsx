@@ -1,8 +1,9 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -12,12 +13,15 @@ import { cn } from "@/lib/utils";
  */
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
+  const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
   // Avoid hydration mismatch by only rendering after mounting
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true);
   }, []);
+
+  if (pathname.startsWith("/chat")) return null;
 
   if (!mounted) {
     return (
