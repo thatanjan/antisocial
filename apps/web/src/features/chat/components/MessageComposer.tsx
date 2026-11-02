@@ -1,9 +1,9 @@
 "use client";
 
 import { Mic, Paperclip, Send, Smile } from "lucide-react";
-import type { FormEvent } from "react";
+import type { FormEvent, KeyboardEvent } from "react";
+import { AutosizeTextarea } from "@/components/ui/auto-resize-textarea";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 interface MessageComposerProps {
@@ -36,6 +36,14 @@ export const MessageComposer = ({
     const text = value.trim();
     if (!text || disabled) return;
     onSend(text);
+    onValueChange("");
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      event.currentTarget.form?.requestSubmit();
+    }
   };
 
   return (
@@ -48,7 +56,7 @@ export const MessageComposer = ({
       data-purpose="chat-input-dock"
     >
       <form
-        className="bg-muted focus-within:ring-primary/40 focus-within:border-primary flex items-center gap-2 rounded-xl border border-transparent px-4 py-2 transition-colors focus-within:ring-1"
+        className="bg-muted focus-within:ring-primary/40 focus-within:border-primary flex items-end gap-2 rounded-xl border border-transparent px-4 py-2 transition-colors focus-within:ring-1"
         onSubmit={handleSubmit}
       >
         <Button
@@ -61,13 +69,16 @@ export const MessageComposer = ({
         >
           <Mic aria-hidden="true" />
         </Button>
-        <Input
+        <AutosizeTextarea
           aria-label="Message"
-          className="h-auto flex-1 border-0 bg-transparent px-1 py-1 text-sm shadow-none focus-visible:border-transparent focus-visible:ring-0 dark:bg-transparent"
+          className="placeholder:text-muted-foreground min-h-6 flex-1 resize-none overflow-y-auto border-0 bg-transparent px-1 py-1 text-sm shadow-none outline-none focus-visible:ring-0 disabled:pointer-events-none disabled:opacity-50"
           disabled={disabled}
+          maxHeight={108}
+          minHeight={20}
           onChange={(event) => onValueChange(event.currentTarget.value)}
+          onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          type="text"
+          rows={1}
           value={value}
         />
         <Button
