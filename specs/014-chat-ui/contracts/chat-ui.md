@@ -23,7 +23,8 @@ The authenticated chat page is a user-facing frontend surface backed only by bun
 
 ## Message composer behavior
 
-- The user can submit by activating Send or pressing Enter.
+- The composer uses an auto-resizing multiline textarea that grows to five lines, then scrolls internally.
+- Enter submits the draft; Shift+Enter inserts a newline.
 - Submission trims text. Empty or whitespace-only text creates no message and does not clear or alter existing history.
 - A successful local submission adds one outgoing message, clears the composer, updates the conversation preview, and keeps the message visible when switching conversations.
 - This behavior is a local UI simulation; it MUST NOT announce delivery, read, or remote receipt.

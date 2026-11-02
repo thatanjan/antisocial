@@ -5,7 +5,7 @@
 **Status**: Draft  
 **Input**: User description: "I want to build chat ui from @stitch-screen/chat-page.html that will handle basic frontend functionaliy all backend logic will be created later"
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Browse and select a conversation (Priority: P1)
 
@@ -64,7 +64,7 @@ As a user, I want to start a conversation with a sample contact so I can explore
 - On a narrow screen, selecting a conversation replaces the list with the message view; returning restores the list, and composer actions remain reachable above the device safe area.
 - Conversation and message changes are local to the active page session and do not communicate with a backend or survive a reload.
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
@@ -81,29 +81,31 @@ As a user, I want to start a conversation with a sample contact so I can explore
 - **FR-009**: The page MUST expose accessible names for interactive controls and provide visible empty states when search or category filters produce no conversations.
 - **FR-010**: Calls, voice recording, file attachments, delivery/read status, presence, and other backend-dependent actions MUST NOT be represented as successfully performed; these controls are outside this frontend-only scope.
 - **FR-011**: Newly rendered message bubbles SHOULD slide up into the message history; the animation MUST be disabled when the user's system preference requests reduced motion.
+- **FR-012**: The message history MUST scroll to the latest message when a conversation opens and whenever a new message is appended.
+- **FR-013**: The message composer MUST be a multiline input that grows with content up to five lines, then scrolls internally; Enter MUST send and Shift+Enter MUST insert a newline. A successful send MUST clear the input.
 
 ### UI Components
 
 Components live in `apps/web/src/features/chat/components/` (PascalCase filenames) and mirror the three `stitch-screen/` HTML references. Responsibilities and responsive behavior per component are in `chat-components.md` (repo root).
 
-| Component | Source mock | Role in routes |
-|---|---|---|
-| `LeftIconRail` | `chat-page.html` | `(chat)/layout.tsx`, desktop left rail |
-| `BottomTabBar` | `chat-page-mobile-chatlist.html` | `(chat)/layout.tsx`, mobile bottom tabs |
-| `ChatsListHeader` | `chat-page.html`, `chat-page-mobile-chatlist.html` | conversation list header (layout) |
-| `SearchInput` | same | list search (layout) |
-| `FilterPills` | same | list category filters (layout) |
-| `RecentChatsStrip` | same | recent chats strip (layout) |
-| `ConversationListItem` | same | one row in All Chats list (layout) |
-| `ConversationsSidebar` | `chat-page.html` | desktop list pane composition (layout) |
-| `MobileChatListScreen` | `chat-page-mobile-chatlist.html` | narrow-screen list view (layout) |
-| `ChatHeader` | `chat-page.html`, `chat-page-mobile.html` | selected conversation header (`[id]` page) |
-| `MessageStream` | same | message timeline (`[id]` page) |
-| `MessageBubble` | same | one message row (`[id]` page) |
-| `DateSeparator` | same | date divider (`[id]` page) |
-| `CallLogCard` | same | call event card (`[id]` page) |
-| `MessageComposer` | same | message input dock (`[id]` page) |
-| `ChatScreen` | `chat-page.html`, `chat-page-mobile.html` | conversation pane composition (`[id]` page) |
+| Component              | Source mock                                        | Role in routes                              |
+| ---------------------- | -------------------------------------------------- | ------------------------------------------- |
+| `LeftIconRail`         | `chat-page.html`                                   | `(chat)/layout.tsx`, desktop left rail      |
+| `BottomTabBar`         | `chat-page-mobile-chatlist.html`                   | `(chat)/layout.tsx`, mobile bottom tabs     |
+| `ChatsListHeader`      | `chat-page.html`, `chat-page-mobile-chatlist.html` | conversation list header (layout)           |
+| `SearchInput`          | same                                               | list search (layout)                        |
+| `FilterPills`          | same                                               | list category filters (layout)              |
+| `RecentChatsStrip`     | same                                               | recent chats strip (layout)                 |
+| `ConversationListItem` | same                                               | one row in All Chats list (layout)          |
+| `ConversationsSidebar` | `chat-page.html`                                   | desktop list pane composition (layout)      |
+| `MobileChatListScreen` | `chat-page-mobile-chatlist.html`                   | narrow-screen list view (layout)            |
+| `ChatHeader`           | `chat-page.html`, `chat-page-mobile.html`          | selected conversation header (`[id]` page)  |
+| `MessageStream`        | same                                               | message timeline (`[id]` page)              |
+| `MessageBubble`        | same                                               | one message row (`[id]` page)               |
+| `DateSeparator`        | same                                               | date divider (`[id]` page)                  |
+| `CallLogCard`          | same                                               | call event card (`[id]` page)               |
+| `MessageComposer`      | same                                               | message input dock (`[id]` page)            |
+| `ChatScreen`           | `chat-page.html`, `chat-page-mobile.html`          | conversation pane composition (`[id]` page) |
 
 Layout (`apps/web/src/app/(chat)/layout.tsx`): `LeftIconRail` + `ConversationsSidebar` at desktop widths; `MobileChatListScreen` + `BottomTabBar` at narrow widths. Pages: `(chat)/page.tsx` renders an empty right pane; `(chat)/[id]/page.tsx` renders `ChatScreen` for the selected conversation with sample data from `apps/web/src/features/chat/data/sample-conversations.ts` (bundled mock data).
 
@@ -114,7 +116,7 @@ Layout (`apps/web/src/app/(chat)/layout.tsx`): `LeftIconRail` + `ConversationsSi
 - **Message**: A sample or page-session text item associated with a conversation, containing display content, author, and time.
 - **Sample contact**: A supplied demonstration participant available for starting a local conversation.
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 

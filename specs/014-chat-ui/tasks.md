@@ -107,6 +107,8 @@ This is a turborepo web app. Web source lives in `apps/web/src/`. Chat feature c
 - [ ] T021 Manual end-to-end validation per specs/014-chat-ui/quickstart.md steps 1-8 including narrow-screen overflow and safe-area padding
 - [x] T022 [P] Verify permissions: confirm (chat) route group does NOT conflict with (authenticated) group's existing routes; adjust layout/paths if conflict appears
 - [x] T023 Format + lint sweep: `npx biome check apps/web/src/features/chat "apps/web/src/app/(chat)" && npm -w web run typecheck`
+- [x] T024 [US2] Keep the message stream scrolled to the latest message when a conversation opens or a sent/received message is appended in `apps/web/src/features/chat/components/MessageStream.tsx` and its callers; verify initial load and subsequent updates.
+- [x] T025 [US2] Use the shared auto-resize textarea for a multiline composer capped at five lines with internal scrolling; Enter sends, Shift+Enter inserts a newline, and successful sends clear the input. Verify keyboard submission and sizing.
 
 **Checkpoint**: Feature ready for user walkthrough.
 
