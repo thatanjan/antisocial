@@ -12,9 +12,9 @@ export const SearchBar = () => {
 
   return (
     <div className="group relative">
-      <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-primary" />
+      <Search className="text-muted-foreground group-focus-within:text-primary absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transition-colors" />
       <Input
-        className="h-10 rounded-xl border-none bg-accent/30 pl-10 shadow-sm focus-visible:ring-1 focus-visible:ring-primary"
+        className="bg-accent/30 focus-visible:ring-primary h-10 rounded-xl border-none pl-10 shadow-sm focus-visible:ring-1"
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search for people, posts..."
         type="text"

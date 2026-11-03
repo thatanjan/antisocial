@@ -46,7 +46,7 @@ export const NotificationBell = () => {
           {unreadCount > 0 && (
             <span
               aria-hidden
-              className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 font-semibold text-primary-foreground text-xs"
+              className="bg-primary text-primary-foreground absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-xs font-semibold"
               role="presentation"
             >
               {unreadCount > 99 ? "99+" : unreadCount}

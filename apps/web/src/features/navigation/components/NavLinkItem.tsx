@@ -65,7 +65,7 @@ export const NavLinkItem = ({ item, ...rest }: NavLinkItemProps) => {
       className={cn(
         "group flex h-auto items-center justify-start gap-3 rounded-xl px-4 py-3 transition-all duration-200",
         isActive
-          ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+          ? "bg-primary text-primary-foreground shadow-primary/20 shadow-lg"
           : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
       )}
       variant="ghost"
@@ -80,12 +80,12 @@ export const NavLinkItem = ({ item, ...rest }: NavLinkItemProps) => {
               : "text-muted-foreground group-hover:text-primary",
           )}
         />
-        <span className="font-medium text-sm">{item.label}</span>
+        <span className="text-sm font-medium">{item.label}</span>
 
         {item.badgeCount !== undefined && item.badgeCount > 0 && (
           <span
             className={cn(
-              "ml-auto rounded-full px-2 py-0.5 font-bold text-2xs",
+              "text-2xs ml-auto rounded-full px-2 py-0.5 font-bold",
               isActive
                 ? "bg-primary-foreground text-primary"
                 : "bg-primary text-primary-foreground",

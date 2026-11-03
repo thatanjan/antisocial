@@ -24,7 +24,7 @@ const MobileNavSheetContent = ({
 }: MobileNavSheetContentProps) => {
   return (
     <SheetContent
-      className="min-w-full max-w-none p-0 md:hidden"
+      className="max-w-none min-w-full p-0 md:hidden"
       showCloseButton={false}
       side="left"
     >
@@ -47,7 +47,7 @@ const MobileNavSheetContent = ({
       <ScrollArea className="h-full">
         <div className="flex flex-col gap-6 p-6">
           <div className="px-2">
-            <h2 className="font-bold text-primary text-xl tracking-tighter">
+            <h2 className="text-primary text-xl font-bold tracking-tighter">
               Antisocial
             </h2>
           </div>
@@ -55,7 +55,7 @@ const MobileNavSheetContent = ({
           {profileSummary}
 
           <nav className="flex flex-col gap-1">
-            <p className="mb-2 px-4 font-semibold text-2xs text-muted-foreground uppercase tracking-widest">
+            <p className="text-2xs text-muted-foreground mb-2 px-4 font-semibold tracking-widest uppercase">
               Menu
             </p>
             {navItems.map((item) => (
@@ -81,7 +81,7 @@ const MobileNavSheetContent = ({
           </div>
 
           <div className="border-border/50 border-t pt-6">
-            <p className="mb-4 px-4 font-semibold text-2xs text-muted-foreground uppercase tracking-widest">
+            <p className="text-2xs text-muted-foreground mb-4 px-4 font-semibold tracking-widest uppercase">
               Social
             </p>
             <div className="flex flex-col gap-4">
@@ -89,7 +89,7 @@ const MobileNavSheetContent = ({
 
               {/* Mobile compacted suggestions view */}
               <div className="flex flex-col gap-2">
-                <h3 className="px-2 font-medium text-xs">Suggestions</h3>
+                <h3 className="px-2 text-xs font-medium">Suggestions</h3>
                 {userSuggestions.slice(0, 2).map((sugg) => (
                   <UserSuggestionItem key={sugg.id} suggestion={sugg} />
                 ))}
@@ -97,7 +97,7 @@ const MobileNavSheetContent = ({
             </div>
           </div>
 
-          <div className="mt-4 border-border/50 border-t pt-6"></div>
+          <div className="border-border/50 mt-4 border-t pt-6"></div>
         </div>
       </ScrollArea>
     </SheetContent>

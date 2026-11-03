@@ -8,7 +8,7 @@ import { UserSuggestionItem } from "./UserSuggestionItem";
  */
 export const RightSidebar = () => {
   return (
-    <aside className="fixed top-0 z-30 hidden h-screen w-col-side min-w-col max-w-col-side flex-col overflow-hidden border-border border-l bg-card/30 backdrop-blur-md xl:flex">
+    <aside className="w-col-side min-w-col max-w-col-side border-border bg-card/30 fixed top-0 z-30 hidden h-screen flex-col overflow-hidden border-l backdrop-blur-md xl:flex">
       <div className="flex flex-col gap-8 p-6">
         {/* Search Section */}
         <section>
@@ -18,7 +18,7 @@ export const RightSidebar = () => {
         {/* User Suggestions Section */}
         <section className="flex flex-col gap-4">
           <div className="flex items-center justify-between px-2">
-            <h2 className="font-bold text-sm tracking-tight">
+            <h2 className="text-sm font-bold tracking-tight">
               Suggestions for you
             </h2>
           </div>
@@ -30,7 +30,7 @@ export const RightSidebar = () => {
           </div>
 
           <Button
-            className="w-full text-muted-foreground text-xs transition-colors"
+            className="text-muted-foreground w-full text-xs transition-colors"
             size="sm"
             variant="ghost"
           >
@@ -39,7 +39,7 @@ export const RightSidebar = () => {
         </section>
 
         {/* Footer Placeholders */}
-        <footer className="mt-auto border-border/50 border-t pt-8">
+        <footer className="border-border/50 mt-auto border-t pt-8">
           <div className="flex flex-wrap gap-x-4 gap-y-1 px-2">
             {[
               "About",
@@ -49,7 +49,7 @@ export const RightSidebar = () => {
               "Advertising",
             ].map((link) => (
               <button
-                className="text-2xs text-muted-foreground transition-colors hover:text-primary hover:underline"
+                className="text-2xs text-muted-foreground hover:text-primary transition-colors hover:underline"
                 key={link}
                 type="button"
               >
@@ -57,7 +57,7 @@ export const RightSidebar = () => {
               </button>
             ))}
           </div>
-          <p className="mt-4 px-2 text-2xs text-muted-foreground/60 italic">
+          <p className="text-2xs text-muted-foreground/60 mt-4 px-2 italic">
             © 2026 Antisocial Inc.
           </p>
         </footer>

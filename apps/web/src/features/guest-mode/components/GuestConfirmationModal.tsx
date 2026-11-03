@@ -36,7 +36,7 @@ const GuestConfirmationModal = ({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex flex-col gap-3 py-4 text-muted-foreground text-sm">
+        <div className="text-muted-foreground flex flex-col gap-3 py-4 text-sm">
           <ul className="flex list-disc flex-col gap-2 pl-4">
             <li>You can browse content but cannot post, like, or comment</li>
             <li>Your session will be deleted after 7 days of inactivity</li>

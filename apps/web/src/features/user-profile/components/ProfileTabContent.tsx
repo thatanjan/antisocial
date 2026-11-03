@@ -87,7 +87,7 @@ export const ProfileTabContent = ({
         {activeTab === "posts" &&
           (isLoading ? (
             <div className="flex items-center justify-center py-12">
-              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+              <Loader2 className="text-muted-foreground h-8 w-8 animate-spin" />
             </div>
           ) : (
             <>
@@ -95,7 +95,7 @@ export const ProfileTabContent = ({
               {hasMore && (
                 <div className="flex justify-center py-4">
                   <button
-                    className="flex items-center gap-2 rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground text-sm transition-colors hover:bg-primary/90 disabled:opacity-50"
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors disabled:opacity-50"
                     disabled={isPending}
                     onClick={loadMore}
                     type="button"
@@ -109,22 +109,22 @@ export const ProfileTabContent = ({
           ))}
 
         {activeTab === "shorts" && (
-          <div className="flex flex-col items-center justify-center rounded-lg border-2 border-border border-dashed py-12 text-center">
-            <h3 className="font-semibold text-lg">No shorts yet</h3>
+          <div className="border-border flex flex-col items-center justify-center rounded-lg border-2 border-dashed py-12 text-center">
+            <h3 className="text-lg font-semibold">No shorts yet</h3>
             <p className="text-muted-foreground text-sm">Shorts coming soon!</p>
           </div>
         )}
 
         {activeTab === "tags" && (
-          <div className="flex flex-col items-center justify-center rounded-lg border-2 border-border border-dashed py-12 text-center">
-            <h3 className="font-semibold text-lg">No tags yet</h3>
+          <div className="border-border flex flex-col items-center justify-center rounded-lg border-2 border-dashed py-12 text-center">
+            <h3 className="text-lg font-semibold">No tags yet</h3>
             <p className="text-muted-foreground text-sm">Tags coming soon!</p>
           </div>
         )}
 
         {activeTab === "activity" && (
-          <div className="flex flex-col items-center justify-center rounded-lg border-2 border-border border-dashed py-12 text-center">
-            <h3 className="font-semibold text-lg">No activity yet</h3>
+          <div className="border-border flex flex-col items-center justify-center rounded-lg border-2 border-dashed py-12 text-center">
+            <h3 className="text-lg font-semibold">No activity yet</h3>
             <p className="text-muted-foreground text-sm">
               Activity coming soon!
             </p>

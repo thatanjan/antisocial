@@ -27,7 +27,6 @@ export const metadata: Metadata = {
 
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function RootLayout({
   children,
@@ -42,7 +41,7 @@ export default function RootLayout({
     >
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "bg-background min-h-screen font-sans antialiased",
           fontSans.variable,
           fontSerif.variable,
           fontMono.variable,
@@ -56,9 +55,6 @@ export default function RootLayout({
         >
           {children}
           <Toaster position="bottom-right" richColors />
-          <div className="fixed top-4 right-4 z-50">
-            <ThemeToggle />
-          </div>
         </ThemeProvider>
       </body>
     </html>

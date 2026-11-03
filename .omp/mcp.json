@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/can1357/oh-my-pi/main/packages/coding-agent/src/config/mcp-schema.json",
+  "mcpServers": {
+    "stitch": {
+      "type": "http",
+      "url": "https://stitch.googleapis.com/mcp",
+      "enabled": false,
+      "headers": {
+        "X-Goog-Api-Key": "{env:GOOGLE_STITCH_API_KEY}"
+      }
+    }
+  }
+}

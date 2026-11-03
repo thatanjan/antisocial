@@ -23,7 +23,7 @@ export const ProfileTabs = ({ activeTab, onTabChange }: ProfileTabsProps) => {
       <TabsList className="grid w-full grid-cols-4 rounded-none border-b bg-transparent p-0">
         {tabs.map((tab) => (
           <TabsTrigger
-            className="rounded-none border-transparent border-b-2 px-4 py-2 data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:text-foreground"
+            className="data-[state=active]:border-primary data-[state=active]:text-foreground rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:bg-transparent"
             key={tab.id}
             value={tab.id}
           >

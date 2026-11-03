@@ -24,11 +24,11 @@ const LoginPage = async (props: LoginPageProps) => {
   }
 
   return (
-    <main className="relative flex min-h-screen flex-col items-center overflow-hidden bg-background p-12">
+    <main className="bg-background relative flex min-h-screen flex-col items-center overflow-hidden p-12">
       <div className="flex w-full max-w-md flex-1 flex-col items-center justify-center">
         {error && (
           <div className="mb-12 w-full">
-            <div className="fade-in slide-in-from-top-4 animate-in rounded-xl border border-destructive/20 bg-destructive/10 px-4 py-3 text-center font-medium text-destructive text-xs duration-300">
+            <div className="fade-in slide-in-from-top-4 animate-in border-destructive/20 bg-destructive/10 text-destructive rounded-xl border px-4 py-3 text-center text-xs font-medium duration-300">
               Authentication failed. Please try again.
             </div>
           </div>
@@ -36,14 +36,14 @@ const LoginPage = async (props: LoginPageProps) => {
 
         <AuthLogo className="mb-24" />
 
-        <div className="flex w-full flex-col items-center space-y-16 rounded-3xl border border-border bg-card p-12 py-16 shadow-sm">
+        <div className="border-border bg-card flex w-full flex-col items-center space-y-16 rounded-3xl border p-12 py-16 shadow-sm">
           <GoogleButton />
 
           <div className="w-full">
             <div className="relative">
-              <div className="absolute top-1/2 right-0 left-0 h-px bg-border" />
+              <div className="bg-border absolute top-1/2 right-0 left-0 h-px" />
               <div className="relative flex justify-center">
-                <span className="bg-card px-2 text-muted-foreground text-xs">
+                <span className="bg-card text-muted-foreground px-2 text-xs">
                   or
                 </span>
               </div>
@@ -57,7 +57,7 @@ const LoginPage = async (props: LoginPageProps) => {
       </div>
 
       <Link
-        className="mt-12 mb-4 border-transparent border-b pb-1 font-bold text-muted-foreground/60 text-xs uppercase tracking-super-wide transition-colors hover:border-primary/30 hover:text-primary"
+        className="text-muted-foreground/60 tracking-super-wide hover:border-primary/30 hover:text-primary mt-12 mb-4 border-b border-transparent pb-1 text-xs font-bold uppercase transition-colors"
         href="/terms"
       >
         Terms of Service

@@ -72,7 +72,7 @@ export const CommentInput = ({
 
   if (!session?.user) {
     return (
-      <div className="flex items-center gap-3 rounded-lg border border-border bg-muted/50 p-3">
+      <div className="border-border bg-muted/50 flex items-center gap-3 rounded-lg border p-3">
         <div className="text-muted-foreground text-sm">
           Please log in to add a comment.
         </div>
@@ -82,12 +82,12 @@ export const CommentInput = ({
 
   return (
     <div className="flex gap-3 pt-2">
-      <Avatar className="mt-1 h-8 w-8 border border-border shadow-sm">
+      <Avatar className="border-border mt-1 h-8 w-8 border shadow-sm">
         <AvatarImage
           alt={session.user.name ?? "User"}
           src={session.user.image || undefined}
         />
-        <AvatarFallback className="bg-secondary font-semibold text-[10px] text-secondary-foreground">
+        <AvatarFallback className="bg-secondary text-secondary-foreground text-[10px] font-semibold">
           {session.user.name?.charAt(0).toUpperCase() || "U"}
         </AvatarFallback>
       </Avatar>
@@ -96,7 +96,7 @@ export const CommentInput = ({
         <div className="group relative">
           <AutosizeTextarea
             autoFocus={autoFocus}
-            className="scrollbar-hide resize-none border-border bg-background/50 pr-24 transition-colors duration-200 focus-within:bg-background focus:border-primary group-hover:border-primary/50"
+            className="scrollbar-hide border-border bg-background/50 focus-within:bg-background focus:border-primary group-hover:border-primary/50 resize-none pr-24 transition-colors duration-200"
             disabled={isPending}
             maxHeight={300}
             minHeight={40}
@@ -113,7 +113,7 @@ export const CommentInput = ({
           <div className="absolute top-2 right-2 flex items-center gap-1">
             {isEditing && (
               <Button
-                className="h-8 px-2 text-muted-foreground text-xs hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground h-8 px-2 text-xs"
                 disabled={isPending}
                 onClick={onCancel}
                 size="sm"
@@ -123,7 +123,7 @@ export const CommentInput = ({
               </Button>
             )}
             <Button
-              className="h-8 w-8 transition-colors hover:bg-primary/10 hover:text-primary disabled:opacity-30"
+              className="hover:bg-primary/10 hover:text-primary h-8 w-8 transition-colors disabled:opacity-30"
               disabled={!content.trim() || isPending || isTooLong}
               onClick={handlePostComment}
               size="icon"
@@ -133,7 +133,7 @@ export const CommentInput = ({
               variant="ghost"
             >
               {isPending ? (
-                <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                <div className="border-primary h-4 w-4 animate-spin rounded-full border-2 border-t-transparent" />
               ) : (
                 <Send className="h-4 w-4" />
               )}
@@ -143,7 +143,7 @@ export const CommentInput = ({
 
         {content.length > charLimit - 100 && (
           <div
-            className={`self-end font-medium text-[10px] transition-colors ${isTooLong ? "text-destructive" : "text-muted-foreground"}`}
+            className={`self-end text-[10px] font-medium transition-colors ${isTooLong ? "text-destructive" : "text-muted-foreground"}`}
           >
             {content.length}/{charLimit}
           </div>

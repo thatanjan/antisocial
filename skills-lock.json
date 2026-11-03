@@ -46,10 +46,22 @@
       "skillPath": "plugins/developer-kit-typescript/skills/nextjs-deployment/SKILL.md",
       "computedHash": "f4a4b490893df14bc34b890f6c57c0b932a4b25efb10c5b1da1ae5c57a789890"
     },
+    "nextjs-developer": {
+      "source": "jeffallan/claude-skills",
+      "sourceType": "github",
+      "skillPath": "skills/nextjs-developer/SKILL.md",
+      "computedHash": "1765efb60a9079455de5f04f8c6a30865dcbc1b50506af883e8bcda23afc56f2"
+    },
     "prisma-client-api": {
       "source": "prisma/skills",
       "sourceType": "github",
       "computedHash": "0434410e48fb796bbdc3ad0050654bfc9cf72c89b30dbad098ee5c9f655b7f85"
+    },
+    "stitch-design-taste": {
+      "source": "leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/stitch-skill/SKILL.md",
+      "computedHash": "1ec8480d5b00fd2c5235fa1b960fda78fbac851afb95e1d104fe17ec1c5be6b1"
     },
     "turborepo": {
       "source": "vercel/turborepo",

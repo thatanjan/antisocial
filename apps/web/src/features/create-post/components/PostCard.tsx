@@ -32,7 +32,7 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
   });
 
   return (
-    <Card className="overflow-hidden border-border bg-card shadow-sm">
+    <Card className="border-border bg-card overflow-hidden shadow-sm">
       <CardHeader className="flex flex-row items-center gap-4 p-4">
         <Link href={`/profile/${post.author.id}`}>
           <Avatar>
@@ -44,7 +44,7 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
         </Link>
         <div className="flex flex-col">
           <Link className="hover:underline" href={`/profile/${post.author.id}`}>
-            <span className="font-semibold text-sm">{post.author.name}</span>
+            <span className="text-sm font-semibold">{post.author.name}</span>
           </Link>
           <span className="text-muted-foreground text-xs">{timeAgo}</span>
         </div>
@@ -64,7 +64,7 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
         </CardContent>
       </Link>
 
-      <CardFooter className="flex items-center justify-between border-border/50 border-t p-2">
+      <CardFooter className="border-border/50 flex items-center justify-between border-t p-2">
         <div className="flex items-center gap-1">
           <LikeButton
             initialIsLiked={!!post.isLiked}
@@ -74,7 +74,7 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
           />
           <Link href={`/post/${post.id}`} passHref>
             <Button
-              className="gap-2 text-muted-foreground hover:text-primary"
+              className="text-muted-foreground hover:text-primary gap-2"
               size="sm"
               type="button"
               variant="ghost"
@@ -85,7 +85,7 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
           </Link>
         </div>
         <Button
-          className="gap-2 text-muted-foreground"
+          className="text-muted-foreground gap-2"
           size="sm"
           type="button"
           variant="ghost"

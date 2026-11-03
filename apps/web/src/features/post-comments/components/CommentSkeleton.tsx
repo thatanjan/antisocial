@@ -45,7 +45,7 @@ interface ReplyListSkeletonProps {
  * Rendered inside `ReplyList` during the initial loading state.
  */
 export const ReplyListSkeleton = ({ count = 3 }: ReplyListSkeletonProps) => (
-  <div className="mt-2 flex flex-col gap-1 border-border/50 border-l-2 pl-4">
+  <div className="border-border/50 mt-2 flex flex-col gap-1 border-l-2 pl-4">
     <ReplyItemSkeleton contentWidth="w-3/4" />
     {count >= 2 && <ReplyItemSkeleton contentWidth="w-2/3" />}
     {count >= 3 && <ReplyItemSkeleton contentWidth="w-1/2" />}
@@ -104,7 +104,7 @@ interface CommentListSkeletonProps {
 export const CommentListSkeleton = ({
   count = 3,
 }: CommentListSkeletonProps) => (
-  <div className="flex flex-col divide-y divide-border/30">
+  <div className="divide-border/30 flex flex-col divide-y">
     <CommentItemSkeleton contentWidth="w-full" />
     {count >= 2 && <CommentItemSkeleton contentWidth="w-4/5" />}
     {count >= 3 && <CommentItemSkeleton contentWidth="w-3/4" />}
