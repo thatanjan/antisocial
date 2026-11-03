@@ -34,7 +34,7 @@ export const ProfileHeader = ({
   isFollowing,
 }: ProfileHeaderProps) => {
   return (
-    <div className="w-full rounded-lg border border-border bg-card p-4 sm:p-6">
+    <div className="border-border bg-card w-full rounded-lg border p-4 sm:p-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex items-center gap-3 sm:gap-4">
           <Avatar className="h-14 w-14 sm:h-20 sm:w-20">
@@ -43,10 +43,10 @@ export const ProfileHeader = ({
           </Avatar>
 
           <div className="space-y-1">
-            <h1 className="flex items-center gap-2 font-bold text-lg sm:text-xl">
+            <h1 className="flex items-center gap-2 text-lg font-bold sm:text-xl">
               {name}
               {isAnonymous && (
-                <VenetianMask className="h-4 w-4 text-muted-foreground" />
+                <VenetianMask className="text-muted-foreground h-4 w-4" />
               )}
             </h1>
             <p className="text-muted-foreground text-sm">@{username}</p>
@@ -76,7 +76,7 @@ export const ProfileHeader = ({
             {formatFollowerCount(followerCount)}
           </span>
         </div>
-        <div className="flex items-center gap-1.5 text-muted-foreground">
+        <div className="text-muted-foreground flex items-center gap-1.5">
           <Calendar className="h-4 w-4" />
           <span>{formatJoinDate(createdAt)}</span>
         </div>

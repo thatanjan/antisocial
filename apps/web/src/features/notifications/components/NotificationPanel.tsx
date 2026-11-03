@@ -106,19 +106,19 @@ export const NotificationPanel = ({ trigger }: NotificationPanelProps) => {
 
         <ScrollArea className="flex-1">
           {state.status === "loading" && (
-            <p className="px-4 py-8 text-center text-muted-foreground text-sm">
+            <p className="text-muted-foreground px-4 py-8 text-center text-sm">
               Loading notifications…
             </p>
           )}
 
           {state.status === "error" && (
-            <p className="px-4 py-8 text-center text-muted-foreground text-sm">
+            <p className="text-muted-foreground px-4 py-8 text-center text-sm">
               {state.error}
             </p>
           )}
 
           {state.status === "success" && items.length === 0 && (
-            <p className="px-4 py-8 text-center text-muted-foreground text-sm">
+            <p className="text-muted-foreground px-4 py-8 text-center text-sm">
               No notifications yet
             </p>
           )}
@@ -127,7 +127,7 @@ export const NotificationPanel = ({ trigger }: NotificationPanelProps) => {
             items.length > 0 &&
             groups.map((group) => (
               <div key={group.label}>
-                <h3 className="sticky top-0 bg-muted px-4 py-2 font-semibold text-muted-foreground text-xs uppercase tracking-wide">
+                <h3 className="bg-muted text-muted-foreground sticky top-0 px-4 py-2 text-xs font-semibold tracking-wide uppercase">
                   {group.label}
                 </h3>
                 <div className="divide-y">

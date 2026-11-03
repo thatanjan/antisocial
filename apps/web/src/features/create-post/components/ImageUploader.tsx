@@ -135,13 +135,13 @@ export function ImageUploader({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <Label className="font-medium text-sm">
+        <Label className="text-sm font-medium">
           Images ({selectedFiles.length}/{maxImages})
         </Label>
         <div className="flex gap-2">
           {(["1:1", "16:9", "4:5"] as AspectRatio[]).map((ratio) => (
             <Button
-              className="h-8 font-medium text-xs"
+              className="h-8 text-xs font-medium"
               key={ratio}
               onClick={() => onAspectRatioChange(ratio)}
               size="sm"
@@ -162,7 +162,7 @@ export function ImageUploader({
                 <CarouselItem key={f.id}>
                   <div
                     className={cn(
-                      "relative w-full overflow-hidden rounded-lg border bg-muted shadow-inner",
+                      "bg-muted relative w-full overflow-hidden rounded-lg border shadow-inner",
                       aspectRatioClass,
                     )}
                   >
@@ -190,8 +190,8 @@ export function ImageUploader({
             </CarouselContent>
             {selectedFiles.length > 1 && (
               <>
-                <CarouselPrevious className="left-2 h-8 w-8 border-none bg-background/50 backdrop-blur-md hover:bg-background/80" />
-                <CarouselNext className="right-2 h-8 w-8 border-none bg-background/50 backdrop-blur-md hover:bg-background/80" />
+                <CarouselPrevious className="bg-background/50 hover:bg-background/80 left-2 h-8 w-8 border-none backdrop-blur-md" />
+                <CarouselNext className="bg-background/50 hover:bg-background/80 right-2 h-8 w-8 border-none backdrop-blur-md" />
               </>
             )}
           </Carousel>
@@ -204,8 +204,8 @@ export function ImageUploader({
                   className={cn(
                     "h-1.5 rounded-full shadow-sm transition-all duration-300",
                     current === i
-                      ? "w-6 bg-primary"
-                      : "w-1.5 bg-border hover:bg-muted-foreground",
+                      ? "bg-primary w-6"
+                      : "bg-border hover:bg-muted-foreground w-1.5",
                   )}
                   key={`dot-${f.id}`}
                   onClick={() => api?.scrollTo(i)}
@@ -230,7 +230,7 @@ export function ImageUploader({
       ) : (
         <Button
           className={cn(
-            "relative flex h-auto min-h-[240px] w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-border border-dashed transition-all hover:border-primary/50 hover:bg-accent/50",
+            "border-border hover:border-primary/50 hover:bg-accent/50 relative flex h-auto min-h-[240px] w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed transition-all",
             aspectRatioClass,
           )}
           onClick={() => fileInputRef.current?.click()}
@@ -238,14 +238,14 @@ export function ImageUploader({
           variant="ghost"
         >
           <div className="flex flex-col items-center gap-3">
-            <div className="rounded-full bg-primary/10 p-4">
-              <Upload className="h-8 w-8 text-primary opacity-80" />
+            <div className="bg-primary/10 rounded-full p-4">
+              <Upload className="text-primary h-8 w-8 opacity-80" />
             </div>
             <div className="text-center">
-              <span className="block font-semibold text-foreground">
+              <span className="text-foreground block font-semibold">
                 Click to upload images
               </span>
-              <span className="mt-1 text-muted-foreground/60 text-xs italic">
+              <span className="text-muted-foreground/60 mt-1 text-xs italic">
                 Support for multiple files up to {maxImages} photos
               </span>
             </div>

@@ -12,11 +12,11 @@ import { ProfileSummary } from "./ProfileSummary";
 
 export const LeftSidebar = () => {
   return (
-    <aside className="fixed top-0 z-30 hidden h-screen min-w-col flex-col overflow-hidden border-border border-r bg-card/30 backdrop-blur-md md:flex lg:w-col-side lg:max-w-col-side">
+    <aside className="min-w-col border-border bg-card/30 lg:w-col-side lg:max-w-col-side fixed top-0 z-30 hidden h-screen flex-col overflow-hidden border-r backdrop-blur-md md:flex">
       <div className="flex grow flex-col gap-6 p-6 pb-20">
         {/* Brand/Logo Area placeholder if needed */}
         <div className="px-2 py-4">
-          <h1 className="font-bold text-2xl text-primary tracking-tighter">
+          <h1 className="text-primary text-2xl font-bold tracking-tighter">
             Antisocial
           </h1>
         </div>
@@ -26,7 +26,7 @@ export const LeftSidebar = () => {
 
         {/* Navigation Section */}
         <nav className="mt-4 flex flex-col gap-2">
-          <p className="mb-2 px-4 font-semibold text-2xs text-muted-foreground uppercase tracking-widest">
+          <p className="text-2xs text-muted-foreground mb-2 px-4 font-semibold tracking-widest uppercase">
             Menu
           </p>
           {navItems.map((item) => (

@@ -29,14 +29,14 @@ export function CollapsibleDescription({
     <div className="space-y-1">
       <p
         className={cn(
-          "whitespace-pre-wrap text-sm leading-relaxed transition-all duration-200",
+          "text-sm leading-relaxed whitespace-pre-wrap transition-all duration-200",
           !isExpanded && "text-foreground",
         )}
       >
         {displayedContent}
         {shouldCollapse && !isExpanded && (
           <button
-            className="ml-1 font-semibold text-primary hover:underline focus:outline-none"
+            className="text-primary ml-1 font-semibold hover:underline focus:outline-none"
             onClick={() => setIsExpanded(true)}
             type="button"
           >
@@ -46,7 +46,7 @@ export function CollapsibleDescription({
       </p>
       {isExpanded && (
         <button
-          className="font-semibold text-muted-foreground text-xs hover:underline focus:outline-none"
+          className="text-muted-foreground text-xs font-semibold hover:underline focus:outline-none"
           onClick={() => setIsExpanded(false)}
           type="button"
         >

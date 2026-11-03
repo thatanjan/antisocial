@@ -16,10 +16,10 @@ export const AuthLogo = ({ className }: AuthLogoProps) => {
         className,
       )}
     >
-      <h1 className="translate-y-2 font-bold font-notebook text-6xl text-text-deep lowercase leading-tight tracking-tight md:text-7xl dark:text-text-light">
+      <h1 className="font-notebook text-text-deep dark:text-text-light translate-y-2 text-6xl leading-tight font-bold tracking-tight lowercase md:text-7xl">
         antisocial
       </h1>
-      <p className="font-bold font-sans text-muted-foreground text-xs uppercase tracking-super-wide opacity-50">
+      <p className="text-muted-foreground tracking-super-wide font-sans text-xs font-bold uppercase opacity-50">
         JOIN THE QUIET.
       </p>
     </div>

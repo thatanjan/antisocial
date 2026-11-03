@@ -22,6 +22,7 @@
     "build": "tsc",
     "check-types": "tsc --noEmit",
     "lint": "biome check",
+    "lint:write": "biome check --changed --write --unsafe",
     "format": "biome format --write"
   },
   "dependencies": {

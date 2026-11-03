@@ -62,12 +62,12 @@ export const CommentItem = ({
   return (
     <div className="group flex gap-3 py-3 transition-colors duration-200">
       {/* Author Avatar */}
-      <Avatar className="mt-0.5 h-8 w-8 rounded-full border border-border/50 shadow-sm">
+      <Avatar className="border-border/50 mt-0.5 h-8 w-8 rounded-full border shadow-sm">
         <AvatarImage
           alt={comment.author.name}
           src={comment.author.image ?? undefined}
         />
-        <AvatarFallback className="bg-secondary font-semibold text-[10px] text-secondary-foreground">
+        <AvatarFallback className="bg-secondary text-secondary-foreground text-[10px] font-semibold">
           {comment.author.name?.charAt(0).toUpperCase()}
         </AvatarFallback>
       </Avatar>
@@ -76,10 +76,10 @@ export const CommentItem = ({
       <div className="flex min-w-0 flex-1 flex-col">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <span className="truncate font-semibold text-foreground text-sm">
+            <span className="text-foreground truncate text-sm font-semibold">
               {comment.author.name}
             </span>
-            <span className="whitespace-nowrap text-[11px] text-muted-foreground">
+            <span className="text-muted-foreground text-[11px] whitespace-nowrap">
               {timeAgo}
             </span>
           </div>
@@ -99,13 +99,13 @@ export const CommentItem = ({
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="min-w-[120px] p-1">
                 <DropdownMenuItem
-                  className="cursor-pointer py-1.5 text-xs focus:bg-accent focus:text-accent-foreground"
+                  className="focus:bg-accent focus:text-accent-foreground cursor-pointer py-1.5 text-xs"
                   onClick={() => onEdit?.(comment)}
                 >
                   Edit Comment
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  className="cursor-pointer py-1.5 text-destructive text-xs focus:bg-destructive/10 focus:text-destructive"
+                  className="text-destructive focus:bg-destructive/10 focus:text-destructive cursor-pointer py-1.5 text-xs"
                   onClick={() => onDelete?.(comment.id)}
                 >
                   Delete Comment
@@ -129,7 +129,7 @@ export const CommentItem = ({
             />
           </div>
         ) : (
-          <p className="wrap-break-word mt-0.5 whitespace-pre-wrap text-[13px] text-foreground/90 leading-relaxed">
+          <p className="text-foreground/90 mt-0.5 text-[13px] leading-relaxed wrap-break-word whitespace-pre-wrap">
             {comment.content}
           </p>
         )}
@@ -145,7 +145,7 @@ export const CommentItem = ({
             />
 
             <button
-              className="flex items-center gap-1.5 font-medium text-[11px] text-muted-foreground transition-colors hover:text-primary"
+              className="text-muted-foreground hover:text-primary flex items-center gap-1.5 text-[11px] font-medium transition-colors"
               onClick={() => {
                 setShowReplies(!showReplies);
                 onReply?.(comment);

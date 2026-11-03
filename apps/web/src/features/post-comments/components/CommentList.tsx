@@ -180,16 +180,16 @@ export const CommentList = ({
   };
 
   return (
-    <div className="fade-in flex animate-in flex-col gap-6 border-border/50 border-t py-6 duration-500">
+    <div className="fade-in animate-in border-border/50 flex flex-col gap-6 border-t py-6 duration-500">
       {/* Header / Summary */}
       <div className="flex items-center gap-2.5">
-        <div className="rounded-full bg-primary/10 p-1.5 text-primary">
+        <div className="bg-primary/10 text-primary rounded-full p-1.5">
           <MessageSquare className="h-4 w-4" />
         </div>
-        <h3 className="font-bold text-foreground/90 text-sm uppercase tracking-tight">
+        <h3 className="text-foreground/90 text-sm font-bold tracking-tight uppercase">
           Comments{" "}
           {totalCount > 0 && (
-            <span className="ml-1 font-medium text-muted-foreground italic">
+            <span className="text-muted-foreground ml-1 font-medium italic">
               ({totalCount})
             </span>
           )}
@@ -210,7 +210,7 @@ export const CommentList = ({
         {isInitialLoading ? (
           <CommentListSkeleton count={3} />
         ) : optimisticComments.length > 0 ? (
-          <div className="divide-y divide-border/30">
+          <div className="divide-border/30 divide-y">
             {optimisticComments.map((comment) => (
               <CommentItem
                 comment={comment}
@@ -225,12 +225,12 @@ export const CommentList = ({
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center rounded-xl border-2 border-border/40 border-dashed bg-accent/5 py-14 text-center transition-all duration-300 hover:bg-accent/10">
-            <MessageSquare className="mb-3 h-10 w-10 text-muted-foreground/30" />
-            <p className="font-medium text-muted-foreground/80 text-sm">
+          <div className="border-border/40 bg-accent/5 hover:bg-accent/10 flex flex-col items-center justify-center rounded-xl border-2 border-dashed py-14 text-center transition-all duration-300">
+            <MessageSquare className="text-muted-foreground/30 mb-3 h-10 w-10" />
+            <p className="text-muted-foreground/80 text-sm font-medium">
               No comments yet.
             </p>
-            <p className="mt-1 text-muted-foreground/60 text-xs italic">
+            <p className="text-muted-foreground/60 mt-1 text-xs italic">
               Be the first to start the discussion!
             </p>
           </div>
@@ -238,9 +238,9 @@ export const CommentList = ({
 
         {/* Load More - US4 */}
         {comments.length < totalCount && (
-          <div className="mt-6 flex justify-center border-border/20 border-t pt-6">
+          <div className="border-border/20 mt-6 flex justify-center border-t pt-6">
             <Button
-              className="gap-2 font-bold text-muted-foreground text-xs transition-all duration-200 hover:scale-105 hover:text-primary active:scale-95"
+              className="text-muted-foreground hover:text-primary gap-2 text-xs font-bold transition-all duration-200 hover:scale-105 active:scale-95"
               disabled={isFetchingMore}
               onClick={handleLoadMore}
               size="sm"

@@ -88,7 +88,7 @@ export const CommentLikeButton = ({
   return (
     <button
       className={clsx(
-        "flex items-center gap-1.5 font-medium text-[11px] outline-none transition-all duration-200 active:scale-90",
+        "flex items-center gap-1.5 text-[11px] font-medium transition-all duration-200 outline-none active:scale-90",
         optimisticState.isLiked
           ? "text-primary dark:text-primary"
           : "text-muted-foreground hover:text-primary",

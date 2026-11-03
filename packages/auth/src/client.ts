@@ -1,8 +1,8 @@
 import { anonymousClient } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
 
-export const createAppAuthClient = (baseURL?: string) =>
+export const createAppAuthClient = (baseUrl?: string) =>
   createAuthClient({
-    baseURL: baseURL || process.env.BETTER_AUTH_URL,
+    baseURL: baseUrl || process.env.BETTER_AUTH_URL,
     plugins: [anonymousClient()],
   });

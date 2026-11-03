@@ -22,13 +22,13 @@ const LoginSubmitButton = () => {
 
   return (
     <Button
-      className="group flex h-12 w-full items-center justify-center gap-3 rounded-full border-border bg-background px-8 shadow-sm transition-all hover:bg-accent"
+      className="group border-border bg-background hover:bg-accent flex h-12 w-full items-center justify-center gap-3 rounded-full px-8 shadow-sm transition-all"
       disabled={pending}
       type="submit"
       variant="outline"
     >
       {pending ? (
-        <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+        <Loader2 className="text-muted-foreground h-5 w-5 animate-spin" />
       ) : (
         <>
           <svg

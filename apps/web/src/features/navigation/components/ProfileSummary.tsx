@@ -34,7 +34,7 @@ export const ProfileSummary = async () => {
 
   return (
     <Link
-      className="block rounded-2xl border border-border bg-card p-5"
+      className="border-border bg-card block rounded-2xl border p-5"
       href={`/profile/${user.id}`}
     >
       <div className="mb-4 flex items-center gap-3">
@@ -44,10 +44,10 @@ export const ProfileSummary = async () => {
         </Avatar>
 
         <div>
-          <h3 className="flex items-center gap-2 font-medium text-base">
+          <h3 className="flex items-center gap-2 text-base font-medium">
             {user.name}
             {user.isAnonymous && (
-              <VenetianMask className="h-4 w-4 text-muted-foreground" />
+              <VenetianMask className="text-muted-foreground h-4 w-4" />
             )}
           </h3>
           <p className="text-muted-foreground text-sm">{user.handle}</p>
@@ -59,7 +59,7 @@ export const ProfileSummary = async () => {
           <p className="font-medium">{formatCount(user.stats.posts)}</p>
           <p className="text-muted-foreground text-xs">Posts</p>
         </div>
-        <div className="flex-1 border-border border-x text-center">
+        <div className="border-border flex-1 border-x text-center">
           <p className="font-medium">{formatCount(user.stats.followers)}</p>
           <p className="text-muted-foreground text-xs">Followers</p>
         </div>
