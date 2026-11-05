@@ -107,6 +107,7 @@ model User {
   companyFollows         CompanyFollow[]
   jobsPosted             Job[]
   savedJobs              SavedJob[]
+  jobExperiences         JobExperience[]
 
   @@unique([email])
   @@map("user")
@@ -327,6 +328,7 @@ model Company {
   followers      CompanyFollow[]
   jobs           Job[]
   notifications  Notification[]
+  jobExperiences JobExperience[]
 
   @@index([country])
   @@map("company")
@@ -417,6 +419,28 @@ model Job {
   @@index([status])
   @@index([country])
   @@map("job")
+}
+
+/// A user's work history entry on their profile.
+/// Exactly one of `companyId` or `companyName` is set: the FK when the
+/// company exists on the platform, the free-text name otherwise.
+model JobExperience {
+  id          String    @id @default(cuid())
+  userId      String
+  companyId   String?
+  companyName String?
+  title       String
+  startDate   DateTime
+  /// Null means the user is still working there.
+  endDate     DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company     Company?  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([companyId])
+  @@map("job_experience")
 }
 
 model SavedJob {
