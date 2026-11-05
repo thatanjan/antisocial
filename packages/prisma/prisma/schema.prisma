@@ -13,30 +13,100 @@ datasource db {
   provider = "postgresql"
 }
 
+enum UserRole {
+  user
+  recruiter
+}
+
+enum CompanyRole {
+  owner
+  recruiter
+  member
+}
+
+enum RequestStatus {
+  pending
+  approved
+  denied
+}
+
+enum JobStatus {
+  draft
+  open
+  closed
+}
+
+enum JobType {
+  full_time
+  part_time
+  contract
+  internship
+  temporary
+}
+
+enum RemoteType {
+  onsite
+  hybrid
+  remote
+}
+
+enum ExperienceLevel {
+  intern
+  entry
+  mid
+  senior
+  lead
+}
+
+/// Employee tiers: tiny 1-10, small 11-50, medium 51-200, large 201-500, xlarge 500+.
+enum CompanySize {
+  tiny
+  small
+  medium
+  large
+  xlarge
+}
+
+enum SalaryPeriod {
+  hourly
+  monthly
+  yearly
+}
+
 model User {
-  id                    String         @id
-  name                  String
-  email                 String
-  emailVerified         Boolean
-  image                 String?
-  isAnonymous           Boolean        @default(false)
-  createdAt             DateTime
-  updatedAt             DateTime
-  followerCount         Int            @default(0)
-  followingCount        Int            @default(0)
-  sessions              Session[]
-  accounts              Account[]
-  posts                 Post[]
-  postLikes             PostLikes[]
-  comments              PostComment[]
-  replies               CommentReply[]
-  commentLikes          CommentLike[]
-  replyLikes            ReplyLike[]
-  unreadNotifications    Int            @default(0)
-  following             Follow[]       @relation("Follower")
-  followers             Follow[]       @relation("Followee")
-  notificationsSent     Notification[] @relation("NotificationActor")
-  notificationsReceived Notification[] @relation("NotificationRecipient")
+  id                     String                 @id
+  name                   String
+  email                  String
+  emailVerified          Boolean
+  image                  String?
+  isAnonymous            Boolean                @default(false)
+  createdAt              DateTime
+  updatedAt              DateTime
+  followerCount          Int                    @default(0)
+  followingCount         Int                    @default(0)
+  role                   UserRole               @default(user)
+  headline               String?
+  bio                    String?
+  country                String?
+  sessions               Session[]
+  accounts               Account[]
+  posts                  Post[]
+  postLikes              PostLikes[]
+  comments               PostComment[]
+  replies                CommentReply[]
+  commentLikes           CommentLike[]
+  replyLikes             ReplyLike[]
+  unreadNotifications    Int                    @default(0)
+  following              Follow[]               @relation("Follower")
+  followers              Follow[]               @relation("Followee")
+  notificationsSent      Notification[]         @relation("NotificationActor")
+  notificationsReceived  Notification[]         @relation("NotificationRecipient")
+  companyMemberships     CompanyMember[]
+  companyMemberRequests  CompanyMemberRequest[] @relation("CompanyMemberRequester")
+  companyMemberDecisions CompanyMemberRequest[] @relation("CompanyMemberDecider")
+  companyFollows         CompanyFollow[]
+  jobsPosted             Job[]
+  savedJobs              SavedJob[]
 
   @@unique([email])
   @@map("user")
@@ -221,13 +291,143 @@ model Notification {
   type        String
   read        Boolean  @default(false)
   createdAt   DateTime @default(now())
+  companyId   String?
 
-  recipient User  @relation("NotificationRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
-  actor     User? @relation("NotificationActor", fields: [actorId], references: [id], onDelete: Cascade)
-  post      Post? @relation(onDelete: Cascade, fields: [postId], references: [id])
+  recipient User     @relation("NotificationRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
+  actor     User?    @relation("NotificationActor", fields: [actorId], references: [id], onDelete: Cascade)
+  post      Post?    @relation(onDelete: Cascade, fields: [postId], references: [id])
+  company   Company? @relation(fields: [companyId], references: [id], onDelete: Cascade)
 
   @@index([recipientId, createdAt(sort: Desc)])
   @@index([recipientId, read])
   @@index([createdAt])
+  @@index([companyId])
   @@map("notification")
+}
+
+/// Application invariant: each company has exactly one owner membership; ownership cannot transfer.
+model Company {
+  id             String                 @id @default(cuid())
+  name           String
+  slug           String                 @unique
+  description    String?
+  image          String?
+  coverImage     String?
+  industry       String?
+  website        String?
+  size           CompanySize?
+  country        String?
+  followerCount  Int                    @default(0)
+  memberCount    Int                    @default(0)
+  jobCount       Int                    @default(0)
+  createdAt      DateTime               @default(now())
+  updatedAt      DateTime               @updatedAt
+  members        CompanyMember[]
+  memberRequests CompanyMemberRequest[]
+  followers      CompanyFollow[]
+  jobs           Job[]
+  notifications  Notification[]
+
+  @@index([country])
+  @@map("company")
+}
+
+model CompanyMember {
+  id        String      @id @default(cuid())
+  companyId String
+  userId    String
+  role      CompanyRole
+  /// Application validation requires a non-empty title.
+  roleName  String
+  createdAt DateTime    @default(now())
+  company   Company     @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, userId])
+  @@index([userId])
+  @@map("company_member")
+}
+
+/// Application logic allows at most one pending request per company and user.
+model CompanyMemberRequest {
+  id            String        @id @default(cuid())
+  companyId     String
+  userId        String
+  requestedRole CompanyRole
+  /// Application validation requires a non-empty title and rejects the owner role.
+  roleName      String
+  status        RequestStatus @default(pending)
+  decidedById   String?
+  decidedAt     DateTime?
+  createdAt     DateTime      @default(now())
+  company       Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  user          User          @relation("CompanyMemberRequester", fields: [userId], references: [id], onDelete: Cascade)
+  decidedBy     User?         @relation("CompanyMemberDecider", fields: [decidedById], references: [id], onDelete: Cascade)
+
+  @@index([companyId])
+  @@index([userId])
+  @@index([status])
+  @@map("company_member_request")
+}
+
+model CompanyFollow {
+  id        String   @id @default(cuid())
+  userId    String
+  companyId String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, companyId])
+  @@index([companyId])
+  @@map("company_follow")
+}
+
+model Job {
+  id              String           @id @default(cuid())
+  title           String
+  slug            String           @unique
+  description     String?          @db.Text
+  companyId       String
+  postedById      String
+  status          JobStatus        @default(draft)
+  jobType         JobType
+  remoteType      RemoteType?
+  experienceLevel ExperienceLevel?
+  country         String?
+  salaryMin       Int?
+  salaryMax       Int?
+  salaryCurrency  String           @default("USD")
+  salaryPeriod    SalaryPeriod?
+  tags            String[]         @default([])
+  applyUrl        String?
+  applyCount      Int              @default(0)
+  savedCount      Int              @default(0)
+  deadline        DateTime?
+  publishedAt     DateTime?
+  closedAt        DateTime?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  company         Company          @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  postedBy        User             @relation(fields: [postedById], references: [id], onDelete: Cascade)
+  savedBy         SavedJob[]
+
+  @@index([companyId])
+  @@index([postedById])
+  @@index([status])
+  @@index([country])
+  @@map("job")
+}
+
+model SavedJob {
+  id        String   @id @default(cuid())
+  userId    String
+  jobId     String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  job       Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, jobId])
+  @@index([jobId])
+  @@map("saved_job")
 }
